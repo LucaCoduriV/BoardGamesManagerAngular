@@ -1,7 +1,7 @@
 #main-container {
   display: grid;
-  grid-template-columns: 200px auto;
-  grid-template-rows: 100px calc(100vh - 100px);
+  grid-template-columns: 250px auto;
+  grid-template-rows: auto auto;
 
   grid-template-areas:
     "sidebar header"
@@ -11,4 +11,5 @@
 
 #sidebar {
   grid-area: sidebar;
+  height: 100vh;
 }

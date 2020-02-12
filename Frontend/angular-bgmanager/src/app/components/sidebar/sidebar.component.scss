@@ -14,5 +14,10 @@
 
 #sidebar-body {
   background-color: #304357;
-  height: 100%;
+  height: calc(100% - 100px);
+
+  //l'ombre de l'élément au dessus
+  -webkit-box-shadow: inset 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
 }
