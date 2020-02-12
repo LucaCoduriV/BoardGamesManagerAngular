@@ -1,0 +1,14 @@
+#main-container {
+  display: grid;
+  grid-template-columns: 200px auto;
+  grid-template-rows: 100px calc(100vh - 100px);
+
+  grid-template-areas:
+    "sidebar header"
+    "sidebar container"
+    "sidebar container";
+}
+
+#sidebar {
+  grid-area: sidebar;
+}
