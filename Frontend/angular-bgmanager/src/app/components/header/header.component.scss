@@ -1,3 +1,9 @@
+#flex-container {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+}
+
 button {
   border: 2px solid inherit;
   width: 168px;
@@ -7,6 +13,10 @@ button {
   font-size: 22px;
   background-color: inherit;
 }
+button:hover {
+  cursor: pointer;
+}
+
 .btn-red {
   border-color: red;
   color: red;
@@ -29,4 +39,29 @@ button {
 }
 #rightsided > * {
   margin: 0px 5px;
+}
+
+#leftsided {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+}
+
+#menu-toggle span {
+  display: block;
+  width: 33px;
+  height: 2px;
+  margin-bottom: 5px;
+  margin-left: 20px;
+  position: relative;
+
+  background: #6d7c85;
+  border-radius: 3px;
+
+  z-index: 1;
+}
+
+#menu-toggle:hover {
+  cursor: pointer;
 }
