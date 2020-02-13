@@ -1,23 +1,48 @@
 #sidebar-header {
   background-color: #425c78;
-  height: 100px;
+  height: 66px;
   width: 100%;
   text-align: center;
   overflow: hidden;
 
   h1 {
-    margin-top: 30px;
-    font-size: 20px;
+    margin-top: 14px;
+    font-size: 22px;
     color: white;
+    font-weight: 300;
   }
 }
 
 #sidebar-body {
   background-color: #304357;
-  height: calc(100% - 100px);
+  height: calc(100% - 66px);
 
   //l'ombre de l'élément au dessus
-  -webkit-box-shadow: inset 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: inset 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
   box-shadow: inset 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
+
+  img {
+    border-style: none;
+    height: 21px;
+    width: 21px;
+    color: #71808f;
+  }
+
+  .label {
+    font-size: 14px;
+    color: #b4bcc8;
+    font-weight: 500;
+  }
+  ul {
+    margin-left: 15px;
+  }
+  ul li {
+    list-style-type: none;
+    margin-top: 10px;
+
+    a {
+      display: inline-block;
+      transform: translateY(-5px);
+      margin-left: 8px;
+    }
+  }
 }
