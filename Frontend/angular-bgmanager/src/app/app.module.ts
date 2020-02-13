@@ -9,6 +9,7 @@ import { SearchbarComponent } from "./components/searchbar/searchbar.component";
 import { GamelistComponent } from "./components/gamelist/gamelist.component";
 import { SearchResultComponent } from "./components/search-result/search-result.component";
 import { CollectionComponent } from "./components/collection/collection.component";
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CollectionComponent } from "./components/collection/collection.componen
     SearchbarComponent,
     GamelistComponent,
     SearchResultComponent,
-    CollectionComponent
+    CollectionComponent,
+    LoginComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

@@ -1,0 +1,11 @@
+#login-container {
+  height: 100%;
+  display: flex;
+  background-image: url("/assets/images/Arriere-plan.png");
+  filter: blur(8px);
+  height: 100%;
+
+  login-form {
+    color: red;
+  }
+}
