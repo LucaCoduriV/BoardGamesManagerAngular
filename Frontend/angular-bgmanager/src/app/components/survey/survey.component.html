@@ -1,1 +1,39 @@
-<p>survey works!</p>
+<div id="survey-container">
+  <div id="survey-form">
+    <div id="top">
+      <h1>À quel jeu voulez-vous jouer ?</h1>
+    </div>
+    <span class="ligne"></span>
+    <div id="survey-body">
+      <form>
+        <div class="candidat">
+          <h2>Monopoly</h2>
+          <ngb-progressbar
+            type="success"
+            textType="white"
+            [value]="20"
+            showValue="true"
+          ></ngb-progressbar>
+        </div>
+        <div class="candidat">
+          <h2>Monopoly</h2>
+          <ngb-progressbar
+            type="success"
+            textType="white"
+            [value]="50"
+            showValue="true"
+          ></ngb-progressbar>
+        </div>
+        <div class="candidat">
+          <h2>Monopoly</h2>
+          <ngb-progressbar
+            type="success"
+            textType="white"
+            [value]="30"
+            showValue="true"
+          ></ngb-progressbar>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

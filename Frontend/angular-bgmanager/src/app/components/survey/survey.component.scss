@@ -1,0 +1,42 @@
+#survey-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  #survey-form {
+    background-color: white;
+    height: 660px;
+    width: 750px;
+    border-radius: 10px;
+    #top {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      h1 {
+        font-weight: 400;
+        font-size: 20px;
+        color: #425c78;
+      }
+    }
+  }
+}
+.ligne {
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: #b4bcc8;
+  display: block;
+  height: 1px;
+  margin-top: 30px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.candidat {
+  margin-top: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
+  h2 {
+    color: #425c78;
+  }
+}
