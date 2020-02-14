@@ -11,6 +11,7 @@ import { SearchResultComponent } from "./components/search-result/search-result.
 import { CollectionComponent } from "./components/collection/collection.component";
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SurveyComponent } from './components/survey/survey.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RegisterComponent } from './components/register/register.component';
     SearchResultComponent,
     CollectionComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SurveyComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
