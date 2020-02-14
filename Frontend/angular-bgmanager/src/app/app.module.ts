@@ -10,6 +10,7 @@ import { GamelistComponent } from "./components/gamelist/gamelist.component";
 import { SearchResultComponent } from "./components/search-result/search-result.component";
 import { CollectionComponent } from "./components/collection/collection.component";
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LoginComponent } from './components/login/login.component';
     GamelistComponent,
     SearchResultComponent,
     CollectionComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
