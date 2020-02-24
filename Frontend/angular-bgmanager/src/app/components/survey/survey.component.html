@@ -1,47 +1,114 @@
 <div id="survey-container">
   <div id="survey-form">
-    <div id="top">
-      <h1>À quel jeu voulez-vous jouer ?</h1>
+    <div class="survey-title">
+      <div id="top">
+        <h1>À quel jeu voulez-vous jouer ?</h1>
+      </div>
+      <span class="ligne"></span>
     </div>
-    <span class="ligne"></span>
     <div id="survey-body">
       <form>
-        <div class="candidat">
-          <label class="radio">
-            <input type="radio" name="r" value="1" checked />
-            <span>Monopoly</span>
-          </label>
+        <div class="survey-body-top">
+          <div class="candidat">
+            <label class="radio">
+              <input type="radio" name="r" value="1" checked />
+              <span>Monopoly</span>
+            </label>
 
-          <ngb-progressbar
-            type="success"
-            textType="white"
-            [value]="20"
-            showValue="true"
-          ></ngb-progressbar>
+            <ngb-progressbar
+              type="success"
+              textType="white"
+              [value]="20"
+              showValue="true"
+            ></ngb-progressbar>
+          </div>
+          <div class="candidat">
+            <label class="radio">
+              <input type="radio" name="r" value="1" />
+              <span>Monopoly</span>
+            </label>
+            <ngb-progressbar
+              type="success"
+              textType="white"
+              [value]="50"
+              showValue="true"
+            ></ngb-progressbar>
+          </div>
+          <div class="candidat">
+            <label class="radio">
+              <input type="radio" name="r" value="1" />
+              <span>Monopoly</span>
+            </label>
+            <ngb-progressbar
+              type="success"
+              textType="white"
+              [value]="30"
+              showValue="true"
+            ></ngb-progressbar>
+          </div>
+          <div class="candidat">
+            <label class="radio">
+              <input type="radio" name="r" value="1" />
+              <span>Monopoly</span>
+            </label>
+            <ngb-progressbar
+              type="success"
+              textType="white"
+              [value]="30"
+              showValue="true"
+            ></ngb-progressbar>
+          </div>
+          <div class="candidat">
+            <label class="radio">
+              <input type="radio" name="r" value="1" />
+              <span>Monopoly</span>
+            </label>
+            <ngb-progressbar
+              type="success"
+              textType="white"
+              [value]="30"
+              showValue="true"
+            ></ngb-progressbar>
+          </div>
+          <div class="candidat">
+            <label class="radio">
+              <input type="radio" name="r" value="1" />
+              <span>Monopoly</span>
+            </label>
+            <ngb-progressbar
+              type="success"
+              textType="white"
+              [value]="30"
+              showValue="true"
+            ></ngb-progressbar>
+          </div>
+          <div class="candidat">
+            <label class="radio">
+              <input type="radio" name="r" value="1" />
+              <span>Monopoly</span>
+            </label>
+            <ngb-progressbar
+              type="success"
+              textType="white"
+              [value]="30"
+              showValue="true"
+            ></ngb-progressbar>
+          </div>
+          <div class="candidat">
+            <label class="radio">
+              <input type="radio" name="r" value="1" />
+              <span>Monopoly</span>
+            </label>
+            <ngb-progressbar
+              type="success"
+              textType="white"
+              [value]="30"
+              showValue="true"
+            ></ngb-progressbar>
+          </div>
         </div>
-        <div class="candidat">
-          <label class="radio">
-            <input type="radio" name="r" value="1" />
-            <span>Monopoly</span>
-          </label>
-          <ngb-progressbar
-            type="success"
-            textType="white"
-            [value]="50"
-            showValue="true"
-          ></ngb-progressbar>
-        </div>
-        <div class="candidat">
-          <label class="radio">
-            <input type="radio" name="r" value="1" />
-            <span>Monopoly</span>
-          </label>
-          <ngb-progressbar
-            type="success"
-            textType="white"
-            [value]="30"
-            showValue="true"
-          ></ngb-progressbar>
+        <div class="survey-body-bottom">
+          <input class="header-btn btn-blue" type="submit" value="Valider" />
         </div>
       </form>
     </div>
