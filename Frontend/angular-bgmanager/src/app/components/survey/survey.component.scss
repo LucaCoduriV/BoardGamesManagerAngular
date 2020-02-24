@@ -61,7 +61,9 @@
     height: 100px;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     padding-left: 40px;
+    padding-right: 50px;
 
     input[type="submit"] {
       height: 50px;
