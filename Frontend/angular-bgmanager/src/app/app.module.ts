@@ -13,6 +13,7 @@ import { CollectionComponent } from "./components/collection/collection.componen
 import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { SurveyComponent } from "./components/survey/survey.component";
+import { CreateSurveyComponent } from './components/create-survey/create-survey.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SurveyComponent } from "./components/survey/survey.component";
     CollectionComponent,
     LoginComponent,
     RegisterComponent,
-    SurveyComponent
+    SurveyComponent,
+    CreateSurveyComponent
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [],
