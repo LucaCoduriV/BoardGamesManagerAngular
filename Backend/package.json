@@ -1,15 +1,25 @@
 {
-  "name": "api-boardgamesmanager",
-  "version": "1.0.0",
-  "description": "API pour le board game manager",
-  "main": "index.js",
-  "scripts": {
-    "test": "jasmine"
-  },
-  "author": "Luca Coduri & Bastian Chollet",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1",
-    "mysql2": "^2.1.0"
-  }
+    "name": "api-boardgamesmanager",
+    "version": "1.0.0",
+    "description": "API pour le board game manager",
+    "main": "index.js",
+    "scripts": {
+        "test": "jasmine",
+        "start": "nodemon index.js"
+    },
+    "author": "Luca Coduri & Bastian Chollet",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "mysql2": "^2.1.0",
+        "node-fetch": "^2.6.0"
+    },
+    "devDependencies": {
+        "jasmine": "^3.5.0",
+        "nodemon": "^2.0.2"
+    }
 }
