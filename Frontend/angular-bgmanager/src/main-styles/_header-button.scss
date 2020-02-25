@@ -12,6 +12,14 @@ button:hover {
   cursor: pointer;
 }
 
+button {
+  &:active,
+  &:visited,
+  &:focus {
+    outline: none;
+  }
+}
+
 .btn-red {
   border-color: red;
   color: red;
