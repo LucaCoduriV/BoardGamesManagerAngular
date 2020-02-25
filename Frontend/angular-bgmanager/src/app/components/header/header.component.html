@@ -10,8 +10,14 @@
   </div>
   <div id="rightsided">
     <div id="username">Luca Coduri</div>
-    <button class="header-btn btn-blue">Connexion</button>
-    <button class="header-btn btn-blue">Inscription</button>
-    <button class="header-btn btn-red">Déconnexion</button>
+    <button [routerLink]="['/login']" class="header-btn btn-blue">
+      Connexion
+    </button>
+    <button [routerLink]="['/register']" class="header-btn btn-blue">
+      Inscription
+    </button>
+    <button [routerLink]="['/gamelist']" class="header-btn btn-red">
+      Déconnexion
+    </button>
   </div>
 </div>
