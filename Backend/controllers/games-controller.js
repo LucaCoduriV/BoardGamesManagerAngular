@@ -8,7 +8,8 @@ function searchGamesAPI(req, res) {
             parseString(
                 body,
                 {
-                    ignoreAttrs: true
+                    explicitRoot: false,
+                    mergeAttrs: true
                 },
                 function(err, result) {
                     res.send(result);
