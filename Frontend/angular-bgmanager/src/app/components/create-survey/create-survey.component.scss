@@ -1,0 +1,109 @@
+.create-survey-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .create-form {
+    box-sizing: border-box;
+    background-color: white;
+    height: 615px;
+    width: 960px;
+    border-radius: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    .create-title {
+      width: 100%;
+      #top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        flex-direction: column;
+        h1 {
+          font-weight: 400;
+          font-size: 30px;
+          color: #425c78;
+        }
+      }
+    }
+    .create-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-top: 30px;
+      label {
+        font-size: 22px;
+        color: #6d7c85;
+      }
+      .rechercher-jeu {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .inputgroup {
+        position: relative;
+        display: inline-block;
+        height: 30px;
+        line-height: 30px;
+        vertical-align: middle;
+
+        .innericon {
+          position: absolute;
+          top: 9px;
+          left: 8px;
+          z-index: 2;
+          display: block;
+          text-align: center;
+          pointer-events: none;
+          height: 20px;
+        }
+
+        input[type="search"] {
+          width: 450px;
+          border-radius: 8px;
+          height: 37px;
+          line-height: 30px;
+          padding: 3px 6px 3px 32px;
+          border: none;
+          font-size: 13px;
+          display: inline-block;
+          vertical-align: middle;
+          border: 1px solid #ccc;
+          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+        }
+      }
+      button {
+        background-color: #245c78 !important;
+        color: white !important;
+      }
+      .collection-jeu {
+        margin-top: 30px;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .selected-jeu {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+.ligne {
+  margin-top: 10px;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: #b4bcc8;
+  display: block;
+  height: 1px;
+  width: 100%;
+}
