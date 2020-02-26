@@ -9,7 +9,8 @@ function searchGamesAPI(req, res) {
                 body,
                 {
                     explicitRoot: false,
-                    mergeAttrs: true
+                    mergeAttrs: true,
+                    explicitArray: false
                 },
                 function(err, result) {
                     res.send(result);
