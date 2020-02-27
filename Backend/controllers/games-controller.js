@@ -2,24 +2,26 @@ const fetch = require("node-fetch");
 const parseString = require("xml2js").parseString;
 
 function searchGamesAPI(req, res) {
-    fetch("https://www.boardgamegeek.com/xmlapi2/search?query=Aero%20Monopoly")
+    let gameName = req.params.name;
+    fetch(`https://www.boardgamegeek.com/xmlapi2/search?query=${gameName}`)
         .then(result => result.text())
         .then(body =>
-            parseString(
-                body,
-                {
-                    explicitRoot: false,
-                    mergeAttrs: true,
-                    explicitArray: false
-                },
-                function(err, result) {
-                    res.send(result);
-                }
-            )
+            parseString(body, { explicitRoot: false, mergeAttrs: true, explicitArray: false }, (err, result) => {
+                res.send(result);
+            })
         );
 }
 
-function getGameInfoAPI() {}
+function getGameInfoAPI(req, res) {
+    let gameID = req.params.id;
+    fetch(`https://www.boardgamegeek.com/xmlapi2/thing?id=${gameID}`)
+        .then(result => result.text())
+        .then(body =>
+            parseString(body, { explicitRoot: false, mergeAttrs: true, explicitArray: false }, (err, result) => {
+                res.send(result);
+            })
+        );
+}
 
 exports.searchGamesAPI = searchGamesAPI;
 exports.getGameInfoAPI = getGameInfoAPI;

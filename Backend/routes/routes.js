@@ -7,12 +7,12 @@ const surveysCtrl = require("../controllers/surveys-controller");
 //TODO public route
 
 //register login
-router.post("/register-user", usersCtrl.registerUser);
+router.post("/register-user", usersCtrl.registerUser); //done
 router.post("/login", usersCtrl.login);
 
 //search
-router.post("/search-games-API", gamesCtrl.searchGamesAPI);
-router.post("/get-game-info-API", gamesCtrl.getGameInfoAPI);
+router.post("/search-games-API/:name", gamesCtrl.searchGamesAPI); //done
+router.post("/get-game-info-API/:id", gamesCtrl.getGameInfoAPI); //done
 
 //survey
 router.post("/vote", surveysCtrl.vote);
