@@ -9,8 +9,8 @@ function selectAll(callback) {
     });
 }
 
-function selectUser(userName, callback) {
-    DB.pool.query(`SELECT * FROM users WHERE login = '${userName}';`, (err, result) => {
+function selectUser(username, callback) {
+    DB.pool.query(`SELECT * FROM users WHERE login = '${username}';`, (err, result) => {
         callback(err, result);
     });
 }
@@ -21,14 +21,14 @@ function addUser(user, callback) {
             if (err) {
                 callback(err);
             } else {
-                DB.pool.query(`INSERT INTO users(login, password) values('${user.userName}', '${hash}');`, (err, result) => {
+                DB.pool.query(`INSERT INTO users(login, password) values('${user.username}', '${hash}');`, (err, result) => {
                     callback(err, result);
                 });
             }
         });
     }
 
-    selectUser(user.userName, (err, result) => {
+    selectUser(user.username, (err, result) => {
         if (result.length > 0) {
             err = {
                 code: 1,
@@ -41,5 +41,12 @@ function addUser(user, callback) {
     });
 }
 
+function deleteUser(username, callback) {
+    DB.pool.query(`DELETE FROM bg_manager.users WHERE (login = '${username}');`, (err, result) => {
+        callback(err, result);
+    });
+}
+
 exports.selectAll = selectAll;
 exports.addUser = addUser;
+exports.deleteUser = deleteUser;
