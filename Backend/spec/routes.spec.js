@@ -9,6 +9,7 @@ const user = {
 
 describe("Server", () => {
     describe("ROUTES TEST", () => {
+        //supprimer l'utilisateur de test avant tous les tests
         beforeAll(done => {
             usrMgr.deleteUser(user.username, done);
         });
@@ -21,7 +22,10 @@ describe("Server", () => {
         });
 
         it("should check user password", done => {
-            done(); //
+            request(app)
+                .post("/login")
+                .send(user)
+                .expect(201, done);
         });
     });
 });
