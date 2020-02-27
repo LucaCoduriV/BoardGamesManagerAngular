@@ -1,6 +1,8 @@
+var colors = require("colors");
 const request = require("supertest");
 const app = require("../index");
 const usrMgr = require("../model/users-management");
+const DB = require("../model/db");
 
 const user = {
     username: "testUser",
@@ -13,6 +15,14 @@ const fakeUser = {
 };
 
 describe("Server", () => {
+    it("should connect to DB", done => {
+        DB.pool.query("SELECT * FROM users", (err, result) => {
+            console.error("MYSQL ERROR: ".magenta + err.code);
+            expect(err).toBeNull();
+            done();
+        });
+    });
+
     describe("route /register", () => {
         //supprimer l'utilisateur de test avant tous les tests
         afterEach(done => {
