@@ -6,6 +6,7 @@ function registerUser(req, res) {
     let username = req.body.username;
     let password = req.body.password;
     usersManagement.addUser({ username: username, password: password }, (err, result) => {
+
         if (err) {
             res.status(520).send(err);
         } else {
@@ -40,7 +41,15 @@ function modifyGameInCollection() {}
 function deleteGameFromCollection() {}
 
 //admin
-function deleteUser() {}
+function deleteUser(req, res) {
+    usersManagement.deleteUser(req.body.username, (err, result) => {
+        if (err) {
+            res.send("could not delete user!");
+        } else {
+            res.send("user deleted succesfully!");
+        }
+    });
+}
 
 exports.registerUser = registerUser;
 exports.login = login;
