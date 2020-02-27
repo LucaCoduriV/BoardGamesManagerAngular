@@ -48,10 +48,10 @@ function deleteGameFromCollection() {}
 //admin
 function deleteUser(req, res) {
     usersManagement.deleteUser(req.body.username, (err, result) => {
-        if (err) {
-            res.send("could not delete user!");
+        if (result.affectedRows == 0) {
+            res.status(404).send("user do not exist!");
         } else {
-            res.send("user deleted succesfully!");
+            res.status(200).send("user deleted succesfully!");
         }
     });
 }

@@ -135,7 +135,31 @@ describe("route", () => {
 
     describe("/get-sharelink-survey", () => {});
 
-    describe("/delete-user", () => {});
+    describe("/delete-user", () => {
+        beforeEach(done => {
+            usrMgr.addUser(user, done);
+        });
+
+        it("should return 200 and delete a user", done => {
+            request(app)
+                .post("/delete-user")
+                .send(user)
+                .expect(200)
+                .then(response => {
+                    usrMgr.selectUser(user.username, (err, result) => {
+                        expect(result.length).toEqual(0);
+                        done();
+                    });
+                });
+        });
+
+        it("should return 404", done => {
+            request(app)
+                .post("/delete-user")
+                .send(fakeUser)
+                .expect(404, done);
+        });
+    });
 
     afterAll(done => {
         usrMgr.deleteUser(user.username, done);
