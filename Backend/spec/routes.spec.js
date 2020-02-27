@@ -21,7 +21,7 @@ describe("Server", () => {
         });
 
         it("should check user password", done => {
-            done();
+            done(); //
         });
     });
 });
