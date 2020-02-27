@@ -7,7 +7,7 @@ function searchGamesAPI(req, res) {
         .then(result => result.text())
         .then(body =>
             parseString(body, { explicitRoot: false, mergeAttrs: true, explicitArray: false }, (err, result) => {
-                res.send(result);
+                res.status(200).send(result);
             })
         );
 }
@@ -18,7 +18,7 @@ function getGameInfoAPI(req, res) {
         .then(result => result.text())
         .then(body =>
             parseString(body, { explicitRoot: false, mergeAttrs: true, explicitArray: false }, (err, result) => {
-                res.send(result);
+                res.status(200).send(result);
             })
         );
 }

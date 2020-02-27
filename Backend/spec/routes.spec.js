@@ -7,25 +7,76 @@ const user = {
     password: "testPassword"
 };
 
+const fakeUser = {
+    username: "fakeUser",
+    password: "fakePassword"
+};
+
 describe("Server", () => {
-    describe("ROUTES TEST", () => {
+    describe("route /register", () => {
         //supprimer l'utilisateur de test avant tous les tests
-        beforeAll(done => {
+        afterEach(done => {
             usrMgr.deleteUser(user.username, done);
         });
 
-        it("should add a user", done => {
+        it("should return 201", done => {
             request(app)
                 .post("/register-user")
                 .send(user)
                 .expect(201, done);
         });
+    });
 
-        it("should check user password", done => {
+    describe("route /login", () => {
+        beforeAll(done => {
+            usrMgr.addUser(user, done);
+        });
+
+        it("should return 201", done => {
             request(app)
                 .post("/login")
                 .send(user)
                 .expect(201, done);
         });
+
+        it("should return 401, user don't exist", done => {
+            request(app)
+                .post("/login")
+                .send(fakeUser)
+                .expect(401, done);
+        });
+
+        it("should return 401, user exist but wrong password", done => {
+            request(app)
+                .post("/login")
+                .send({ username: user.username, password: fakeUser.password })
+                .expect(401, done);
+        });
+    });
+
+    describe("route /search-games-API/:name", () => {
+        it("should return defined item", done => {
+            request(app)
+                .post("/search-games-API/monopoly")
+                .expect(200)
+                .then(response => {
+                    expect(response.body.item).toBeDefined();
+                    done();
+                });
+        });
+
+        it("should return defined item", done => {
+            request(app)
+                .post("/search-games-API/sakfhksjhf")
+                .expect(200)
+                .then(response => {
+                    expect(response.body.item).toBeUndefined();
+                    done();
+                });
+        });
+    });
+
+    afterAll(done => {
+        usrMgr.deleteUser(user.username, done);
     });
 });
