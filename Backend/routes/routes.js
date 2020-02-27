@@ -8,7 +8,7 @@ const surveysCtrl = require("../controllers/surveys-controller");
 
 //register login
 router.post("/register-user", usersCtrl.registerUser); //done
-router.post("/login", usersCtrl.login);
+router.post("/login", usersCtrl.login); //done
 
 //search
 router.post("/search-games-API/:name", gamesCtrl.searchGamesAPI); //done

@@ -1,10 +1,11 @@
 const usersManagement = require("../model/users-management");
+const bcrypt = require("bcrypt");
 
 //login register
 function registerUser(req, res) {
-    let userName = req.body.userName;
+    let username = req.body.username;
     let password = req.body.password;
-    usersManagement.addUser({ userName: userName, password: password }, (err, result) => {
+    usersManagement.addUser({ username: username, password: password }, (err, result) => {
         if (err) {
             res.status(520).send(err);
         } else {
@@ -14,13 +15,18 @@ function registerUser(req, res) {
 }
 
 function login(req, res) {
-    //   bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
-    //     // result == true
-    // });
 
-    usersManagement.selectAll((err, result) => {
-        res.status(401).send(result);
-    });
+    let username = req.body.username;
+    let password = req.body.password;
+    usersManagement.selectUser(username, (err, result) => {
+        bcrypt.compare(password, result[0].password, (err, result) => {
+            if (result) {
+                res.status(201).send("Utilisateur connecté avec succès");
+            } else {
+                res.status(520).send(result);
+            }
+        })
+    })
 }
 
 //collection
