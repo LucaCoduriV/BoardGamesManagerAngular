@@ -14,16 +14,19 @@ const fakeUser = {
     password: "fakePassword"
 };
 
-describe("Server", () => {
+describe("DB", () => {
     it("should connect to DB", done => {
         DB.pool.query("SELECT * FROM users", (err, result) => {
-            console.error("MYSQL ERROR: ".magenta + err.code);
+            if (err) console.error("MYSQL ERROR: ".magenta + err.code);
+
             expect(err).toBeNull();
             done();
         });
     });
+});
 
-    describe("route /register", () => {
+describe("route", () => {
+    describe("/register", () => {
         //supprimer l'utilisateur de test avant tous les tests
         afterEach(done => {
             usrMgr.deleteUser(user.username, done);
@@ -37,7 +40,7 @@ describe("Server", () => {
         });
     });
 
-    describe("route /login", () => {
+    describe("/login", () => {
         beforeAll(done => {
             usrMgr.addUser(user, done);
         });
@@ -64,7 +67,7 @@ describe("Server", () => {
         });
     });
 
-    describe("route /search-games-API/:name", () => {
+    describe("/search-games-API/:name", () => {
         it("should return defined item", done => {
             request(app)
                 .post("/search-games-API/monopoly")
