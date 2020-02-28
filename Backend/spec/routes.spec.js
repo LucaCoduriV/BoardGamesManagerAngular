@@ -55,6 +55,7 @@ describe("route", () => {
     });
 
     describe("/login", () => {
+        //ajoute un utilisateur avant tous les tests
         beforeAll(done => {
             usrMgr.addUser(user, done);
         });
@@ -126,6 +127,7 @@ describe("route", () => {
     });
 
     describe("/vote", () => {
+        //ajoute un utilisateur avant tous les test
         beforeAll(done => {
             usrMgr.addUser(user, done);
         });
@@ -197,7 +199,7 @@ describe("route", () => {
                 .post("/get-game-info-collection")
                 .send(game.id)
                 .then(response => {
-                    keysArr = Object.keys(response);
+                    keysArr = Object.keys(response[0]);
                     excpectedArray = [
                         "idGame",
                         "idAPI",
@@ -233,7 +235,31 @@ describe("route", () => {
 
     describe("/vote-while-logged", () => {});
 
-    describe("/get-sharelink-survey", () => {});
+    describe("/get-sharelink-survey", () => {
+        it("should return 200", done => {
+            request(app)
+                .post("/get-sharelink-survey")
+                .send(survey.id)
+                .expect(200, done);
+        });
+
+        it("should return sharelink", done => {
+            request(app)
+                .post("/get-sharelink-survey")
+                .send(survey.id)
+                .then(response => {
+                    expect(response[0].sharelink).toBeDefined();
+                    done();
+                });
+        });
+
+        it("should return 400", done => {
+            request(app)
+                .post("/get-sharelink-survey")
+                .send(fakeSurvey.id)
+                .expect(400, done);
+        });
+    });
 
     describe("/delete-user", () => {
         beforeEach(done => {
