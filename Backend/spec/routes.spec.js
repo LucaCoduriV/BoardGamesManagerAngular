@@ -38,7 +38,7 @@ describe("route", () => {
     describe("/users", () => {
         //supprimer l'utilisateur de test avant tous les tests
         beforeEach(done => {
-            DB.pool.query(`DELETE FROM bg_manager.users WHERE (login = '${user.username}');`, done);
+            DB.pool.query(`DELETE FROM users WHERE (login = '${user.username}');`, done);
         });
 
         it("should return 201 and create user", done => {
@@ -335,6 +335,6 @@ describe("route", () => {
     });
 
     afterAll(done => {
-        DB.pool.query(`DELETE FROM bg_manager.users WHERE (login = '${user.username}');`, done);
+        DB.pool.query(`DELETE FROM users WHERE (login = '${user.username}');`, done);
     });
 });
