@@ -231,7 +231,28 @@ describe("route", () => {
 
     describe("/delete-game-from-collection", () => {});
 
-    describe("/create-survey", () => {});
+    describe("/create-survey", () => {
+        it("should return 200", done => {
+            request(app)
+                .post("/get-sharelink-survey")
+                .send({ survey: survey, games: [game] })
+                .expect(200, done);
+        });
+
+        it("should create survey", done => {
+            done();
+        });
+
+        it("should add game into survey", done => {
+            done();
+        });
+
+        it("should return 400", done => {
+            request(app)
+                .post("/get-sharelink-survey")
+                .expect(400, done);
+        });
+    });
 
     describe("/vote-while-logged", () => {});
 
