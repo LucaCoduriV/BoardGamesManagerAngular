@@ -16,12 +16,14 @@ function selectUser(username, callback) {
 }
 
 function addUser(user, callback) {
+    if (user.id == undefined) user.id = null;
+
     function hashPassword() {
         bcrypt.hash(user.password, saltRounds, (err, hash) => {
             if (err) {
                 callback(err);
             } else {
-                DB.pool.query(`INSERT INTO users(login, password) values('${user.username}', '${hash}');`, (err, result) => {
+                DB.pool.query(`INSERT INTO users(idUser, login, password) values(${user.id}, '${user.username}', '${hash}');`, (err, result) => {
                     callback(err, result);
                 });
             }
@@ -51,4 +53,3 @@ exports.selectAll = selectAll;
 exports.addUser = addUser;
 exports.selectUser = selectUser;
 exports.deleteUser = deleteUser;
-
