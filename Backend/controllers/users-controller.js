@@ -51,7 +51,7 @@ function deleteGameFromCollection() {}
 
 //admin
 function deleteUser(req, res) {
-    usersManagement.deleteUser(req.body.username, (err, result) => {
+    usersManagement.deleteUser(req.params.idUser, (err, result) => {
         if (result.affectedRows == 0) {
             res.status(404).send("user do not exist!");
         } else {

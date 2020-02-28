@@ -43,8 +43,8 @@ function addUser(user, callback) {
     });
 }
 
-function deleteUser(username, callback) {
-    DB.pool.query(`DELETE FROM bg_manager.users WHERE (login = '${username}');`, (err, result) => {
+function deleteUser(idUser, callback) {
+    DB.pool.query(`DELETE FROM users WHERE (idUser = '${idUser}');`, (err, result) => {
         callback(err, result);
     });
 }

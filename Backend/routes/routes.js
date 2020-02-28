@@ -7,36 +7,34 @@ const surveysCtrl = require("../controllers/surveys-controller");
 //TODO public route
 
 //register login
-router.post("/users", usersCtrl.registerUser); //done
-router.get("/users", usersCtrl.login); //done
+router.post("/users", usersCtrl.registerUser);
+router.get("/users/token", usersCtrl.login);
 
 //search
-router.get("/BGG/games/:name", gamesCtrl.searchGamesAPI); //done
-router.get("/BGG/get-game-info-API/:id", gamesCtrl.getGameInfoAPI); //done
+router.get("/BGG/games/:name", gamesCtrl.searchGamesAPI); //OK
+router.get("/BGG/games/:idGame/details", gamesCtrl.getGameInfoAPI); //OK
 
 //vote anonyme
-router.post("/users/:idUser/surveys/votes/anonyme", surveysCtrl.vote);
+router.post("/users/:idUser/surveys/:idSurvey/vote/anonyme", surveysCtrl.vote);
 
 //TODO private route
 
 //collection
-router.get("/users/:idUser/games", usersCtrl.getCollection); //ok
-router.get("/users/:idUser/games/:idGames", usersCtrl.getGameInfoCollection); //ok
+router.get("/users/:idUser/games", usersCtrl.getCollection);
+router.get("/users/:idUser/games/:idGames", usersCtrl.getGameInfoCollection);
 
-router.post("/users/:idUser/games", usersCtrl.addGameInCollection); //ok
-router.put("/users/:idUser/games/:idGame", usersCtrl.modifyGameInCollection); //ok
-router.delete("/users/:idUser/games/:idGame", usersCtrl.deleteGameFromCollection); //ok
+router.post("/users/:idUser/games", usersCtrl.addGameInCollection);
+router.put("/users/:idUser/games/:idGame", usersCtrl.modifyGameInCollection);
+router.delete("/users/:idUser/games/:idGame", usersCtrl.deleteGameFromCollection);
 
 //survey
-router.post("/users/:idUser/surveys", surveysCtrl.createSurvey); //ok
-router.delete("/users/:idUser/surveys/:idSurvey", surveysCtrl.deleteSurvey); //ok
+router.post("/users/:idUser/surveys", surveysCtrl.createSurvey);
+router.delete("/users/:idUser/surveys/:idSurvey", surveysCtrl.deleteSurvey);
 
 router.post("/users/:idUser/surveys/:idSurvey/vote", surveysCtrl.voteWhileLogged);
-router.post("/users/:idUser/surveys/:idSurvey", surveysCtrl.getSharelinkSurvey);
-
-router.get("/users/:idUser/surveys");
+router.get("/users/:idUser/surveys/:idSurvey", surveysCtrl.getSharelinkSurvey);
 
 //admin
-router.post("/delete-user", usersCtrl.deleteUser);
+router.delete("/users/:idUser", usersCtrl.deleteUser);
 
-router.module.exports = router;
+module.exports = router;

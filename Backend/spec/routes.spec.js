@@ -11,7 +11,7 @@ const user = {
 };
 
 const wrongUser = {
-    id: 10,
+    id: 11,
     username: "wrongUser",
     password: "fakePassword"
 };
@@ -34,17 +34,24 @@ describe("DB", () => {
 });
 
 describe("route", () => {
-    describe("/register", () => {
+    //Register
+    describe("/users", () => {
         //supprimer l'utilisateur de test avant tous les tests
-        afterEach(done => {
-            usrMgr.deleteUser(user.username, done);
+        beforeEach(done => {
+            DB.pool.query(`DELETE FROM bg_manager.users WHERE (login = '${user.username}');`, done);
         });
 
         it("should return 201 and create user", done => {
             request(app)
-                .post("/register-user")
+                .post("/users")
                 .send(user)
-                .expect(201)
+                .expect(201, done);
+        });
+
+        it("should create a user", done => {
+            request(app)
+                .post("/users")
+                .send(user)
                 .then(response => {
                     usrMgr.selectUser(user.username, (err, result) => {
                         expect(result.length).toEqual(1);
@@ -54,7 +61,8 @@ describe("route", () => {
         });
     });
 
-    describe("/login", () => {
+    //Login
+    describe("/users/token", () => {
         //ajoute un utilisateur avant tous les tests
         beforeAll(done => {
             usrMgr.addUser(user, done);
@@ -62,30 +70,31 @@ describe("route", () => {
 
         it("should return 201", done => {
             request(app)
-                .post("/login")
+                .get("/users/token")
                 .send(user)
                 .expect(201, done);
         });
 
         it("should return 401, user don't exist", done => {
             request(app)
-                .post("/login")
+                .get("/users/token")
                 .send(wrongUser)
                 .expect(401, done);
         });
 
         it("should return 401, user exist but wrong password", done => {
             request(app)
-                .post("/login")
+                .get("/users/token")
                 .send({ username: user.username, password: wrongUser.password })
                 .expect(401, done);
         });
     });
 
-    describe("/search-games-API/:name", () => {
+    //recherche
+    describe("/BGG/games/:name", () => {
         it("should return search result", done => {
             request(app)
-                .post("/search-games-API/monopoly")
+                .get("/BGG/games/monopoly")
                 .expect(200)
                 .then(response => {
                     expect(response.body.item).toBeDefined();
@@ -95,7 +104,7 @@ describe("route", () => {
 
         it("should return no result", done => {
             request(app)
-                .post("/search-games-API/sakfhksjhf")
+                .get("/BGG/games/sakfhksjhf")
                 .expect(200)
                 .then(response => {
                     expect(response.body.item).toBeUndefined();
@@ -104,10 +113,11 @@ describe("route", () => {
         });
     });
 
-    describe("/get-game-info-API/:id", () => {
+    //info à propos d'un jeu
+    describe("/BGG/games/:idGame/details", () => {
         it("should return search result", done => {
             request(app)
-                .post("/get-game-info-API/2740") //aero Monopoly
+                .get("/BGG/games/2740/details") //aero Monopoly
                 .expect(200)
                 .then(response => {
                     expect(response.body.item).toBeDefined();
@@ -117,7 +127,7 @@ describe("route", () => {
 
         it("should return no result", done => {
             request(app)
-                .post("/get-game-info-API/999999999999")
+                .get("/BGG/games/999999999999/details")
                 .expect(200)
                 .then(response => {
                     expect(response.body.item).toBeUndefined();
@@ -126,7 +136,8 @@ describe("route", () => {
         });
     });
 
-    describe("/vote", () => {
+    //vote anonyme
+    describe("/users/:idUser/surveys/:idSurvey/vote/anonyme", () => {
         //ajoute un utilisateur avant tous les test
         beforeAll(done => {
             usrMgr.addUser(user, done);
@@ -134,14 +145,14 @@ describe("route", () => {
 
         it("should return 200", done => {
             request(app)
-                .post("/vote")
+                .post("/users/:idUser/surveys/:idSurvey/vote/anonyme")
                 .send(vote)
                 .expect(200, done);
         });
 
         it("should create a vote in DB", done => {
             request(app)
-                .post("/vote")
+                .post("/users/:idUser/surveys/:idSurvey/vote/anonyme")
                 .send(vote)
                 .then(response => {
                     DB.pool.query(`SELECT * FROM votes WHERE idVote = ${vote.id}`, (err, result) => {
@@ -155,17 +166,18 @@ describe("route", () => {
         });
     });
 
-    describe("/get-collection", () => {
+    //get collection
+    describe("/users/:idUser/games", () => {
         it("should return 200", done => {
             request(app)
-                .post("/vote")
+                .post(`/users/${user.id}/games`)
                 .send(user)
                 .expect(200, done);
         });
 
         it("should return all keys", done => {
             request(app)
-                .post("/get-collection")
+                .get(`/users/${user.id}/games`)
                 .send(user)
                 .then(response => {
                     keysArr = Object.keys(response[0]);
@@ -177,26 +189,27 @@ describe("route", () => {
 
         it("should return 400", done => {
             request(app)
-                .post("/get-collection")
+                .get(`/users/${user.id}/games`)
                 .send(wrongUser)
                 .expect(400, done);
         });
     });
 
-    describe("/get-game-info-collection", () => {
+    //info d'un jeu de la collection
+    describe("/users/:idUser/games/:idGame", () => {
         //TODO beforeAll add fake game in db
         //TODO afterAll remove fake game from db
 
         it("should return 200", done => {
             request(app)
-                .post("/get-game-info-collection")
+                .get(`/users/:idUser/games/${game.id}`)
                 .send(game.id)
                 .expect(200, done);
         });
 
         it("should return all keys", done => {
             request(app)
-                .post("/get-game-info-collection")
+                .get(`/users/:idUser/games/${game.id}`)
                 .send(game.id)
                 .then(response => {
                     keysArr = Object.keys(response[0]);
@@ -225,16 +238,20 @@ describe("route", () => {
         });
     });
 
-    describe("/add-game-in-collection", () => {});
+    //ajouter un jeu dans la collection
+    describe("/users/:idUser/games", () => {});
 
-    describe("/modify-game-in-collection", () => {});
+    //modifier un jeu de la collection
+    describe("/users/:idUser/games/:idGame", () => {});
 
-    describe("/delete-game-from-collection", () => {});
+    //supprimer un jeu de la collection
+    describe("/users/:idUser/games/:idGame", () => {});
 
-    describe("/create-survey", () => {
+    //créer un sondage
+    describe("/users/:idUser/surveys", () => {
         it("should return 200", done => {
             request(app)
-                .post("/get-sharelink-survey")
+                .post("/users/:idUser/surveys")
                 .send({ survey: survey, games: [game] })
                 .expect(200, done);
         });
@@ -249,24 +266,26 @@ describe("route", () => {
 
         it("should return 400", done => {
             request(app)
-                .post("/get-sharelink-survey")
+                .post("/users/:idUser/surveys")
                 .expect(400, done);
         });
     });
 
-    describe("/vote-while-logged", () => {});
+    //vote non anonyme
+    describe("/users/:idUser/surveys/:idSurvey/vote", () => {});
 
-    describe("/get-sharelink-survey", () => {
+    //get sharelink
+    describe("/users/:idUser/surveys/:idSurvey", () => {
         it("should return 200", done => {
             request(app)
-                .post("/get-sharelink-survey")
+                .get("/users/:idUser/surveys/:idSurvey")
                 .send(survey.id)
                 .expect(200, done);
         });
 
         it("should return sharelink", done => {
             request(app)
-                .post("/get-sharelink-survey")
+                .get("/users/:idUser/surveys/:idSurvey")
                 .send(survey.id)
                 .then(response => {
                     expect(response[0].sharelink).toBeDefined();
@@ -276,22 +295,29 @@ describe("route", () => {
 
         it("should return 400", done => {
             request(app)
-                .post("/get-sharelink-survey")
+                .get("/users/:idUser/surveys/:idSurvey")
                 .send(fakeSurvey.id)
                 .expect(400, done);
         });
     });
 
-    describe("/delete-user", () => {
+    //suppimer un utilisateur
+    describe("/users/:idUser", () => {
         beforeEach(done => {
-            usrMgr.addUser(user, done);
+            DB.pool.query(`INSERT INTO users(idUser, login, password) values(${user.id}, '${user.username}', '${user.password}');`, done);
         });
 
-        it("should return 200 and delete a user", done => {
+        it("should return 200", done => {
             request(app)
-                .post("/delete-user")
+                .delete(`/users/${user.id}`)
                 .send(user)
-                .expect(200)
+                .expect(200, done);
+        });
+
+        it("should delete a user", done => {
+            request(app)
+                .delete(`/users/${user.id}`)
+                .send(user)
                 .then(response => {
                     usrMgr.selectUser(user.username, (err, result) => {
                         expect(result.length).toEqual(0);
@@ -302,13 +328,13 @@ describe("route", () => {
 
         it("should return 404", done => {
             request(app)
-                .post("/delete-user")
+                .delete(`/users/${wrongUser.id}`)
                 .send(wrongUser)
                 .expect(404, done);
         });
     });
 
     afterAll(done => {
-        usrMgr.deleteUser(user.username, done);
+        DB.pool.query(`DELETE FROM bg_manager.users WHERE (login = '${user.username}');`, done);
     });
 });

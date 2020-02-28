@@ -8,17 +8,19 @@ function searchGamesAPI(req, res) {
         .then(body =>
             parseString(body, { explicitRoot: false, mergeAttrs: true, explicitArray: false }, (err, result) => {
                 res.status(200).send(result);
+                //TODO le cas ou la recherche ne retourne rien
             })
         );
 }
 
 function getGameInfoAPI(req, res) {
-    let gameID = req.params.id;
+    let gameID = req.params.idGame;
     fetch(`https://www.boardgamegeek.com/xmlapi2/thing?id=${gameID}`)
         .then(result => result.text())
         .then(body =>
             parseString(body, { explicitRoot: false, mergeAttrs: true, explicitArray: false }, (err, result) => {
                 res.status(200).send(result);
+                //TODO le cas ou l'id n'existe pas
             })
         );
 }
