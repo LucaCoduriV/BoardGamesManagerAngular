@@ -5,13 +5,21 @@ const usrMgr = require("../model/users-management");
 const DB = require("../model/db");
 
 const user = {
+    id: 10,
     username: "testUser",
     password: "testPassword"
 };
 
-const fakeUser = {
-    username: "fakeUser",
+const wrongUser = {
+    id: 10,
+    username: "wrongUser",
     password: "fakePassword"
+};
+
+const vote = {
+    id: 10,
+    idUser: 10,
+    idCandidate: 10
 };
 
 describe("DB", () => {
@@ -61,14 +69,14 @@ describe("route", () => {
         it("should return 401, user don't exist", done => {
             request(app)
                 .post("/login")
-                .send(fakeUser)
+                .send(wrongUser)
                 .expect(401, done);
         });
 
         it("should return 401, user exist but wrong password", done => {
             request(app)
                 .post("/login")
-                .send({ username: user.username, password: fakeUser.password })
+                .send({ username: user.username, password: wrongUser.password })
                 .expect(401, done);
         });
     });
@@ -117,11 +125,103 @@ describe("route", () => {
         });
     });
 
-    describe("/vote", () => {});
+    describe("/vote", () => {
+        beforeAll(done => {
+            usrMgr.addUser(user, done);
+        });
 
-    describe("/get-collection", () => {});
+        it("should return 200", done => {
+            request(app)
+                .post("/vote")
+                .send(vote)
+                .expect(200, done);
+        });
 
-    describe("/get-game-info-collection", () => {});
+        it("should create a vote in DB", done => {
+            request(app)
+                .post("/vote")
+                .send(vote)
+                .then(response => {
+                    DB.pool.query(`SELECT * FROM votes WHERE idVote = ${vote.id}`, (err, result) => {
+                        expect(result.length).toEqual(1);
+                        done();
+                    });
+                });
+        });
+        afterAll(done => {
+            usrMgr.deleteUser(user.username, done);
+        });
+    });
+
+    describe("/get-collection", () => {
+        it("should return 200", done => {
+            request(app)
+                .post("/vote")
+                .send(user)
+                .expect(200, done);
+        });
+
+        it("should return all keys", done => {
+            request(app)
+                .post("/get-collection")
+                .send(user)
+                .then(response => {
+                    keysArr = Object.keys(response[0]);
+                    excpectedArray = ["idGame", "idAPI", "name", "imgUrl"];
+
+                    expect(keysArr).toEqual(excpectedArray);
+                });
+        });
+
+        it("should return 400", done => {
+            request(app)
+                .post("/get-collection")
+                .send(wrongUser)
+                .expect(400, done);
+        });
+    });
+
+    describe("/get-game-info-collection", () => {
+        //TODO beforeAll add fake game in db
+        //TODO afterAll remove fake game from db
+
+        it("should return 200", done => {
+            request(app)
+                .post("/get-game-info-collection")
+                .send(game.id)
+                .expect(200, done);
+        });
+
+        it("should return all keys", done => {
+            request(app)
+                .post("/get-game-info-collection")
+                .send(game.id)
+                .then(response => {
+                    keysArr = Object.keys(response);
+                    excpectedArray = [
+                        "idGame",
+                        "idAPI",
+                        "name",
+                        "description",
+                        "minAge",
+                        "minNbPlayer",
+                        "maxNbPlayer",
+                        "minDuration",
+                        "maxDuration",
+                        "creationDate"
+                    ];
+
+                    expect(keysArr).toEqual(excpectedArray);
+                });
+        });
+
+        it("should return 400", done => {
+            request(app)
+                .post("/get-game-info-collection")
+                .send(wrongGame.id)
+                .expect(400, done);
+        });
+    });
 
     describe("/add-game-in-collection", () => {});
 
@@ -156,7 +256,7 @@ describe("route", () => {
         it("should return 404", done => {
             request(app)
                 .post("/delete-user")
-                .send(fakeUser)
+                .send(wrongUser)
                 .expect(404, done);
         });
     });

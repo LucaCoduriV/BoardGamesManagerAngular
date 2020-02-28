@@ -36,7 +36,11 @@ function login(req, res) {
 }
 
 //collection
-function getCollection() {}
+function getCollection() {
+    //      `SELECT games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.minDuration, games.maxDuration, games.creationDate FROM has_games
+    //      inner join games on games.idGame = has_games.idGame
+    //      WHERE has_games.idUser = ${user.id};`
+}
 
 function getGameInfoCollection() {}
 
