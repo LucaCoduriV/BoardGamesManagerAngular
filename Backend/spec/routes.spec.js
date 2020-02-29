@@ -239,13 +239,63 @@ describe("route", () => {
     });
 
     //ajouter un jeu dans la collection
-    describe("/users/:idUser/games", () => {});
+    describe("/users/:idUser/games", () => {
+        it("should return 200", done => {
+            request(app)
+                .post(`/users/${user.id}/games`)
+                .send(game)
+                .expect(200, done);
+        });
+
+        it("should add game in db", done =>{
+            
+        });
+
+        it("should return 400", done => {
+            request(app)
+                .post(`/users/${user.id}/games`)
+                .expect(400, done);
+        });
+    });
 
     //modifier un jeu de la collection
-    describe("/users/:idUser/games/:idGame", () => {});
+    describe("/users/:idUser/games/:idGame", () => {
+        it("should return 200", done => {
+            request(app)
+                .put(`/users/${user.id}/games/${game.id}`)
+                .send(game)
+                .expect(200, done);
+        });
+
+        it("should modify game in db", done =>{
+            
+        });
+
+        it("should return 400", done => {
+            request(app)
+                .put(`/users/${user.id}/games/${game.id}`)
+                .expect(400, done);
+        });
+    });
 
     //supprimer un jeu de la collection
-    describe("/users/:idUser/games/:idGame", () => {});
+    describe("/users/:idUser/games/:idGame", () => {
+        it("should return 200", done => {
+            request(app)
+                .delete(`/users/${user.id}/games/${game.id}`)
+                .expect(200, done);
+        });
+
+        it("should delete game from db", done =>{
+            
+        });
+
+        it("should return 400", done => {
+            request(app)
+                .delete(`/users/${user.id}/games/${wrongGame.id}`)
+                .expect(400, done);
+        });
+    });
 
     //créer un sondage
     describe("/users/:idUser/surveys", () => {
