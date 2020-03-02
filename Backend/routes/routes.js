@@ -28,8 +28,8 @@ router.put("/users/:idUser/games/:idGame", usersCtrl.modifyGameInCollection);
 router.delete("/users/:idUser/games/:idGame", usersCtrl.deleteGameFromCollection);
 
 //survey
-router.post("/users/:idUser/surveys", surveysCtrl.createSurvey);
-router.delete("/users/:idUser/surveys/:idSurvey", surveysCtrl.deleteSurvey);
+router.post("/users/:idUser/surveys", surveysCtrl.createSurvey); //ok
+router.delete("/users/:idUser/surveys/:idSurvey", surveysCtrl.deleteSurvey); //ok
 
 router.post("/users/:idUser/surveys/:idSurvey/vote", surveysCtrl.voteWhileLogged);
 router.get("/users/:idUser/surveys/:idSurvey", surveysCtrl.getSharelinkSurvey);
