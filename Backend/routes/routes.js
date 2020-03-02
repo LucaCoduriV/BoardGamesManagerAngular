@@ -7,8 +7,8 @@ const surveysCtrl = require("../controllers/surveys-controller");
 //TODO public route
 
 //register login
-router.post("/users", usersCtrl.registerUser);
-router.get("/users/token", usersCtrl.login);
+router.post("/users", usersCtrl.registerUser); //OK
+router.get("/users/token", usersCtrl.login); //~OK (manque JWT)
 
 //search
 router.get("/BGG/games/:name", gamesCtrl.searchGamesAPI); //OK
@@ -23,15 +23,21 @@ router.post("/users/:idUser/surveys/:idSurvey/vote/anonyme", surveysCtrl.vote);
 router.get("/users/:idUser/games", usersCtrl.getCollection);
 router.get("/users/:idUser/games/:idGames", usersCtrl.getGameInfoCollection);
 
-router.post("/users/:idUser/games", usersCtrl.addGameInCollection);
+router.post("/users/:idUser/games", usersCtrl.addGameInCollection); // OK
 router.put("/users/:idUser/games/:idGame", usersCtrl.modifyGameInCollection);
-router.delete("/users/:idUser/games/:idGame", usersCtrl.deleteGameFromCollection);
+router.delete(
+  "/users/:idUser/games/:idGame",
+  usersCtrl.deleteGameFromCollection
+);
 
 //survey
 router.post("/users/:idUser/surveys", surveysCtrl.createSurvey); //ok
 router.delete("/users/:idUser/surveys/:idSurvey", surveysCtrl.deleteSurvey); //ok
 
-router.post("/users/:idUser/surveys/:idSurvey/vote", surveysCtrl.voteWhileLogged);
+router.post(
+  "/users/:idUser/surveys/:idSurvey/vote",
+  surveysCtrl.voteWhileLogged
+);
 router.get("/users/:idUser/surveys/:idSurvey", surveysCtrl.getSharelinkSurvey);
 
 //admin
