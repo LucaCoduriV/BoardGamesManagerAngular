@@ -59,6 +59,15 @@ function deleteUser(idUser, callback) {
 }
 
 function addGameInCollection(game, callback) {
+  if (game.idAPI == undefined) game.idAPI = null;
+  if (game.gameName == undefined) game.gameName = null;
+  if (game.description == undefined) game.description = null;
+  if (game.minAge == undefined) game.minAge = null;
+  if (game.minNbPlayer == undefined) game.minNbPlayer = null;
+  if (game.maxNbPlayer == undefined) game.maxNbPlayer = null;
+  if (game.minDuration == undefined) game.minDuration = null;
+  if (game.maxDuration == undefined) game.maxDuration = null;
+
   DB.pool.query(
     `INSERT INTO games VALUES(null, ${game.idAPI}, '${game.gameName}', '${game.description}', ${game.minAge}, ${game.minNbPlayer}, ${game.maxNbPlayer}, ${game.minDuration}, ${game.maxDuration}, NOW(), ${game.idUser});`,
     (err, result) => {

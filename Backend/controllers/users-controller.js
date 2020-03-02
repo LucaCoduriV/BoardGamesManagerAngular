@@ -81,7 +81,7 @@ function addGameInCollection(req, res) {
   );
 }
 
-function modifyGameInCollection() {}
+function modifyGameInCollection(req, res) {}
 
 function deleteGameFromCollection(req, res) {
   let idGames = req.params.idGame;
