@@ -82,7 +82,17 @@ function addGameInCollection(req, res) {
 }
 
 function modifyGameInCollection() {}
-function deleteGameFromCollection() {}
+
+function deleteGameFromCollection(req, res) {
+  let idGames = req.params.idGame;
+  usersManagement.deleteGameFromCollection(idGames, (err, result) => {
+    if (result.affectedRows == 0) {
+      res.status(400).send("Le jeu à supprimer n'existe pas !");
+    } else {
+      res.status(200).send("Jeu supprimé avec succès !");
+    }
+  });
+}
 
 //admin
 function deleteUser(req, res) {

@@ -28,7 +28,7 @@ router.put("/users/:idUser/games/:idGame", usersCtrl.modifyGameInCollection);
 router.delete(
   "/users/:idUser/games/:idGame",
   usersCtrl.deleteGameFromCollection
-);
+); //OK
 
 //survey
 router.post("/users/:idUser/surveys", surveysCtrl.createSurvey); //ok

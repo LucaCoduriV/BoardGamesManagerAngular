@@ -67,8 +67,15 @@ function addGameInCollection(game, callback) {
   );
 }
 
+function deleteGameFromCollection(idGame, callback) {
+  DB.pool.query(`DELETE FROM games WHERE idGame = ${idGame}`, (err, result) => {
+    callback(err, result);
+  });
+}
+
 exports.selectAll = selectAll;
 exports.addUser = addUser;
 exports.selectUser = selectUser;
 exports.deleteUser = deleteUser;
 exports.addGameInCollection = addGameInCollection;
+exports.deleteGameFromCollection = deleteGameFromCollection;
