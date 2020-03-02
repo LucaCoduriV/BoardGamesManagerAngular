@@ -3,7 +3,7 @@ const router = express.Router();
 const usersCtrl = require("../controllers/users-controller");
 const gamesCtrl = require("../controllers/games-controller");
 const surveysCtrl = require("../controllers/surveys-controller");
-
+const jwt = require("../services/jwt");
 //TODO public route
 
 //register login
@@ -20,27 +20,22 @@ router.post("/users/:idUser/surveys/:idSurvey/vote/anonyme", surveysCtrl.vote);
 //TODO private route
 
 //collection
-router.get("/users/:idUser/games", usersCtrl.getCollection);
-router.get("/users/:idUser/games/:idGames", usersCtrl.getGameInfoCollection);
+router.get("/users/:idUser/games", jwt.verifyToken, usersCtrl.getCollection);
+router.get("/users/:idUser/games/:idGames", jwt.verifyToken, usersCtrl.getGameInfoCollection);
 
-router.post("/users/:idUser/games", usersCtrl.addGameInCollection); // OK
-router.put("/users/:idUser/games/:idGame", usersCtrl.modifyGameInCollection);
-router.delete(
-  "/users/:idUser/games/:idGame",
-  usersCtrl.deleteGameFromCollection
-);
+router.post("/users/:idUser/games", jwt.verifyToken, usersCtrl.addGameInCollection); // OK
+router.put("/users/:idUser/games/:idGame", jwt.verifyToken, usersCtrl.modifyGameInCollection); // OK
+router.delete("/users/:idUser/games/:idGame", jwt.verifyToken, usersCtrl.deleteGameFromCollection); //OK
 
 //survey
-router.post("/users/:idUser/surveys", surveysCtrl.createSurvey); //ok
-router.delete("/users/:idUser/surveys/:idSurvey", surveysCtrl.deleteSurvey); //ok
+router.get("/users/:idUser/surveys");
+router.post("/users/:idUser/surveys", jwt.verifyToken, surveysCtrl.createSurvey); //ok
+router.delete("/users/:idUser/surveys/:idSurvey", jwt.verifyToken, surveysCtrl.deleteSurvey); //ok
 
-router.post(
-  "/users/:idUser/surveys/:idSurvey/vote",
-  surveysCtrl.voteWhileLogged
-);
-router.get("/users/:idUser/surveys/:idSurvey", surveysCtrl.getSharelinkSurvey);
+router.post("/users/:idUser/surveys/:idSurvey/vote", jwt.verifyToken, surveysCtrl.voteWhileLogged);
+router.get("/users/:idUser/surveys/:idSurvey", jwt.verifyToken, surveysCtrl.getSharelinkSurvey);
 
 //admin
-router.delete("/users/:idUser", usersCtrl.deleteUser);
+router.delete("/users/:idUser", jwt.verifyToken, usersCtrl.deleteUser);
 
 module.exports = router;
