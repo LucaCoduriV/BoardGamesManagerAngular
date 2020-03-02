@@ -32,15 +32,43 @@ function deleteSurvey(req, res) {
         if (err) res.send(err);
         else res.send("deleted succefully");
     });
-    //`DELETE FROM bg_manager.surveys WHERE (idSurvey = '${survey.id}');`
 }
 
 function voteWhileLogged(req, res) {}
 
-function getSharelinkSurvey(req, res) {}
+function getSurveyByShareCode(req, res) {
+    const shareCode = req.params.shareCode;
+
+    surveyManagement.selectSurveyByShareCode(shareCode, (err, result) => {
+        res.status(200).send(result);
+    });
+}
+function getSurveyByUserID(req, res) {
+    const idUser = req.params.idUser;
+
+    surveyManagement.selectSurveyByUserID(idUser, (err, result) => {
+        res.status(200).send(result);
+    });
+}
+
+function getAllSurveys(req, res) {
+    surveyManagement.selectSurveys((err, result) => {
+        res.status(200).send(result);
+    });
+}
+
+function getCandidates(req, res) {
+    const idSurvey = req.params.idSurvey;
+    surveyManagement.selectCanditatesBySurveyID(idSurvey, (err, result) => {
+        res.status(200).send(result);
+    });
+}
 
 exports.vote = vote;
 exports.createSurvey = createSurvey;
 exports.deleteSurvey = deleteSurvey;
 exports.voteWhileLogged = voteWhileLogged;
-exports.getSharelinkSurvey = getSharelinkSurvey;
+exports.getAllSurveys = getAllSurveys;
+exports.getSurveyByShareCode = getSurveyByShareCode;
+exports.getSurveyByUserID = getSurveyByUserID;
+exports.getCandidates = getCandidates;

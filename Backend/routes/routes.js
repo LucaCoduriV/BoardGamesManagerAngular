@@ -9,13 +9,13 @@ const permission = require("../services/permissions");
 
 //register login
 router.post("/users", usersCtrl.registerUser); //OK
-router.get("/users/token", usersCtrl.login); //~OK (manque JWT)
+router.get("/users/token", usersCtrl.login); //OK
 
 //search
 router.get("/BGG/games/:name", gamesCtrl.searchGamesAPI); //OK
 router.get("/BGG/games/:idGame/details", gamesCtrl.getGameInfoAPI); //OK
 
-//vote anonyme
+//survey
 router.post("/users/:idUser/surveys/:idSurvey/vote/anonyme", surveysCtrl.vote);
 
 //TODO private route
@@ -29,12 +29,16 @@ router.put("/users/:idUser/games/:idGame", jwt.verifyToken, usersCtrl.modifyGame
 router.delete("/users/:idUser/games/:idGame", jwt.verifyToken, usersCtrl.deleteGameFromCollection); //OK
 
 //survey
-router.get("/users/:idUser/surveys");
+router.get("/users/surveys/:shareCode", surveysCtrl.getSurveyByShareCode); //OK
+router.get("/users/:idUser/surveys/", surveysCtrl.getSurveyByUserID); //OK
+router.get("/users/surveys/", surveysCtrl.getAllSurveys); //ok
+
+router.get("/users/surveys/:idSurvey/candidates/", surveysCtrl.getCandidates); //ok
+
 router.post("/users/:idUser/surveys", jwt.verifyToken, surveysCtrl.createSurvey); //ok
 router.delete("/users/:idUser/surveys/:idSurvey", jwt.verifyToken, surveysCtrl.deleteSurvey); //ok
 
 router.post("/users/:idUser/surveys/:idSurvey/vote", jwt.verifyToken, surveysCtrl.voteWhileLogged);
-router.get("/users/:idUser/surveys/:idSurvey", jwt.verifyToken, surveysCtrl.getSharelinkSurvey);
 
 //admin
 router.delete("/users/:idUser", jwt.verifyToken, permission.isSuperadmin, usersCtrl.deleteUser);
