@@ -31,6 +31,7 @@ router.delete(
 ); //OK
 
 //survey
+router.get("/users/:idUser/surveys");
 router.post("/users/:idUser/surveys", surveysCtrl.createSurvey); //ok
 router.delete("/users/:idUser/surveys/:idSurvey", surveysCtrl.deleteSurvey); //ok
 

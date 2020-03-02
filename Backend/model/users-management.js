@@ -76,6 +76,32 @@ function addGameInCollection(game, callback) {
   );
 }
 
+function modifyGameInCollection(game, callback) {
+  if (game.gameName == undefined) game.gameName = null;
+  if (game.description == undefined) game.description = null;
+  if (game.minAge == undefined) game.minAge = null;
+  if (game.minNbPlayer == undefined) game.minNbPlayer = null;
+  if (game.maxNbPlayer == undefined) game.maxNbPlayer = null;
+  if (game.minDuration == undefined) game.minDuration = null;
+  if (game.maxDuration == undefined) game.maxDuration = null;
+
+  DB.pool.query(
+    `UPDATE games 
+    SET 
+    name = '${game.gameName}', 
+    description = '${game.description}', 
+    minAge = ${game.minAge}, 
+    minNbPlayer = ${game.minNbPlayer}, 
+    maxNbPlayer = ${game.maxNbPlayer}, 
+    minDuration = ${game.minDuration}, 
+    maxDuration = ${game.maxDuration} 
+    WHERE idGame = ${game.idGame};`,
+    (err, result) => {
+      callback(err, result);
+    }
+  );
+}
+
 function deleteGameFromCollection(idGame, callback) {
   DB.pool.query(`DELETE FROM games WHERE idGame = ${idGame}`, (err, result) => {
     callback(err, result);
@@ -87,4 +113,5 @@ exports.addUser = addUser;
 exports.selectUser = selectUser;
 exports.deleteUser = deleteUser;
 exports.addGameInCollection = addGameInCollection;
+exports.modifyGameInCollection = modifyGameInCollection;
 exports.deleteGameFromCollection = deleteGameFromCollection;

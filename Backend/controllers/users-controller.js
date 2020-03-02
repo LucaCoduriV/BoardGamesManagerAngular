@@ -81,11 +81,40 @@ function addGameInCollection(req, res) {
   );
 }
 
-function modifyGameInCollection(req, res) {}
+function modifyGameInCollection(req, res) {
+  let idGame = req.params.idGame;
+  let gameName = req.body.gameName;
+  let description = req.body.description;
+  let minAge = req.body.minAge;
+  let minNbPlayer = req.body.minNbPlayer;
+  let maxNbPlayer = req.body.maxNbPlayer;
+  let minDuration = req.body.minDuration;
+  let maxDuration = req.body.maxDuration;
+
+  usersManagement.modifyGameInCollection(
+    {
+      idGame: idGame,
+      gameName: gameName,
+      description: description,
+      minAge: minAge,
+      minNbPlayer: minNbPlayer,
+      maxNbPlayer: maxNbPlayer,
+      minDuration: minDuration,
+      maxDuration: maxDuration
+    },
+    (err, result) => {
+      if (err) {
+        res.status(520).send(err);
+      } else {
+        res.status(201).send("Jeu modifié avec succès !");
+      }
+    }
+  );
+}
 
 function deleteGameFromCollection(req, res) {
-  let idGames = req.params.idGame;
-  usersManagement.deleteGameFromCollection(idGames, (err, result) => {
+  let idGame = req.params.idGame;
+  usersManagement.deleteGameFromCollection(idGame, (err, result) => {
     if (result.affectedRows == 0) {
       res.status(400).send("Le jeu à supprimer n'existe pas !");
     } else {
