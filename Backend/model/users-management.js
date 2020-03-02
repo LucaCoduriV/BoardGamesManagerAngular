@@ -10,12 +10,9 @@ function selectAll(callback) {
 }
 
 function selectUser(username, callback) {
-  DB.pool.query(
-    `SELECT * FROM users WHERE login = '${username}';`,
-    (err, result) => {
-      callback(err, result);
-    }
-  );
+  DB.pool.query(`SELECT * FROM users WHERE login = '${username}';`, (err, result) => {
+    callback(err, result);
+  });
 }
 
 function addUser(user, callback) {
@@ -26,12 +23,9 @@ function addUser(user, callback) {
       if (err) {
         callback(err);
       } else {
-        DB.pool.query(
-          `INSERT INTO users(idUser, login, password) values(${user.id}, '${user.username}', '${hash}');`,
-          (err, result) => {
-            callback(err, result);
-          }
-        );
+        DB.pool.query(`INSERT INTO users(idUser, login, password) values(${user.id}, '${user.username}', '${hash}');`, (err, result) => {
+          callback(err, result);
+        });
       }
     });
   }
@@ -50,12 +44,9 @@ function addUser(user, callback) {
 }
 
 function deleteUser(idUser, callback) {
-  DB.pool.query(
-    `DELETE FROM users WHERE (idUser = '${idUser}');`,
-    (err, result) => {
-      callback(err, result);
-    }
-  );
+  DB.pool.query(`DELETE FROM users WHERE (idUser = '${idUser}');`, (err, result) => {
+    callback(err, result);
+  });
 }
 
 function addGameInCollection(game, callback) {
@@ -104,8 +95,8 @@ function modifyGameInCollection(game, callback) {
   );
 }
 
-function deleteGameFromCollection(idGame, callback) {
-  DB.pool.query(`DELETE FROM games WHERE idGame = ${idGame}`, (err, result) => {
+function deleteGameFromCollection(idGame, idUser, callback) {
+  DB.pool.query(`DELETE FROM games WHERE idGame = ${idGame} and idUser = '${idUser}'`, (err, result) => {
     callback(err, result);
   });
 }

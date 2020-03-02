@@ -115,9 +115,11 @@ function modifyGameInCollection(req, res) {
 
 function deleteGameFromCollection(req, res) {
   let idGame = req.params.idGame;
-  usersManagement.deleteGameFromCollection(idGame, (err, result) => {
+  let token = req.body.jwt;
+
+  usersManagement.deleteGameFromCollection(idGame, token.idUser, (err, result) => {
     if (result.affectedRows == 0) {
-      res.status(400).send("Le jeu à supprimer n'existe pas !");
+      res.status(400).send("Impossible de supprimer le jeu");
     } else {
       res.status(200).send("Jeu supprimé avec succès !");
     }
