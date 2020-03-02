@@ -4,6 +4,7 @@ const usersCtrl = require("../controllers/users-controller");
 const gamesCtrl = require("../controllers/games-controller");
 const surveysCtrl = require("../controllers/surveys-controller");
 const jwt = require("../services/jwt");
+const permission = require("../services/permissions");
 //TODO public route
 
 //register login
@@ -36,6 +37,6 @@ router.post("/users/:idUser/surveys/:idSurvey/vote", jwt.verifyToken, surveysCtr
 router.get("/users/:idUser/surveys/:idSurvey", jwt.verifyToken, surveysCtrl.getSharelinkSurvey);
 
 //admin
-router.delete("/users/:idUser", jwt.verifyToken, usersCtrl.deleteUser);
+router.delete("/users/:idUser", jwt.verifyToken, permission.isSuperadmin, usersCtrl.deleteUser);
 
 module.exports = router;
