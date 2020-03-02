@@ -16,7 +16,11 @@ router.get("/BGG/games/:name", gamesCtrl.searchGamesAPI); //OK
 router.get("/BGG/games/:idGame/details", gamesCtrl.getGameInfoAPI); //OK
 
 //survey
-router.post("/users/:idUser/surveys/:idSurvey/vote/anonyme", surveysCtrl.vote);
+router.post("/users/:idUser/surveys/:idSurvey/candidates/:idCandidate/vote", surveysCtrl.vote);
+router.get("/users/surveys/:shareCode", surveysCtrl.getSurveyByShareCode); //OK
+router.get("/users/:idUser/surveys/", surveysCtrl.getSurveyByUserID); //OK
+router.get("/users/surveys/", surveysCtrl.getAllSurveys); //ok
+router.get("/users/surveys/:idSurvey/candidates/", surveysCtrl.getCandidates); //ok
 
 //TODO private route
 
@@ -29,16 +33,11 @@ router.put("/users/:idUser/games/:idGame", jwt.verifyToken, usersCtrl.modifyGame
 router.delete("/users/:idUser/games/:idGame", jwt.verifyToken, usersCtrl.deleteGameFromCollection); //OK
 
 //survey
-router.get("/users/surveys/:shareCode", surveysCtrl.getSurveyByShareCode); //OK
-router.get("/users/:idUser/surveys/", surveysCtrl.getSurveyByUserID); //OK
-router.get("/users/surveys/", surveysCtrl.getAllSurveys); //ok
-
-router.get("/users/surveys/:idSurvey/candidates/", surveysCtrl.getCandidates); //ok
 
 router.post("/users/:idUser/surveys", jwt.verifyToken, surveysCtrl.createSurvey); //ok
 router.delete("/users/:idUser/surveys/:idSurvey", jwt.verifyToken, surveysCtrl.deleteSurvey); //ok
 
-router.post("/users/:idUser/surveys/:idSurvey/vote", jwt.verifyToken, surveysCtrl.voteWhileLogged);
+//router.post("/users/:idUser/surveys/:idSurvey/vote", jwt.verifyToken, surveysCtrl.voteWhileLogged);
 
 //admin
 router.delete("/users/:idUser", jwt.verifyToken, permission.isSuperadmin, usersCtrl.deleteUser);

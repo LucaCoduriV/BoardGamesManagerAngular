@@ -1,10 +1,5 @@
 const surveyManagement = require("../model/survey-management");
 
-function vote(req, res) {
-    let ip = req.connection.remoteAddress;
-    res.send(ip);
-}
-
 //survey
 function createSurvey(req, res) {
     let idUser = req.params.idUser;
@@ -62,6 +57,22 @@ function getCandidates(req, res) {
     surveyManagement.selectCanditatesBySurveyID(idSurvey, (err, result) => {
         res.status(200).send(result);
     });
+}
+
+function vote(req, res) {
+    let ip = req.connection.remoteAddress;
+    let idCandidate = req.params.idCandidate;
+    let idUser = req.params.idUser;
+
+    surveyManagement.insertVote(ip, idCandidate, idUser, (err, result) => {
+        if (err) res.status(400).send(err);
+        else res.status(200).send(result);
+
+        surveyManagement.updateVoteNB(idCandidate);
+    });
+
+    //
+    //
 }
 
 exports.vote = vote;

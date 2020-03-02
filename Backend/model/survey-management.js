@@ -59,6 +59,23 @@ function selectCanditatesBySurveyID(idSurvey, callback) {
     });
 }
 
+function insertVote(ip, idCandidate, idUser, callback) {
+    if (idUser == undefined) idUser = "";
+
+    DB.pool.query(`INSERT INTO votes (idUser, idCandidate, ipv4) VALUES ('${idUser}','${idCandidate}', '${ip}');`, (err, result) => {
+        callback(err, result);
+    });
+}
+
+function updateVoteNB(idCandidate, callback) {
+    DB.pool.query(`Select count(idCandidate) as totalVote FROM votes WHERE (idCandidate = '${idCandidate}');`, (err, result) => {
+        console.log(result);
+        let totalVote = result[0].totalVote;
+
+        DB.pool.query(`UPDATE candidates SET nbVotes = '${totalVote}' WHERE (idCandidate = '${idCandidate}');`);
+    });
+}
+
 exports.insertSurvey = insertSurvey;
 exports.insertCandidate = insertCandidate;
 exports.deleteSurvey = deleteSurvey;
@@ -66,3 +83,5 @@ exports.selectSurveyByShareCode = selectSurveyByShareCode;
 exports.selectSurveys = selectSurveys;
 exports.selectSurveyByUserID = selectSurveyByUserID;
 exports.selectCanditatesBySurveyID = selectCanditatesBySurveyID;
+exports.insertVote = insertVote;
+exports.updateVoteNB = updateVoteNB;
