@@ -57,6 +57,7 @@ function addGameInCollection(req, res) {
   let maxNbPlayer = req.body.maxNbPlayer;
   let minDuration = req.body.minDuration;
   let maxDuration = req.body.maxDuration;
+  let creationDate = req.body.creationDate;
   let idUser = req.params.idUser;
 
   usersManagement.addGameInCollection(
@@ -69,6 +70,7 @@ function addGameInCollection(req, res) {
       maxNbPlayer: maxNbPlayer,
       minDuration: minDuration,
       maxDuration: maxDuration,
+      creationDate: creationDate,
       idUser: idUser
     },
     (err, result) => {
