@@ -1,20 +1,18 @@
 const usersManagement = require("../model/users-management");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 //login register
 function registerUser(req, res) {
   let username = req.body.username;
   let password = req.body.password;
-  usersManagement.addUser(
-    { username: username, password: password },
-    (err, result) => {
-      if (err) {
-        res.status(520).send(err);
-      } else {
-        res.status(201).send("Utilisateur ajouté avec succès !");
-      }
+  usersManagement.addUser({ username: username, password: password }, (err, result) => {
+    if (err) {
+      res.status(520).send(err);
+    } else {
+      res.status(201).send("Utilisateur ajouté avec succès !");
     }
-  );
+  });
 }
 
 function login(req, res) {
@@ -27,9 +25,10 @@ function login(req, res) {
       res.status(401).send("Non authorisé");
     } else {
       //checker si le hash correspond
-      bcrypt.compare(password, result[0].password, (err, result) => {
-        if (result) {
-          res.status(201).send("Utilisateur connecté avec succès");
+      bcrypt.compare(password, result[0].password, (err, hashOK) => {
+        if (hashOK) {
+          let token = jwt.sign({ idUser: result[0].idUser, superadmin: result[0].superadmin }, process.env.JWT_SECRET);
+          res.status(201).send(token);
         } else {
           res.status(401).send("Non authorisé");
         }
