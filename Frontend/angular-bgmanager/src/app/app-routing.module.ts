@@ -6,18 +6,20 @@ import { RegisterComponent } from "./components/register/register.component";
 import { SearchResultComponent } from "./components/search-result/search-result.component";
 import { CollectionComponent } from "./components/collection/collection.component";
 import { CreateSurveyComponent } from "./components/create-survey/create-survey.component";
+import { AdminComponent } from "./components/admin/admin.component";
 
 const routes: Routes = [
-  { path: "survey", component: SurveyComponent },
-  { path: "collection", component: CollectionComponent },
-  { path: "login", component: LoginComponent },
-  { path: "register", component: RegisterComponent },
-  { path: "search-result", component: SearchResultComponent },
-  { path: "create-survey", component: CreateSurveyComponent }
+    { path: "survey", component: SurveyComponent },
+    { path: "collection", component: CollectionComponent },
+    { path: "login", component: LoginComponent },
+    { path: "register", component: RegisterComponent },
+    { path: "search-result", component: SearchResultComponent },
+    { path: "create-survey", component: CreateSurveyComponent },
+    { path: "admin", component: AdminComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {}

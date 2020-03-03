@@ -14,6 +14,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { SurveyComponent } from "./components/survey/survey.component";
 import { CreateSurveyComponent } from './components/create-survey/create-survey.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CreateSurveyComponent } from './components/create-survey/create-survey.
     LoginComponent,
     RegisterComponent,
     SurveyComponent,
-    CreateSurveyComponent
+    CreateSurveyComponent,
+    AdminComponent
   ],
   imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [],
