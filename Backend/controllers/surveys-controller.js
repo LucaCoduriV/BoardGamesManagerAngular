@@ -65,13 +65,18 @@ function vote(req, res) {
     let idUser = req.params.idUser;
     let idSurvey = req.params.idSurvey;
 
-    //TODO check si l'ip existe déjà dans la db `SELECT v.ipv4 FROM candidates c, votes v WHERE c.idSurvey = 4 AND c.idCandidate = v.idCandidate AND v.ipv4 like '::1'`
+    //check si l'ip existe déjà dans la db pour le survey
+    surveyManagement.countIpForSurvey(idSurvey, ip, (err, result) => {
+        console.log(result);
+        if (result[0].nbIP > 0) res.status(400).send("you have already voted");
+        else {
+            surveyManagement.insertVote(ip, idCandidate, idUser, (err, result) => {
+                if (err) res.status(500).send(err);
+                else res.status(200).send(result);
 
-    surveyManagement.insertVote(ip, idCandidate, idUser, (err, result) => {
-        if (err) res.status(500).send(err);
-        else res.status(200).send(result);
-
-        surveyManagement.updateVoteNB(idCandidate);
+                surveyManagement.updateVoteNB(idCandidate);
+            });
+        }
     });
 
     //

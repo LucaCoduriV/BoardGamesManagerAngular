@@ -76,6 +76,15 @@ function updateVoteNB(idCandidate, callback) {
     });
 }
 
+function countIpForSurvey(idSurvey, ip, callback) {
+    DB.pool.query(
+        `SELECT count(v.ipv4)as nbIP FROM candidates c, votes v WHERE c.idSurvey = ${idSurvey} AND c.idCandidate = v.idCandidate AND v.ipv4 like '${ip}'`,
+        (err, result) => {
+            callback(err, result);
+        }
+    );
+}
+
 exports.insertSurvey = insertSurvey;
 exports.insertCandidate = insertCandidate;
 exports.deleteSurvey = deleteSurvey;
@@ -85,3 +94,4 @@ exports.selectSurveyByUserID = selectSurveyByUserID;
 exports.selectCanditatesBySurveyID = selectCanditatesBySurveyID;
 exports.insertVote = insertVote;
 exports.updateVoteNB = updateVoteNB;
+exports.countIpForSurvey = countIpForSurvey;
