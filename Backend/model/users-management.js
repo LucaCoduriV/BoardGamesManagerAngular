@@ -49,6 +49,15 @@ function deleteUser(idUser, callback) {
   });
 }
 
+function getCollection(idUser, callback) {
+  DB.pool.query(
+    `SELECT games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.minDuration, games.maxDuration, games.creationDate FROM games WHERE games.idUser = ${idUser};`,
+    (err, result) => {
+      callback(err, result);
+    }
+  );
+}
+
 function addGameInCollection(game, callback) {
   if (game.idAPI == undefined) game.idAPI = null;
   if (game.gameName == undefined) game.gameName = null;
@@ -105,6 +114,7 @@ exports.selectAll = selectAll;
 exports.addUser = addUser;
 exports.selectUser = selectUser;
 exports.deleteUser = deleteUser;
+exports.getCollection = getCollection;
 exports.addGameInCollection = addGameInCollection;
 exports.modifyGameInCollection = modifyGameInCollection;
 exports.deleteGameFromCollection = deleteGameFromCollection;
