@@ -1,12 +1,25 @@
 import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"]
+    selector: "app-register",
+    templateUrl: "./register.component.html",
+    styleUrls: ["./register.component.scss"]
 })
 export class RegisterComponent implements OnInit {
-  constructor() {}
+    registerForm = new FormGroup({
+        username: new FormControl(""),
+        password: new FormControl("")
+    });
 
-  ngOnInit() {}
+    constructor(private authService: AuthService) {}
+
+    ngOnInit() {}
+
+    register() {}
+    onSubmit() {
+        // TODO: Use EventEmitter with form value
+        console.warn(this.registerForm.value);
+    }
 }

@@ -1,75 +1,84 @@
 <div class="create-survey-container">
-  <div class="create-form">
-    <div class="create-title">
-      <div id="top">
-        <h1>Créer votre sondage</h1>
-        <span class="ligne"></span>
-      </div>
-    </div>
+    <div class="create-form">
+        <div class="create-title">
+            <div id="top">
+                <h1>Créer votre sondage</h1>
+                <span class="ligne"></span>
+            </div>
+        </div>
 
-    <div class="create-body">
-      <div class="rechercher-jeu">
-        <label for="search">Rechercher un jeu</label>
-        <div class="inputgroup">
-          <img class="innericon searchicon" src="assets/icones/loupe.svg" />
-          <input type="search" placeholder="Recherchez..." />
+        <div class="create-body">
+            <div class="rechercher-jeu">
+                <label for="search">Rechercher un jeu</label>
+                <div class="inputgroup">
+                    <img
+                        class="innericon searchicon"
+                        src="assets/icones/loupe.svg"
+                    />
+                    <input type="search" placeholder="Recherchez..." />
+                </div>
+                <button class="header-btn btn-blue">Ajouter</button>
+            </div>
+            <div class="collection-jeu">
+                <label for="search">Collection de jeux</label>
+                <div class="inputgroup">
+                    <img
+                        class="innericon searchicon"
+                        src="assets/icones/loupe.svg"
+                    />
+                    <input
+                        type="search"
+                        placeholder="Choisisez un jeu..."
+                        list="browsers"
+                        name="browser"
+                    />
+                    <datalist id="browsers">
+                        <option value="Internet Explorer"> </option>
+                        <option value="Firefox"> </option>
+                        <option value="Chrome"> </option>
+                        <option value="Opera"> </option>
+                        <option value="Safari"> </option>
+                    </datalist>
+                </div>
+                <button class="header-btn btn-blue">Ajouter</button>
+            </div>
+            <div class="selected-jeu">
+                <form [formGroup]="createSurveyForm" (ngSubmit)="onSubmit()">
+                    <!-- Ajouter un input hidden pour chaque jeu ajouté -->
+                    <div>
+                        <table class="table-fill">
+                            <tbody class="table-hover">
+                                <tr>
+                                    <td class="text-left">image</td>
+                                    <td class="text-left">Monopoly</td>
+                                    <td class="text-right">Action</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">image</td>
+                                    <td class="text-left">Monopoly</td>
+                                    <td class="text-right">Action</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">image</td>
+                                    <td class="text-left">Monopoly</td>
+                                    <td class="text-right">Action</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">image</td>
+                                    <td class="text-left">Monopoly</td>
+                                    <td class="text-right">Action</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <input
+                        type="submit"
+                        value="Valider"
+                        class="header-btn btn-blue"
+                    />
+                </form>
+            </div>
         </div>
-        <button class="header-btn btn-blue">Ajouter</button>
-      </div>
-      <div class="collection-jeu">
-        <label for="search">Collection de jeux</label>
-        <div class="inputgroup">
-          <img class="innericon searchicon" src="assets/icones/loupe.svg" />
-          <input
-            type="search"
-            placeholder="Choisisez un jeu..."
-            list="browsers"
-            name="browser"
-          />
-          <datalist id="browsers">
-            <option value="Internet Explorer"> </option>
-            <option value="Firefox"> </option>
-            <option value="Chrome"> </option>
-            <option value="Opera"> </option>
-            <option value="Safari"> </option>
-          </datalist>
-        </div>
-        <button class="header-btn btn-blue">Ajouter</button>
-      </div>
-      <div class="selected-jeu">
-        <form>
-          <!-- Ajouter un input hidden pour chaque jeu ajouté -->
-          <div>
-            <table class="table-fill">
-              <tbody class="table-hover">
-                <tr>
-                  <td class="text-left">image</td>
-                  <td class="text-left">Monopoly</td>
-                  <td class="text-right">Action</td>
-                </tr>
-                <tr>
-                  <td class="text-left">image</td>
-                  <td class="text-left">Monopoly</td>
-                  <td class="text-right">Action</td>
-                </tr>
-                <tr>
-                  <td class="text-left">image</td>
-                  <td class="text-left">Monopoly</td>
-                  <td class="text-right">Action</td>
-                </tr>
-                <tr>
-                  <td class="text-left">image</td>
-                  <td class="text-left">Monopoly</td>
-                  <td class="text-right">Action</td>
-                </tr>
-            </tbody>
-              
-            </table>
-          </div>
-          
-          <input type="submit" value="Valider" class="header-btn btn-blue">
-        </form>
-      </div>
     </div>
-  </div>
 </div>
