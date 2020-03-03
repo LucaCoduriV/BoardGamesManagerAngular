@@ -90,7 +90,7 @@ function addGameInCollection(req, res) {
     }
   );
 }
-
+//TODO Vérifier que la modification est faite par l'utilisateur possédant le jeu
 function modifyGameInCollection(req, res) {
   let idGame = req.params.idGame;
   let gameName = req.body.gameName;
@@ -124,7 +124,7 @@ function modifyGameInCollection(req, res) {
 
 function deleteGameFromCollection(req, res) {
   let idGame = req.params.idGame;
-  let token = req.body.jwt;
+  let token = req.jwt;
 
   usersManagement.deleteGameFromCollection(idGame, token.idUser, (err, result) => {
     if (result.affectedRows == 0) {
