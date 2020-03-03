@@ -22,6 +22,9 @@ const vote = {
     idCandidate: 10
 };
 
+const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOjQ5LCJzdXBlcmFkbWluIjowLCJpYXQiOjE1ODMyNDQ1NTd9.6Gfrviz6KR_9U8xhir9m5mIP7HB-iXhjERXGnI2BcLI";
+
 describe("DB", () => {
     it("should connect to DB", done => {
         DB.pool.query("SELECT * FROM users", (err, result) => {
@@ -34,7 +37,7 @@ describe("DB", () => {
 });
 
 describe("route", () => {
-    //Register
+    //Register DONE
     describe("/users", () => {
         //supprimer l'utilisateur de test avant tous les tests
         beforeEach(done => {
@@ -61,8 +64,8 @@ describe("route", () => {
         });
     });
 
-    //Login
-    describe("/users/token", () => {
+    //Login DONE
+    describe("/login", () => {
         //ajoute un utilisateur avant tous les tests
         beforeAll(done => {
             usrMgr.addUser(user, done);
@@ -70,27 +73,30 @@ describe("route", () => {
 
         it("should return 201", done => {
             request(app)
-                .get("/users/token")
+                .post("/login")
+                .set("token", token)
                 .send(user)
                 .expect(201, done);
         });
 
         it("should return 401, user don't exist", done => {
             request(app)
-                .get("/users/token")
+                .post("/login")
+                .set("token", token)
                 .send(wrongUser)
                 .expect(401, done);
         });
 
         it("should return 401, user exist but wrong password", done => {
             request(app)
-                .get("/users/token")
+                .post("/login")
+                .set("token", token)
                 .send({ username: user.username, password: wrongUser.password })
                 .expect(401, done);
         });
     });
 
-    //recherche
+    //recherche DONE
     describe("/BGG/games/:name", () => {
         it("should return search result", done => {
             request(app)
@@ -113,7 +119,7 @@ describe("route", () => {
         });
     });
 
-    //info à propos d'un jeu
+    //info à propos d'un jeu DONE
     describe("/BGG/games/:idGame/details", () => {
         it("should return search result", done => {
             request(app)
@@ -137,7 +143,7 @@ describe("route", () => {
     });
 
     //vote anonyme
-    describe("/users/:idUser/surveys/:idSurvey/vote/anonyme", () => {
+    fdescribe("/users/:idUser/surveys/:idSurvey/vote", () => {
         //ajoute un utilisateur avant tous les test
         beforeAll(done => {
             usrMgr.addUser(user, done);
@@ -145,15 +151,13 @@ describe("route", () => {
 
         it("should return 200", done => {
             request(app)
-                .post("/users/:idUser/surveys/:idSurvey/vote/anonyme")
-                .send(vote)
+                .post("/users/49/surveys/4/candidates/2/vote")
                 .expect(200, done);
         });
 
         it("should create a vote in DB", done => {
             request(app)
-                .post("/users/:idUser/surveys/:idSurvey/vote/anonyme")
-                .send(vote)
+                .post("/users/49/surveys/4/candidates/2/vote")
                 .then(response => {
                     DB.pool.query(`SELECT * FROM votes WHERE idVote = ${vote.id}`, (err, result) => {
                         expect(result.length).toEqual(1);
@@ -171,6 +175,7 @@ describe("route", () => {
         it("should return 200", done => {
             request(app)
                 .post(`/users/${user.id}/games`)
+                .set("token", token)
                 .send(user)
                 .expect(200, done);
         });
@@ -178,6 +183,7 @@ describe("route", () => {
         it("should return all keys", done => {
             request(app)
                 .get(`/users/${user.id}/games`)
+                .set("token", token)
                 .send(user)
                 .then(response => {
                     keysArr = Object.keys(response[0]);
@@ -190,6 +196,7 @@ describe("route", () => {
         it("should return 400", done => {
             request(app)
                 .get(`/users/${user.id}/games`)
+                .set("token", token)
                 .send(wrongUser)
                 .expect(400, done);
         });
@@ -247,9 +254,7 @@ describe("route", () => {
                 .expect(200, done);
         });
 
-        it("should add game in db", done =>{
-            
-        });
+        it("should add game in db", done => {});
 
         it("should return 400", done => {
             request(app)
@@ -267,9 +272,7 @@ describe("route", () => {
                 .expect(200, done);
         });
 
-        it("should modify game in db", done =>{
-            
-        });
+        it("should modify game in db", done => {});
 
         it("should return 400", done => {
             request(app)
@@ -286,9 +289,7 @@ describe("route", () => {
                 .expect(200, done);
         });
 
-        it("should delete game from db", done =>{
-            
-        });
+        it("should delete game from db", done => {});
 
         it("should return 400", done => {
             request(app)
