@@ -9,7 +9,7 @@ const permission = require("../services/permissions");
 
 //register login
 router.post("/users", usersCtrl.registerUser); //OK
-router.get("/users/token", usersCtrl.login); //OK
+router.post("/login", usersCtrl.login); //OK
 
 //search
 router.get("/BGG/games/:name", gamesCtrl.searchGamesAPI); //OK

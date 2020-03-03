@@ -63,9 +63,12 @@ function vote(req, res) {
     let ip = req.connection.remoteAddress;
     let idCandidate = req.params.idCandidate;
     let idUser = req.params.idUser;
+    let idSurvey = req.params.idSurvey;
+
+    //TODO check si l'ip existe déjà dans la db `SELECT v.ipv4 FROM candidates c, votes v WHERE c.idSurvey = 4 AND c.idCandidate = v.idCandidate AND v.ipv4 like '::1'`
 
     surveyManagement.insertVote(ip, idCandidate, idUser, (err, result) => {
-        if (err) res.status(400).send(err);
+        if (err) res.status(500).send(err);
         else res.status(200).send(result);
 
         surveyManagement.updateVoteNB(idCandidate);
