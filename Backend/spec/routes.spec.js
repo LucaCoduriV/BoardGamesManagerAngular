@@ -17,7 +17,7 @@ const wrongUser = {
 };
 
 const vote = {
-    id: 10,
+    id: 2,
     idUser: 10,
     idCandidate: 10
 };
@@ -143,7 +143,8 @@ describe("route", () => {
     });
 
     //vote anonyme
-    fdescribe("/users/:idUser/surveys/:idSurvey/vote", () => {
+    //TODO supprimer les votes apres chaque test
+    describe("/users/:idUser/surveys/:idSurvey/vote", () => {
         //ajoute un utilisateur avant tous les test
         beforeAll(done => {
             usrMgr.addUser(user, done);
@@ -151,15 +152,19 @@ describe("route", () => {
 
         it("should return 200", done => {
             request(app)
-                .post("/users/49/surveys/4/candidates/2/vote")
-                .expect(200, done);
+                .post("/users/1/surveys/4/candidates/2/vote")
+                .expect(200)
+                .then(result => {
+                    console.log(result + "".green);
+                    done();
+                });
         });
 
         it("should create a vote in DB", done => {
             request(app)
-                .post("/users/49/surveys/4/candidates/2/vote")
+                .post("/users/1/surveys/4/candidates/2/vote")
                 .then(response => {
-                    DB.pool.query(`SELECT * FROM votes WHERE idVote = ${vote.id}`, (err, result) => {
+                    DB.pool.query(`SELECT * FROM votes WHERE idCandidate = '2' AND idUser = '1'`, (err, result) => {
                         expect(result.length).toEqual(1);
                         done();
                     });
@@ -299,7 +304,7 @@ describe("route", () => {
     });
 
     //créer un sondage
-    describe("/users/:idUser/surveys", () => {
+    fdescribe("/users/:idUser/surveys", () => {
         it("should return 200", done => {
             request(app)
                 .post("/users/:idUser/surveys")

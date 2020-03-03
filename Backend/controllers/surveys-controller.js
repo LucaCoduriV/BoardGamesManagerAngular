@@ -60,14 +60,14 @@ function getCandidates(req, res) {
 }
 
 function vote(req, res) {
-    let ip = req.connection.remoteAddress;
+    let ip = req.connection.remoteAddress || "127.0.0.1";
     let idCandidate = req.params.idCandidate;
     let idUser = req.params.idUser;
     let idSurvey = req.params.idSurvey;
+    console.log(req.connection.remoteAddress);
 
     //check si l'ip existe déjà dans la db pour le survey
     surveyManagement.countIpForSurvey(idSurvey, ip, (err, result) => {
-        console.log(result);
         if (result[0].nbIP > 0) res.status(400).send("you have already voted");
         else {
             surveyManagement.insertVote(ip, idCandidate, idUser, (err, result) => {

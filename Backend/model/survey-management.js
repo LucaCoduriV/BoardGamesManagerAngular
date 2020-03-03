@@ -69,7 +69,6 @@ function insertVote(ip, idCandidate, idUser, callback) {
 
 function updateVoteNB(idCandidate, callback) {
     DB.pool.query(`Select count(idCandidate) as totalVote FROM votes WHERE (idCandidate = '${idCandidate}');`, (err, result) => {
-        console.log(result);
         let totalVote = result[0].totalVote;
 
         DB.pool.query(`UPDATE candidates SET nbVotes = '${totalVote}' WHERE (idCandidate = '${idCandidate}');`);
