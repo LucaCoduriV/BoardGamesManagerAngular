@@ -22,7 +22,7 @@ function login(req, res) {
   usersManagement.selectUser(username, (err, result) => {
     if (result.length == 0) {
       //si l'utilisateur n'existe pas dans la bd
-      res.status(401).send("Non authorisé");
+      res.status(500).send("Non autorisé");
     } else {
       //checker si le hash correspond
       bcrypt.compare(password, result[0].password, (err, hashOK) => {
@@ -30,7 +30,7 @@ function login(req, res) {
           let token = jwt.sign({ idUser: result[0].idUser, superadmin: result[0].superadmin }, process.env.JWT_SECRET);
           res.status(201).send({ token: token });
         } else {
-          res.status(401).send("Non authorisé");
+          res.status(500).send("Non autorisé");
         }
       });
     }
@@ -101,6 +101,7 @@ function addGameInCollection(req, res) {
 //TODO Vérifier que la modification est faite par l'utilisateur possédant le jeu
 function modifyGameInCollection(req, res) {
   let idGame = req.params.idGame;
+  let idUser = req.jwt.idUser;
   let gameName = req.body.gameName;
   let description = req.body.description;
   let minAge = req.body.minAge;
@@ -112,6 +113,7 @@ function modifyGameInCollection(req, res) {
   usersManagement.modifyGameInCollection(
     {
       idGame: idGame,
+      idUser: idUser,
       gameName: gameName,
       description: description,
       minAge: minAge,
@@ -121,8 +123,8 @@ function modifyGameInCollection(req, res) {
       maxDuration: maxDuration
     },
     (err, result) => {
-      if (err) {
-        res.status(520).send(err);
+      if (result.affectedRows == 0) {
+        res.status(500).send("Impossible de modifier le jeu");
       } else {
         res.status(201).send("Jeu modifié avec succès !");
       }

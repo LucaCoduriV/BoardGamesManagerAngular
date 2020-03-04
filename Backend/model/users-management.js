@@ -104,14 +104,15 @@ function modifyGameInCollection(game, callback) {
   DB.pool.query(
     `UPDATE games 
     SET 
-    name = '${game.gameName}', 
-    description = '${game.description}', 
-    minAge = ${game.minAge}, 
-    minNbPlayer = ${game.minNbPlayer}, 
-    maxNbPlayer = ${game.maxNbPlayer}, 
-    minDuration = ${game.minDuration}, 
-    maxDuration = ${game.maxDuration} 
-    WHERE idGame = ${game.idGame};`,
+    name = '${game.gameName}',
+    description = '${game.description}',
+    minAge = ${game.minAge},
+    minNbPlayer = ${game.minNbPlayer},
+    maxNbPlayer = ${game.maxNbPlayer},
+    minDuration = ${game.minDuration},
+    maxDuration = ${game.maxDuration}
+    WHERE idGame = ${game.idGame}
+    AND idUser = ${game.idUser};`,
     (err, result) => {
       callback(err, result);
     }
