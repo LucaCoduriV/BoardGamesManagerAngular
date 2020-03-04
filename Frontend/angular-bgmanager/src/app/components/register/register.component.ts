@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { AuthService } from "src/app/services/auth.service";
+import { Alert } from "src/app/objects/alert";
 
 @Component({
     selector: "app-register",
@@ -13,13 +14,30 @@ export class RegisterComponent implements OnInit {
         password: new FormControl("")
     });
 
+    alert: Alert;
+    isAlertVisible: boolean = false;
+
     constructor(private authService: AuthService) {}
 
     ngOnInit() {}
 
-    register() {}
+    register() {
+        const username = this.registerForm.value.username;
+        const password = this.registerForm.value.password;
+
+        this.authService.register(username, password).subscribe(
+            data => {},
+            error => {
+                this.alert = {
+                    type: "danger",
+                    message: error.message
+                };
+                this.isAlertVisible = true;
+            }
+        );
+    }
+
     onSubmit() {
-        // TODO: Use EventEmitter with form value
-        console.warn(this.registerForm.value);
+        this.register();
     }
 }

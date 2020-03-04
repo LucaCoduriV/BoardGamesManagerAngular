@@ -1,23 +1,36 @@
 <div id="flex-container">
-  <div id="leftsided">
-    <div id="menu-toggle">
-      <!-- Les barres du hamburger -->
-      <span></span>
-      <span></span>
-      <span></span>
+    <div id="leftsided">
+        <div id="menu-toggle">
+            <!-- Les barres du hamburger -->
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <app-searchbar></app-searchbar>
     </div>
-    <app-searchbar></app-searchbar>
-  </div>
-  <div id="rightsided">
-    <div id="username">Luca Coduri</div>
-    <button [routerLink]="['/login']" class="header-btn btn-blue">
-      Connexion
-    </button>
-    <button [routerLink]="['/register']" class="header-btn btn-blue">
-      Inscription
-    </button>
-    <button [routerLink]="['/gamelist']" class="header-btn btn-red">
-      Déconnexion
-    </button>
-  </div>
+    <div id="rightsided">
+        <div id="username">Luca Coduri</div>
+        <button
+            *ngIf="!auth.isAuthenticated()"
+            [routerLink]="['/login']"
+            class="header-btn btn-blue"
+        >
+            Connexion
+        </button>
+        <button
+            *ngIf="!auth.isAuthenticated()"
+            [routerLink]="['/register']"
+            class="header-btn btn-blue"
+        >
+            Inscription
+        </button>
+        <button
+            *ngIf="this.auth.isAuthenticated()"
+            [routerLink]="['/login']"
+            (click)="disconnect()"
+            class="header-btn btn-red"
+        >
+            Déconnexion
+        </button>
+    </div>
 </div>

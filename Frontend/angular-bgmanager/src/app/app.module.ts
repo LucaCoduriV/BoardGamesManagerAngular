@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AppRoutingModule } from "./app-routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 //components
 import { AppComponent } from "./app.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
@@ -19,6 +19,8 @@ import { CreateSurveyComponent } from "./components/create-survey/create-survey.
 import { AdminComponent } from "./components/admin/admin.component";
 //services
 import { AuthService } from "./services/auth.service";
+import { TokenInterceptorService } from "./services/token-interceptor.service";
+import { errorsHandler } from "./services/errorsHandler.service";
 
 @NgModule({
     declarations: [
@@ -42,7 +44,15 @@ import { AuthService } from "./services/auth.service";
         ReactiveFormsModule,
         HttpClientModule
     ],
-    providers: [AuthService],
+    providers: [
+        AuthService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptorService,
+            multi: true
+        },
+        errorsHandler
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,13 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
-
 * {
-  margin: 0px;
-  padding: 0px;
-  font-family: "Segoe UI", sans-serif;
+    margin: 0px;
+    padding: 0px;
+    font-family: "Segoe UI", sans-serif;
 }
 
 @import "./main-styles/radio";
 @import "./main-styles/header-button";
 @import "./main-styles/table";
+@import "./main-styles/alerts";
