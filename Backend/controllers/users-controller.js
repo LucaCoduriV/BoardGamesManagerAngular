@@ -74,7 +74,7 @@ function addGameInCollection(req, res) {
   let minDuration = req.body.minDuration;
   let maxDuration = req.body.maxDuration;
   let creationDate = req.body.creationDate;
-  let idUser = req.params.idUser;
+  let idUser = req.jwt.idUser;
 
   usersManagement.addGameInCollection(
     {
@@ -98,7 +98,7 @@ function addGameInCollection(req, res) {
     }
   );
 }
-//TODO Vérifier que la modification est faite par l'utilisateur possédant le jeu
+
 function modifyGameInCollection(req, res) {
   let idGame = req.params.idGame;
   let idUser = req.jwt.idUser;
