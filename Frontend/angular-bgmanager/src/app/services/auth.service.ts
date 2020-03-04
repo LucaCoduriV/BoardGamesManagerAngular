@@ -1,9 +1,11 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { retry, catchError } from "rxjs/operators";
-import { errorsHandler } from "./errorsHandler.service";
+import { ErrorsHandler } from "./errorsHandler.service";
 import { User } from "../objects/user";
+import { PostService } from "./http-requests/post.service";
+import { Alert } from "../objects/alert";
 
 @Injectable({
     providedIn: "root"
@@ -12,19 +14,30 @@ export class AuthService {
     private loginUrl: string = "http://localhost:8081/login";
     private registerUrl: string = "http://localhost:8081/users";
 
+    public currentUser: User;
+
     constructor(
         private http: HttpClient,
-        private errorsHandler: errorsHandler
+        private errorsHandler: ErrorsHandler,
+        private postService: PostService
     ) {}
 
-    login(username: string, password: string) {
-        const user: User = {
-            username: username,
-            password: password
-        };
-        return this.http
-            .post(this.loginUrl, user)
-            .pipe(retry(3), catchError(this.errorsHandler.handleError));
+    login(username: string, password: string, callback) {
+        let alert: Alert;
+
+        this.postService.getToken(username, password).subscribe(
+            data => {
+                localStorage.setItem("token", data["token"]);
+                callback();
+            },
+            error => {
+                alert = {
+                    message: error.message,
+                    type: error.type
+                };
+                callback(alert);
+            }
+        );
     }
 
     disconnect() {
@@ -39,13 +52,24 @@ export class AuthService {
         return false;
     }
 
-    register(username: string, password: string) {
-        const user: User = {
-            username: username,
-            password: password
-        };
-        return this.http
-            .post(this.registerUrl, user)
-            .pipe(retry(3), catchError(this.errorsHandler.handleError));
+    register(username: string, password: string, callback) {
+        let alert: Alert;
+
+        this.postService.register(username, password).subscribe(
+            data => {
+                alert = {
+                    type: "success",
+                    message: "Vous vous êtes bien inscrit"
+                };
+                callback(alert);
+            },
+            error => {
+                alert = {
+                    type: "danger",
+                    message: error.message
+                };
+                callback(alert);
+            }
+        );
     }
 }

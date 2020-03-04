@@ -20,7 +20,11 @@ import { AdminComponent } from "./components/admin/admin.component";
 //services
 import { AuthService } from "./services/auth.service";
 import { TokenInterceptorService } from "./services/token-interceptor.service";
-import { errorsHandler } from "./services/errorsHandler.service";
+import { ErrorsHandler } from "./services/errorsHandler.service";
+import { PostService } from "./services/http-requests/post.service";
+import { GetService } from "./services/http-requests/get.service";
+import { PutService } from "./services/http-requests/put.service";
+import { DeleteService } from "./services/http-requests/delete.service";
 
 @NgModule({
     declarations: [
@@ -51,7 +55,11 @@ import { errorsHandler } from "./services/errorsHandler.service";
             useClass: TokenInterceptorService,
             multi: true
         },
-        errorsHandler
+        ErrorsHandler,
+        PostService,
+        GetService,
+        PutService,
+        DeleteService
     ],
     bootstrap: [AppComponent]
 })

@@ -41,21 +41,16 @@ export class LoginComponent implements OnInit {
     }
 
     login(username, password) {
-        this.auth.login(username, password).subscribe(
-            data => {
-                localStorage.setItem("token", data["token"]);
-            },
-            error => {
-                if (error.code == 401) {
-                    this.alert = {
-                        type: "danger",
-                        message: "Mauvais mot de passe ou utilisateur"
-                    };
-                    this.isAlertVisible = true;
-                }
-
-                console.log("Erreur: " + error.message);
+        this.auth.login(username, password, (alert: Alert) => {
+            if (alert) {
+                this.alert = {
+                    message: alert.message,
+                    type: alert.type
+                };
+                this.isAlertVisible = true;
+            } else {
+                this.isAlertVisible = false;
             }
-        );
+        });
     }
 }

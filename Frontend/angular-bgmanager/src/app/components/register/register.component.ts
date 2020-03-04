@@ -21,20 +21,25 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {}
 
+    close() {
+        this.isAlertVisible = false;
+    }
+
     register() {
         const username = this.registerForm.value.username;
         const password = this.registerForm.value.password;
 
-        this.authService.register(username, password).subscribe(
-            data => {},
-            error => {
+        this.authService.register(username, password, alert => {
+            if (alert) {
                 this.alert = {
-                    type: "danger",
-                    message: error.message
+                    message: alert.message,
+                    type: alert.type
                 };
                 this.isAlertVisible = true;
+            } else {
+                this.isAlertVisible = false;
             }
-        );
+        });
     }
 
     onSubmit() {
