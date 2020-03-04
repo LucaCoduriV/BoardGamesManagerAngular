@@ -120,7 +120,7 @@ function modifyGameInCollection(game, callback) {
 }
 
 function deleteGameFromCollection(idGame, idUser, callback) {
-  DB.pool.query(`DELETE FROM games WHERE idGame = ${idGame} and idUser = '${idUser}'`, (err, result) => {
+  DB.pool.query(`DELETE FROM games WHERE idGame = ${idGame} and idUser = ${idUser}`, (err, result) => {
     callback(err, result);
   });
 }

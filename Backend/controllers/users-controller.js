@@ -134,9 +134,9 @@ function modifyGameInCollection(req, res) {
 
 function deleteGameFromCollection(req, res) {
   let idGame = req.params.idGame;
-  let token = req.jwt;
+  let idUser = req.jwt.idUser;
 
-  usersManagement.deleteGameFromCollection(idGame, token.idUser, (err, result) => {
+  usersManagement.deleteGameFromCollection(idGame, idUser, (err, result) => {
     if (result.affectedRows == 0) {
       res.status(400).send("Impossible de supprimer le jeu");
     } else {
@@ -147,7 +147,9 @@ function deleteGameFromCollection(req, res) {
 
 //admin
 function deleteUser(req, res) {
-  usersManagement.deleteUser(req.params.idUser, (err, result) => {
+  let idUser = req.jwt.idUser;
+
+  usersManagement.deleteUser(idUser, (err, result) => {
     if (result.affectedRows == 0) {
       res.status(404).send("user do not exist!");
     } else {
