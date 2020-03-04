@@ -9,7 +9,9 @@
         <app-searchbar></app-searchbar>
     </div>
     <div id="rightsided">
-        <div id="username">Luca Coduri</div>
+        <div *ngIf="auth.currentUser.username" id="username">
+            {{ auth.currentUser.username }}
+        </div>
         <button
             *ngIf="!auth.isAuthenticated()"
             [routerLink]="['/login']"

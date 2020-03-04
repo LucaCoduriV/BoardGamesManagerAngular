@@ -6,6 +6,7 @@ import { ErrorsHandler } from "./errorsHandler.service";
 import { User } from "../objects/user";
 import { PostService } from "./http-requests/post.service";
 import { Alert } from "../objects/alert";
+import * as jwt_decode from "jwt-decode";
 
 @Injectable({
     providedIn: "root"
@@ -14,7 +15,7 @@ export class AuthService {
     private loginUrl: string = "http://localhost:8081/login";
     private registerUrl: string = "http://localhost:8081/users";
 
-    public currentUser: User;
+    public currentUser: User = { username: "", password: "" };
 
     constructor(
         private http: HttpClient,
@@ -22,12 +23,25 @@ export class AuthService {
         private postService: PostService
     ) {}
 
+    isAuthenticated(): boolean {
+        const token = localStorage.getItem("token");
+
+        if (token) return true;
+        return false;
+    }
+
+    getUserInfos(): User {
+        const decode = jwt_decode(localStorage.getItem("token"));
+        return { username: decode.username, password: "" };
+    }
+
     login(username: string, password: string, callback) {
         let alert: Alert;
 
         this.postService.getToken(username, password).subscribe(
             data => {
                 localStorage.setItem("token", data["token"]);
+                this.currentUser.username = this.getUserInfos().username;
                 callback();
             },
             error => {
@@ -43,13 +57,11 @@ export class AuthService {
     disconnect() {
         const token = localStorage.getItem("token");
         if (token) localStorage.removeItem("token");
-    }
-
-    isAuthenticated(): boolean {
-        const token = localStorage.getItem("token");
-
-        if (token) return true;
-        return false;
+        for (let key in this.currentUser) {
+            if (this.currentUser.hasOwnProperty(key)) {
+                this.currentUser[key] = null;
+            }
+        }
     }
 
     register(username: string, password: string, callback) {
