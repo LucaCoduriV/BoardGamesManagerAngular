@@ -51,7 +51,21 @@ function deleteUser(idUser, callback) {
 
 function getCollection(idUser, callback) {
   DB.pool.query(
-    `SELECT games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.minDuration, games.maxDuration, games.creationDate FROM games WHERE games.idUser = ${idUser};`,
+    `SELECT games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.minDuration, games.maxDuration, games.creationDate 
+    FROM games 
+    WHERE games.idUser = ${idUser};`,
+    (err, result) => {
+      callback(err, result);
+    }
+  );
+}
+
+function getGameInfoCollection(idUser, idGame, callback) {
+  DB.pool.query(
+    `SELECT games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.minDuration, games.maxDuration, games.creationDate 
+  FROM games 
+  WHERE games.idUser = ${idUser} 
+  AND games.idGame = ${idGame};`,
     (err, result) => {
       callback(err, result);
     }
@@ -115,6 +129,7 @@ exports.addUser = addUser;
 exports.selectUser = selectUser;
 exports.deleteUser = deleteUser;
 exports.getCollection = getCollection;
+exports.getGameInfoCollection = getGameInfoCollection;
 exports.addGameInCollection = addGameInCollection;
 exports.modifyGameInCollection = modifyGameInCollection;
 exports.deleteGameFromCollection = deleteGameFromCollection;
