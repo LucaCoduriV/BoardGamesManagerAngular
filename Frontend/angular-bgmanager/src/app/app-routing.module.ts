@@ -7,14 +7,17 @@ import { SearchResultComponent } from "./components/search-result/search-result.
 import { CollectionComponent } from "./components/collection/collection.component";
 import { CreateSurveyComponent } from "./components/create-survey/create-survey.component";
 import { AdminComponent } from "./components/admin/admin.component";
-import { AuthGuardService as AuthGuard } from "./services/auth-guard.service";
+import {
+    AuthGuardService,
+    AdminGuardService
+} from "./services/auth-guard.service";
 
 const routes: Routes = [
     { path: "survey", component: SurveyComponent },
     {
         path: "collection",
         component: CollectionComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuardService]
     },
     { path: "login", component: LoginComponent },
     { path: "register", component: RegisterComponent },
@@ -22,9 +25,13 @@ const routes: Routes = [
     {
         path: "create-survey",
         component: CreateSurveyComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuardService]
     },
-    { path: "admin", component: AdminComponent, canActivate: [AuthGuard] }
+    {
+        path: "admin",
+        component: AdminComponent,
+        canActivate: [AdminGuardService]
+    }
 ];
 
 @NgModule({

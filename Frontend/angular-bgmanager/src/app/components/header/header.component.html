@@ -9,7 +9,7 @@
         <app-searchbar></app-searchbar>
     </div>
     <div id="rightsided">
-        <div *ngIf="auth.currentUser.username" id="username">
+        <div *ngIf="auth.isLogged" id="username">
             {{ auth.currentUser.username }}
         </div>
         <button

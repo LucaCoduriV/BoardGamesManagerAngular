@@ -15,7 +15,8 @@ export class AuthService {
     private loginUrl: string = "http://localhost:8081/login";
     private registerUrl: string = "http://localhost:8081/users";
 
-    public currentUser: User = { username: "", password: "" };
+    public currentUser = { username: "", password: "", isSuperadmin: 0 };
+    public isLogged = false;
 
     constructor(
         private http: HttpClient,
@@ -32,7 +33,7 @@ export class AuthService {
 
     getUserInfos(): User {
         const decode = jwt_decode(localStorage.getItem("token"));
-        return { username: decode.username, password: "" };
+        return decode;
     }
 
     login(username: string, password: string, callback) {
@@ -42,6 +43,7 @@ export class AuthService {
             data => {
                 localStorage.setItem("token", data["token"]);
                 this.currentUser.username = this.getUserInfos().username;
+                this.isLogged = true;
                 callback();
             },
             error => {
@@ -62,6 +64,7 @@ export class AuthService {
                 this.currentUser[key] = null;
             }
         }
+        this.isLogged = false;
     }
 
     register(username: string, password: string, callback) {
