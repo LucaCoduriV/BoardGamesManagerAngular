@@ -39,7 +39,7 @@ function login(req, res) {
 
 //collection
 function getCollection(req, res) {
-  let idUser = req.params.idUser;
+  let idUser = req.jwt.idUser;
 
   usersManagement.getCollection(idUser, (err, result) => {
     if (err) {
