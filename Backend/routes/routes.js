@@ -5,7 +5,7 @@ const gamesCtrl = require("../controllers/games-controller");
 const surveysCtrl = require("../controllers/surveys-controller");
 const jwt = require("../services/jwt");
 const permission = require("../services/permissions");
-//TODO public route
+// public route
 
 //register login
 router.post("/users", usersCtrl.registerUser); //OK
@@ -18,15 +18,15 @@ router.get("/BGG/games/:idGame/details", gamesCtrl.getGameInfoAPI); //OK
 //survey
 router.post("/users/:idUser/surveys/:idSurvey/candidates/:idCandidate/vote", surveysCtrl.vote); //OK
 router.get("/users/surveys/:shareCode", surveysCtrl.getSurveyByShareCode); //OK
-router.get("/users/:idUser/surveys/", surveysCtrl.getSurveyByUserID); //OK
-router.get("/users/surveys/", surveysCtrl.getAllSurveys); //ok
-router.get("/users/surveys/:idSurvey/candidates/", surveysCtrl.getCandidates); //ok
+router.get("/users/:idUser/surveys", surveysCtrl.getSurveyByUserID); //OK
+router.get("/users/surveys", surveysCtrl.getAllSurveys); //ok
+router.get("/users/surveys/:idSurvey/candidates", surveysCtrl.getCandidates); //ok
 
-//TODO private route
+// private route
 
 //collection
 router.get("/users/:idUser/games", jwt.verifyToken, usersCtrl.getCollection); //OK
-router.get("/users/:idUser/games/:idGames", jwt.verifyToken, usersCtrl.getGameInfoCollection);
+router.get("/users/:idUser/games/:idGames", jwt.verifyToken, usersCtrl.getGameInfoCollection); //OK
 
 router.post("/users/:idUser/games", jwt.verifyToken, usersCtrl.addGameInCollection); // OK
 router.put("/users/:idUser/games/:idGame", jwt.verifyToken, usersCtrl.modifyGameInCollection); // OK

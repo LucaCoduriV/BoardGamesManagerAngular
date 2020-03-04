@@ -51,7 +51,21 @@ function deleteUser(idUser, callback) {
 
 function getCollection(idUser, callback) {
   DB.pool.query(
-    `SELECT games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.minDuration, games.maxDuration, games.creationDate FROM games WHERE games.idUser = ${idUser};`,
+    `SELECT games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.minDuration, games.maxDuration, games.creationDate 
+    FROM games 
+    WHERE games.idUser = ${idUser};`,
+    (err, result) => {
+      callback(err, result);
+    }
+  );
+}
+
+function getGameInfoCollection(idUser, idGame, callback) {
+  DB.pool.query(
+    `SELECT games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.minDuration, games.maxDuration, games.creationDate 
+  FROM games 
+  WHERE games.idUser = ${idUser} 
+  AND games.idGame = ${idGame};`,
     (err, result) => {
       callback(err, result);
     }
@@ -90,14 +104,15 @@ function modifyGameInCollection(game, callback) {
   DB.pool.query(
     `UPDATE games 
     SET 
-    name = '${game.gameName}', 
-    description = '${game.description}', 
-    minAge = ${game.minAge}, 
-    minNbPlayer = ${game.minNbPlayer}, 
-    maxNbPlayer = ${game.maxNbPlayer}, 
-    minDuration = ${game.minDuration}, 
-    maxDuration = ${game.maxDuration} 
-    WHERE idGame = ${game.idGame};`,
+    name = '${game.gameName}',
+    description = '${game.description}',
+    minAge = ${game.minAge},
+    minNbPlayer = ${game.minNbPlayer},
+    maxNbPlayer = ${game.maxNbPlayer},
+    minDuration = ${game.minDuration},
+    maxDuration = ${game.maxDuration}
+    WHERE idGame = ${game.idGame}
+    AND idUser = ${game.idUser};`,
     (err, result) => {
       callback(err, result);
     }
@@ -105,7 +120,7 @@ function modifyGameInCollection(game, callback) {
 }
 
 function deleteGameFromCollection(idGame, idUser, callback) {
-  DB.pool.query(`DELETE FROM games WHERE idGame = ${idGame} and idUser = '${idUser}'`, (err, result) => {
+  DB.pool.query(`DELETE FROM games WHERE idGame = ${idGame} and idUser = ${idUser}`, (err, result) => {
     callback(err, result);
   });
 }
@@ -115,6 +130,7 @@ exports.addUser = addUser;
 exports.selectUser = selectUser;
 exports.deleteUser = deleteUser;
 exports.getCollection = getCollection;
+exports.getGameInfoCollection = getGameInfoCollection;
 exports.addGameInCollection = addGameInCollection;
 exports.modifyGameInCollection = modifyGameInCollection;
 exports.deleteGameFromCollection = deleteGameFromCollection;
