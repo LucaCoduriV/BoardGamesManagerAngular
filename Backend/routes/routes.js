@@ -18,9 +18,9 @@ router.get("/BGG/games/:idGame/details", gamesCtrl.getGameInfoAPI); //OK
 //survey
 router.post("/users/:idUser/surveys/:idSurvey/candidates/:idCandidate/vote", surveysCtrl.vote); //OK
 router.get("/users/surveys/:shareCode", surveysCtrl.getSurveyByShareCode); //OK
-router.get("/users/:idUser/surveys/", surveysCtrl.getSurveyByUserID); //OK
-router.get("/users/surveys/", surveysCtrl.getAllSurveys); //ok
-router.get("/users/surveys/:idSurvey/candidates/", surveysCtrl.getCandidates); //ok
+router.get("/users/:idUser/surveys", surveysCtrl.getSurveyByUserID); //OK
+router.get("/users/surveys", surveysCtrl.getAllSurveys); //ok
+router.get("/users/surveys/:idSurvey/candidates", surveysCtrl.getCandidates); //ok
 
 // private route
 
