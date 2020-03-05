@@ -40,6 +40,7 @@ router.delete("/users/:idUser/surveys/:idSurvey", jwt.verifyToken, surveysCtrl.d
 //router.post("/users/:idUser/surveys/:idSurvey/vote", jwt.verifyToken, surveysCtrl.voteWhileLogged);
 
 //admin
+router.get("/users", jwt.verifyToken, permission.isSuperadmin, usersCtrl.getUsers);
 router.delete("/users/:idUser", jwt.verifyToken, permission.isSuperadmin, usersCtrl.deleteUser); //OK
 
 module.exports = router;

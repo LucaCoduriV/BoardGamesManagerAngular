@@ -1,50 +1,51 @@
 #flex-container {
-  display: flex;
-  justify-content: space-between;
-  height: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
 }
 
 app-searchbar {
-  margin-left: 40px;
-  margin-top: -10px;
+    margin-left: 40px;
+    margin-top: -10px;
 }
 
 #username {
-  color: #6d7c85;
-  font-size: 22px;
+    color: #6d7c85;
+    font-size: 22px;
+    text-transform: capitalize;
 }
 
 #rightsided {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
 }
 #rightsided > * {
-  margin: 0px 5px;
+    margin: 0px 5px;
 }
 
 #leftsided {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
 }
 
 #menu-toggle span {
-  display: block;
-  width: 33px;
-  height: 2px;
-  margin-bottom: 5px;
-  margin-left: 20px;
-  position: relative;
+    display: block;
+    width: 33px;
+    height: 2px;
+    margin-bottom: 5px;
+    margin-left: 20px;
+    position: relative;
 
-  background: #6d7c85;
-  border-radius: 3px;
+    background: #6d7c85;
+    border-radius: 3px;
 
-  z-index: 1;
+    z-index: 1;
 }
 
 #menu-toggle:hover {
-  cursor: pointer;
+    cursor: pointer;
 }

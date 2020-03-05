@@ -10,7 +10,7 @@
     </div>
     <div id="rightsided">
         <div *ngIf="auth.isLogged" id="username">
-            {{ auth.currentUser.username }}
+            {{ auth.decodedToken.username }}
         </div>
         <button
             *ngIf="!auth.isAuthenticated()"

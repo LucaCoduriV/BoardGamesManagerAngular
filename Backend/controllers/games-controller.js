@@ -3,7 +3,7 @@ const parseString = require("xml2js").parseString;
 
 function searchGamesAPI(req, res) {
     let gameName = req.params.name;
-    fetch(`https://www.boardgamegeek.com/xmlapi2/search?query=${gameName}`)
+    fetch(`https://www.boardgamegeek.com/xmlapi2/search?query=${gameName}&type=boardgame`)
         .then(result => result.text())
         .then(body =>
             parseString(body, { explicitRoot: false, mergeAttrs: true, explicitArray: false }, (err, result) => {

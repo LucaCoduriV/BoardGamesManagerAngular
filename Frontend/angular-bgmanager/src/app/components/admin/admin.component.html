@@ -14,19 +14,13 @@
                         class="innericon searchicon"
                         src="assets/icones/loupe.svg"
                     />
-                    <input
-                        type="search"
-                        placeholder="Choisisez un utilisateurs"
-                        list="browsers"
-                        name="userlist"
-                    />
-                    <datalist id="browsers">
-                        <option value="Internet Explorer"> </option>
-                        <option value="Firefox"> </option>
-                        <option value="Chrome"> </option>
-                        <option value="Opera"> </option>
-                        <option value="Safari"> </option>
-                    </datalist>
+                    <select id="cars">
+                        <option
+                            *ngFor="let user of usersList"
+                            [value]="user.idUser"
+                            >{{ user.login }}
+                        </option>
+                    </select>
                 </div>
                 <button class="header-btn btn-blue">supprimer</button>
             </div>

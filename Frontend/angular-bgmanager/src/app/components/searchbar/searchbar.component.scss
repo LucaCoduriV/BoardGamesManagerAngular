@@ -1,62 +1,71 @@
 #searchbar-container {
-  background-color: inherit;
-  height: 30px;
+    background-color: inherit;
+    height: 30px;
 
-  img {
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    transform: translateY(5px);
-  }
+    img {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        transform: translateY(5px);
+    }
 
-  input {
-    border-style: none;
-    border-bottom-style: solid;
-    border-color: #b4bcc8;
-    font-size: 22px;
-    margin-left: 8px;
-  }
-  input:focus {
-    outline: none;
-  }
+    input {
+        border-style: none;
+        border-bottom-style: solid;
+        border-color: #b4bcc8;
+        font-size: 22px;
+        margin-left: 8px;
+    }
+    input:focus {
+        outline: none;
+    }
 }
 
 #hint-box {
-  position: relative;
-  background: white;
-  border: 1px solid white;
-  border-radius: 5px;
+    position: relative;
+    background: white;
+    border: 1px solid white;
+    border-radius: 5px;
 
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-  left: 35px;
-  top: 10px;
-  height: 100px;
-  padding: 20px;
-  width: 200px;
+    left: 35px;
+    top: 10px;
+    padding: 20px;
+    padding-bottom: 10px;
+    width: 200px;
+
+    visibility: hidden;
+    & > div {
+        margin-bottom: 5px;
+        padding: 5px;
+    }
 }
 
 #hint-box:after,
 #hint-box:before {
-  bottom: 100%;
-  left: 50%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
 }
 
 #hint-box:after {
-  border-color: rgba(194, 225, 245, 0);
-  border-bottom-color: white;
-  border-width: 10px;
-  margin-left: -10px;
+    border-color: rgba(194, 225, 245, 0);
+    border-bottom-color: white;
+    border-width: 10px;
+    margin-left: -10px;
 }
 #hint-box:before {
-  border-color: rgba(194, 225, 245, 0);
-  border-bottom-color: #b4bcc8;
-  border-width: 11px;
-  margin-left: -11px;
+    border-color: rgba(194, 225, 245, 0);
+    border-bottom-color: #b4bcc8;
+    border-width: 11px;
+    margin-left: -11px;
+}
+.show {
+    visibility: visible !important;
 }

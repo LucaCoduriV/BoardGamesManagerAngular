@@ -18,13 +18,16 @@ import { SurveyComponent } from "./components/survey/survey.component";
 import { CreateSurveyComponent } from "./components/create-survey/create-survey.component";
 import { AdminComponent } from "./components/admin/admin.component";
 //services
-import { AuthService } from "./services/auth.service";
+import { UserService } from "./services/user.service";
 import { TokenInterceptorService } from "./services/token-interceptor.service";
 import { ErrorsHandler } from "./services/errorsHandler.service";
 import { PostService } from "./services/http-requests/post.service";
 import { GetService } from "./services/http-requests/get.service";
 import { PutService } from "./services/http-requests/put.service";
 import { DeleteService } from "./services/http-requests/delete.service";
+import { GameService } from "./services/game.service";
+//pipes
+import { RemoveUselessResult } from "./pipes/remove-useless-result.pipe";
 
 @NgModule({
     declarations: [
@@ -39,7 +42,8 @@ import { DeleteService } from "./services/http-requests/delete.service";
         RegisterComponent,
         SurveyComponent,
         CreateSurveyComponent,
-        AdminComponent
+        AdminComponent,
+        RemoveUselessResult
     ],
     imports: [
         BrowserModule,
@@ -49,7 +53,7 @@ import { DeleteService } from "./services/http-requests/delete.service";
         HttpClientModule
     ],
     providers: [
-        AuthService,
+        UserService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptorService,
@@ -59,7 +63,8 @@ import { DeleteService } from "./services/http-requests/delete.service";
         PostService,
         GetService,
         PutService,
-        DeleteService
+        DeleteService,
+        GameService
     ],
     bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
-import { AuthService } from "src/app/services/auth.service";
+import { UserService } from "src/app/services/user.service";
 import { Alert } from "src/app/objects/alert";
 
 @Component({
@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
     alert: Alert;
     isAlertVisible: boolean = false;
 
-    constructor(private authService: AuthService) {}
+    constructor(private authService: UserService) {}
 
     ngOnInit() {}
 

@@ -27,10 +27,7 @@ function login(req, res) {
             //checker si le hash correspond
             bcrypt.compare(password, result[0].password, (err, hashOK) => {
                 if (hashOK) {
-                    let token = jwt.sign(
-                        { idUser: result[0].idUser, username: result[0].login, superadmin: result[0].superadmin },
-                        process.env.JWT_SECRET
-                    );
+                    let token = jwt.sign({ idUser: result[0].idUser, username: result[0].login, superadmin: result[0].superadmin }, process.env.JWT_SECRET);
                     res.status(201).send({ token: token });
                 } else {
                     res.status(401).send("Non autorisé");
@@ -159,6 +156,20 @@ function deleteUser(req, res) {
     });
 }
 
+function getUsers(req, res) {
+    usersManagement.selectAll((err, result) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            //supprimer la clé password
+            result.forEach(element => {
+                delete element.password;
+            });
+            res.status(200).send(result);
+        }
+    });
+}
+
 exports.registerUser = registerUser;
 exports.login = login;
 
@@ -169,3 +180,4 @@ exports.modifyGameInCollection = modifyGameInCollection;
 exports.deleteGameFromCollection = deleteGameFromCollection;
 
 exports.deleteUser = deleteUser;
+exports.getUsers = getUsers;

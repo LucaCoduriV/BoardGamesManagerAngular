@@ -1,27 +1,27 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { retry, catchError } from "rxjs/operators";
 import { ErrorsHandler } from "./errorsHandler.service";
-import { User } from "../objects/user";
 import { PostService } from "./http-requests/post.service";
 import { Alert } from "../objects/alert";
 import * as jwt_decode from "jwt-decode";
+import { Token } from "../objects/token";
+import { GetService } from "./http-requests/get.service";
 
 @Injectable({
     providedIn: "root"
 })
-export class AuthService {
+export class UserService {
     private loginUrl: string = "http://localhost:8081/login";
     private registerUrl: string = "http://localhost:8081/users";
 
-    public currentUser = { username: "", password: "", isSuperadmin: 0 };
+    public decodedToken: Token;
     public isLogged = false;
 
     constructor(
         private http: HttpClient,
         private errorsHandler: ErrorsHandler,
-        private postService: PostService
+        private postService: PostService,
+        private getService: GetService
     ) {}
 
     isAuthenticated(): boolean {
@@ -31,8 +31,8 @@ export class AuthService {
         return false;
     }
 
-    getUserInfos(): User {
-        const decode = jwt_decode(localStorage.getItem("token"));
+    getUserInfos() {
+        const decode: Token = jwt_decode(localStorage.getItem("token"));
         return decode;
     }
 
@@ -42,7 +42,7 @@ export class AuthService {
         this.postService.getToken(username, password).subscribe(
             data => {
                 localStorage.setItem("token", data["token"]);
-                this.currentUser.username = this.getUserInfos().username;
+                this.decodedToken = this.getUserInfos();
                 this.isLogged = true;
                 callback();
             },
@@ -59,9 +59,9 @@ export class AuthService {
     disconnect() {
         const token = localStorage.getItem("token");
         if (token) localStorage.removeItem("token");
-        for (let key in this.currentUser) {
-            if (this.currentUser.hasOwnProperty(key)) {
-                this.currentUser[key] = null;
+        for (let key in this.decodedToken) {
+            if (this.decodedToken.hasOwnProperty(key)) {
+                this.decodedToken[key] = null;
             }
         }
         this.isLogged = false;
@@ -84,6 +84,17 @@ export class AuthService {
                     message: error.message
                 };
                 callback(alert);
+            }
+        );
+    }
+
+    getUsers(callback) {
+        this.getService.getUsers().subscribe(
+            data => {
+                callback(undefined, data);
+            },
+            error => {
+                callback(error);
             }
         );
     }
