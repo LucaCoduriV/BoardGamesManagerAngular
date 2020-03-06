@@ -16,7 +16,7 @@ export class GetService {
     ) {}
 
     getGameDetail(id: number) {
-        let gameDetailUrl: string = `/BGG/games/${id}/details`;
+        let gameDetailUrl: string = `http://localhost:8081/BGG/games/${id}/details`;
         return this.http
             .get(gameDetailUrl)
             .pipe(retry(3), catchError(this.errorsHandler.handleError));

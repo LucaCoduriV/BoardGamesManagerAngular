@@ -7,7 +7,8 @@
     .card-image {
         background-color: white;
 
-        background-size: cover;
+        background-size: cover !important;
+        background-position: center !important;
         height: 586px;
         width: 586px;
     }

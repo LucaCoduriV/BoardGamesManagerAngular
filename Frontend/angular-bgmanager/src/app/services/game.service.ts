@@ -19,4 +19,15 @@ export class GameService {
             }
         );
     }
+
+    getBGGGameDetails(id: number, callback) {
+        this.getService.getGameDetail(id).subscribe(
+            data => {
+                callback(undefined, data);
+            },
+            error => {
+                callback(error);
+            }
+        );
+    }
 }

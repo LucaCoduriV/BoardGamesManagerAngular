@@ -4,7 +4,10 @@
     </div>
     <div id="list-body" class="c-scrollbar">
         <table>
-            <tr *ngFor="let game of gameList$ | async">
+            <tr
+                *ngFor="let game of gameList$ | async"
+                (click)="selectGame(game.id)"
+            >
                 <td>{{ game.name.value }}</td>
             </tr>
         </table>
