@@ -3,6 +3,7 @@ import { Observable, of, Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { GameService } from "src/app/services/game.service";
 import { GetService } from "src/app/services/http-requests/get.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-searchbar",
@@ -17,7 +18,8 @@ export class SearchbarComponent implements OnInit {
 
     constructor(
         private gameService: GameService,
-        private getService: GetService
+        private getService: GetService,
+        private router: Router
     ) {}
 
     ngOnInit() {
@@ -37,5 +39,14 @@ export class SearchbarComponent implements OnInit {
     search(searchString: string) {
         this.searchString = searchString;
         this.searchTextBGG$.next(searchString);
+    }
+
+    onKeyUp(event) {
+        if (event.key === "Enter") {
+            console.log(event);
+            this.router.navigate([`/search-result/${event.target.value}`]);
+        } else {
+            this.search(event.target.value);
+        }
     }
 }

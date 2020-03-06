@@ -31,6 +31,10 @@ const routes: Routes = [
         path: "admin",
         component: AdminComponent,
         canActivate: [AdminGuardService]
+    },
+    {
+        path: "search-result/:searchstring",
+        component: SearchResultComponent
     }
 ];
 

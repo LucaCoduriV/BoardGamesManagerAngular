@@ -1,3 +1,4 @@
 <div id="result-container">
-  <app-gamelist></app-gamelist>
+    <app-gamelist [gameList$]="gameResults$" title="Resultats"></app-gamelist>
+    <app-game-details></app-game-details>
 </div>

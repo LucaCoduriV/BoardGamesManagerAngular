@@ -30,6 +30,7 @@ import { GameService } from "./services/game.service";
 import { RemoveUselessResult } from "./pipes/remove-useless-result.pipe";
 import { AlertComponent } from "./components/alert/alert.component";
 import { AlertService } from "./services/alert.service";
+import { GameDetailsComponent } from "./components/game-details/game-details.component";
 
 @NgModule({
     declarations: [
@@ -46,7 +47,8 @@ import { AlertService } from "./services/alert.service";
         CreateSurveyComponent,
         AdminComponent,
         RemoveUselessResult,
-        AlertComponent
+        AlertComponent,
+        GameDetailsComponent
     ],
     imports: [
         BrowserModule,
@@ -68,7 +70,8 @@ import { AlertService } from "./services/alert.service";
         PutService,
         DeleteService,
         GameService,
-        AlertService
+        AlertService,
+        GameService
     ],
     bootstrap: [AppComponent]
 })
