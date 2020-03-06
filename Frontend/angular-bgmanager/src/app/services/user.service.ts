@@ -6,14 +6,12 @@ import { Alert } from "../objects/alert";
 import * as jwt_decode from "jwt-decode";
 import { Token } from "../objects/token";
 import { GetService } from "./http-requests/get.service";
+import { DeleteService } from "./http-requests/delete.service";
 
 @Injectable({
     providedIn: "root"
 })
 export class UserService {
-    private loginUrl: string = "http://localhost:8081/login";
-    private registerUrl: string = "http://localhost:8081/users";
-
     public decodedToken: Token;
     public isLogged = false;
 
@@ -21,7 +19,8 @@ export class UserService {
         private http: HttpClient,
         private errorsHandler: ErrorsHandler,
         private postService: PostService,
-        private getService: GetService
+        private getService: GetService,
+        private deleteService: DeleteService
     ) {}
 
     isAuthenticated(): boolean {
@@ -90,6 +89,16 @@ export class UserService {
 
     getUsers(callback) {
         this.getService.getUsers().subscribe(
+            data => {
+                callback(undefined, data);
+            },
+            error => {
+                callback(error);
+            }
+        );
+    }
+    deleteUser(idUser, callback) {
+        this.deleteService.deleteUser(idUser).subscribe(
             data => {
                 callback(undefined, data);
             },

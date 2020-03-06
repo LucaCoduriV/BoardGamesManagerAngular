@@ -8,13 +8,13 @@
         </div>
         <div class="admin-body">
             <div class="admin-utilisateurs">
-                <label for="userlist">utilisateurs</label>
+                <label for="userlist">Utilisateurs</label>
                 <div class="inputgroup">
                     <img
                         class="innericon searchicon"
                         src="assets/icones/loupe.svg"
                     />
-                    <select id="cars">
+                    <select (change)="onSelectChange($event.target.value)">
                         <option
                             *ngFor="let user of usersList"
                             [value]="user.idUser"
@@ -22,7 +22,9 @@
                         </option>
                     </select>
                 </div>
-                <button class="header-btn btn-blue">supprimer</button>
+                <button (click)="deleteUser()" class="header-btn btn-blue">
+                    supprimer
+                </button>
             </div>
         </div>
     </div>

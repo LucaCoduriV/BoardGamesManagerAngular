@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
+import { AlertService } from "src/app/services/alert.service";
 
 @Component({
     selector: "app-admin",
@@ -9,7 +10,12 @@ import { UserService } from "src/app/services/user.service";
 export class AdminComponent implements OnInit {
     usersList: Array<any>;
 
-    constructor(private userService: UserService) {}
+    selectedUser: number;
+
+    constructor(
+        private userService: UserService,
+        private alertService: AlertService
+    ) {}
 
     ngOnInit() {
         this.getUsers();
@@ -20,6 +26,26 @@ export class AdminComponent implements OnInit {
             if (err) console.log(err);
             else this.usersList = result;
             console.log(this.usersList);
+        });
+    }
+
+    onSelectChange(value) {
+        console.log(value);
+        this.selectedUser = parseInt(value);
+    }
+
+    deleteUser() {
+        this.userService.deleteUser(this.selectedUser, (err, result) => {
+            if (err) {
+                console.table(err);
+                this.alertService.modifyAlert("danger", err.message);
+                this.alertService.showAlert(true);
+            } else {
+                console.table(result);
+                this.alertService.modifyAlert("success", result);
+                this.alertService.showAlert(true);
+                this.getUsers();
+            }
         });
     }
 }

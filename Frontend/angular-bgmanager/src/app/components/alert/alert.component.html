@@ -1,0 +1,8 @@
+<div *ngIf="alertService.isAlertVisible == true">
+    <ngb-alert
+        class="alert-message"
+        [type]="alertService.alert.type"
+        (close)="close()"
+        >{{ alertService.alert.message }}</ngb-alert
+    >
+</div>

@@ -1,13 +1,4 @@
 <div class="login-container">
-    <div *ngIf="isAlertVisible == true">
-        <ngb-alert
-            class="alert-message"
-            [type]="alert.type"
-            (close)="close()"
-            >{{ alert.message }}</ngb-alert
-        >
-    </div>
-
     <div class="login-form">
         <h1>Connexion</h1>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">

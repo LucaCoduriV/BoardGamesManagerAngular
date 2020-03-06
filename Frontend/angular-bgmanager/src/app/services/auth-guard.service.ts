@@ -25,7 +25,7 @@ export class AdminGuardService implements CanActivate {
         if (!this.auth.isAuthenticated()) {
             this.router.navigate(["login"]);
             return false;
-        } else if (this.auth.decodedToken.superadmin == 0) {
+        } else if (this.auth.getUserInfos().superadmin == 0) {
             return false;
         }
         return true;

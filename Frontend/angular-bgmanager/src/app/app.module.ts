@@ -28,6 +28,8 @@ import { DeleteService } from "./services/http-requests/delete.service";
 import { GameService } from "./services/game.service";
 //pipes
 import { RemoveUselessResult } from "./pipes/remove-useless-result.pipe";
+import { AlertComponent } from "./components/alert/alert.component";
+import { AlertService } from "./services/alert.service";
 
 @NgModule({
     declarations: [
@@ -43,7 +45,8 @@ import { RemoveUselessResult } from "./pipes/remove-useless-result.pipe";
         SurveyComponent,
         CreateSurveyComponent,
         AdminComponent,
-        RemoveUselessResult
+        RemoveUselessResult,
+        AlertComponent
     ],
     imports: [
         BrowserModule,
@@ -64,7 +67,8 @@ import { RemoveUselessResult } from "./pipes/remove-useless-result.pipe";
         GetService,
         PutService,
         DeleteService,
-        GameService
+        GameService,
+        AlertService
     ],
     bootstrap: [AppComponent]
 })

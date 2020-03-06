@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { UserService } from "src/app/services/user.service";
 import { Alert } from "src/app/objects/alert";
+import { AlertService } from "src/app/services/alert.service";
 @Component({
     selector: "app-login",
     templateUrl: "./login.component.html",
@@ -13,10 +14,10 @@ export class LoginComponent implements OnInit {
         password: new FormControl("")
     });
 
-    alert: Alert;
-    isAlertVisible: boolean = false;
-
-    constructor(private auth: UserService) {}
+    constructor(
+        private auth: UserService,
+        private alertService: AlertService
+    ) {}
 
     ngOnInit() {}
 
@@ -25,31 +26,25 @@ export class LoginComponent implements OnInit {
         const password = this.loginForm.value.password;
 
         if (username != "" && password != "") {
-            this.isAlertVisible = false;
+            this.alertService.showAlert(false);
             this.login(username, password);
         } else {
-            this.alert = {
-                type: "danger",
-                message: "Un ou plusieurs champs sont vides"
-            };
-            this.isAlertVisible = true;
+            this.alertService.modifyAlert(
+                "danger",
+                "Un ou plusieurs champs sont vides"
+            );
+            this.alertService.showAlert(true);
         }
-    }
-
-    close() {
-        this.isAlertVisible = false;
     }
 
     login(username, password) {
         this.auth.login(username, password, (alert: Alert) => {
             if (alert) {
-                this.alert = {
-                    message: alert.message,
-                    type: alert.type
-                };
-                this.isAlertVisible = true;
+                this.alertService.modifyAlert(alert.type, alert.message);
+
+                this.alertService.showAlert(false);
             } else {
-                this.isAlertVisible = false;
+                this.alertService.showAlert(true);
             }
         });
     }
