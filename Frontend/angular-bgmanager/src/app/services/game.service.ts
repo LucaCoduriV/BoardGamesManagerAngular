@@ -22,6 +22,9 @@ export class GameService {
     //search
     isLoadingSearch: boolean = false;
 
+    //collection
+    collectionData: Object;
+
     constructor(private getService: GetService) {
         this.createGameDetailsSubject();
     }
@@ -84,5 +87,16 @@ export class GameService {
                     console.log(error);
                 }
             );
+    }
+
+    getUserCollection(id: number) {
+        this.getService.getUserCollection(id).subscribe(
+            data => {
+                this.collectionData = data;
+            },
+            error => {
+                console.log(error);
+            }
+        );
     }
 }

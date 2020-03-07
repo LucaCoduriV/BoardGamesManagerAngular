@@ -1,4 +1,7 @@
-<app-game-details></app-game-details>
 <div id="collection-container">
-    <app-gamelist></app-gamelist>
+    <app-gamelist
+        [gameList$]="collection$"
+        title="Ma collection"
+    ></app-gamelist>
+    <app-game-details [collection]="true"></app-game-details>
 </div>

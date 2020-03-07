@@ -50,4 +50,12 @@ export class GetService {
             .get(this.getUsersUrl)
             .pipe(retry(3), catchError(this.errorsHandler.handleError));
     }
+
+    getUserCollection(id: number) {
+        const userCollectionUrl: string = `localhost:8081/users/${id}/games`;
+
+        return this.http
+            .get(userCollectionUrl)
+            .pipe(retry(3), catchError(this.errorsHandler.handleError));
+    }
 }

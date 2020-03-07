@@ -19,4 +19,6 @@ export class GamelistComponent implements OnInit {
         console.log(id);
         this.gameService.askGameDetails(id);
     }
+
+    selectCollectionGame() {}
 }

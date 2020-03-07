@@ -42,6 +42,8 @@ export class UserService {
             data => {
                 localStorage.setItem("token", data["token"]);
                 this.decodedToken = this.getUserInfos();
+                localStorage.setItem("idUser", this.decodedToken.idUser + "");
+                localStorage.setItem("username", this.decodedToken.username + ""); // prettier-ignore
                 this.isLogged = true;
                 callback();
             },

@@ -1,4 +1,10 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from "@angular/core";
+import {
+    Component,
+    OnInit,
+    OnChanges,
+    SimpleChanges,
+    Input
+} from "@angular/core";
 import { GameService } from "src/app/services/game.service";
 
 @Component({
@@ -7,7 +13,8 @@ import { GameService } from "src/app/services/game.service";
     styleUrls: ["./game-details.component.scss"]
 })
 export class GameDetailsComponent implements OnInit {
-    //TODO supprimer l'erreur avant au premier chargement du composent
+    @Input() collection: boolean;
+
     placeholder =
         "https://www.nomadfoods.com/wp-content/uploads/2018/08/placeholder-1-e1533569576673-960x960.png";
 
