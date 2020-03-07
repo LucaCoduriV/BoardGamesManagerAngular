@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from "@angular/core";
 import { Observable } from "rxjs";
 import { GameDetailsService } from "src/app/services/game-details.service";
+import { GameService } from "src/app/services/game.service";
 
 @Component({
     selector: "app-gamelist",
@@ -11,12 +12,12 @@ export class GamelistComponent implements OnInit {
     @Input() gameList$: Observable<any>;
     @Input() title: string = "";
 
-    constructor(private gameDetailsService: GameDetailsService) {}
+    constructor(private gameService: GameService) {}
 
     ngOnInit() {}
 
     selectGame(id: number) {
         console.log(id);
-        this.gameDetailsService.setGame(id);
+        this.gameService.askGameDetails(id);
     }
 }

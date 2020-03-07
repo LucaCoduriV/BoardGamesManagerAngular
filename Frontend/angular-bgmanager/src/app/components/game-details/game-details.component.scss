@@ -3,13 +3,18 @@
     height: 586px;
     width: 940px;
     background-color: #f2f3fa;
+    display: flex;
 
     .card-image {
-        background-color: white;
-
+        background-color: #eff6ff;
         background-size: cover !important;
         background-position: center !important;
         height: 586px;
         width: 586px;
+    }
+    .details {
+        flex: 1; //rempli l'espace restant
+        height: 100%;
+        background-color: white;
     }
 }

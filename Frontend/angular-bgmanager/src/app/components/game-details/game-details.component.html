@@ -1,9 +1,12 @@
 <div (click)="test()" class="game-card">
+    <div class="details"></div>
     <div
         class="card-image"
-        [ngStyle]="{
-            background: 'url(' + gameDetailsService.game.item.image + ')'
-        }"
+        [ngStyle]="
+            gameService.detailedGameData?.item.image && {
+                background:
+                    'url(' + gameService.detailedGameData.item.image + ')'
+            }
+        "
     ></div>
-    <div></div>
 </div>

@@ -13,12 +13,12 @@ export class GameDetailsService {
     }
 
     setGame(id: number) {
-        this.gameService.getBGGGameDetails(id, (err, result) => {
-            if (err) console.log(err);
-            else {
-                console.log(result);
-                this._game = result;
-            }
-        });
+        // this.gameService.getBGGGameDetails(id, (err, result) => {
+        //     if (err) console.log(err);
+        //     else {
+        //         console.log(result);
+        //         this._game = result;
+        //     }
+        // });
     }
 }

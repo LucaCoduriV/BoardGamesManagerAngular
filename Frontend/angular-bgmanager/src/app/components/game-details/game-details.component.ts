@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from "@angular/core";
-import { GameDetailsService } from "src/app/services/game-details.service";
+import { GameService } from "src/app/services/game.service";
 
 @Component({
     selector: "app-game-details",
@@ -7,15 +7,16 @@ import { GameDetailsService } from "src/app/services/game-details.service";
     styleUrls: ["./game-details.component.scss"]
 })
 export class GameDetailsComponent implements OnInit {
-    private gameDetails;
+    //TODO supprimer l'erreur avant au premier chargement du composent
+    placeholder =
+        "https://www.nomadfoods.com/wp-content/uploads/2018/08/placeholder-1-e1533569576673-960x960.png";
 
-    constructor(private gameDetailsService: GameDetailsService) {}
+    constructor(private gameService: GameService) {}
 
-    ngOnInit() {
-        this.gameDetails = this.gameDetailsService.game;
-    }
+    ngOnInit() {}
 
+    //TODO supprimer cette fonction de test
     test() {
-        console.log(this.gameDetailsService.game);
+        console.log(this.gameService.detailedGameData);
     }
 }
