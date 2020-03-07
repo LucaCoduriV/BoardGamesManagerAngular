@@ -5,8 +5,8 @@
         type="text"
         name="search-argument"
         placeholder="Recherchez ici..."
-        (focus)="hideHintbox = true"
-        (focusout)="hideHintbox = false"
+        (focus)="showHintbox = true"
+        (focusout)="showHintbox = false"
     />
     <div
         *ngIf="
@@ -14,7 +14,7 @@
             let gameArray
         "
         id="hint-box"
-        [ngClass]="{ show: hideHintbox }"
+        [ngClass]="{ show: showHintbox }"
     >
         <div *ngFor="let game of gameArray" class="result-container">
             <div>

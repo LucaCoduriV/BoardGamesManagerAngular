@@ -19,19 +19,31 @@ export class GameService {
     detailedGameData: Object;
     isLoadingDetails: boolean = false;
 
+    //search
+    isLoadingSearch: boolean = false;
+
     constructor(private getService: GetService) {
         this.createGameDetailsSubject();
     }
 
     getBGGSearchResult(gameName, callback) {
-        this.getService.searchGameBGG(gameName).subscribe(
-            data => {
-                callback(data);
-            },
-            error => {
-                console.log(error);
-            }
-        );
+        this.isLoadingSearch = true;
+        this.getService
+            .searchGameBGG(gameName)
+            .pipe(
+                finalize(() => {
+                    //Quand le chargement est terminé
+                    this.isLoadingSearch = false;
+                })
+            )
+            .subscribe(
+                data => {
+                    callback(data);
+                },
+                error => {
+                    console.log(error);
+                }
+            );
     }
 
     //récupère les données et les met à disposition

@@ -14,7 +14,7 @@ export class SearchbarComponent implements OnInit {
     gamesResult$: Observable<any>;
     searchTextBGG$ = new Subject<string>();
     searchString: string;
-    hideHintbox: boolean = false;
+    showHintbox: boolean = false;
 
     constructor(
         private gameService: GameService,
@@ -43,7 +43,7 @@ export class SearchbarComponent implements OnInit {
 
     onKeyUp(event) {
         if (event.key === "Enter") {
-            console.log(event);
+            this.showHintbox = false;
             this.router.navigate([`/search-result/${event.target.value}`]);
         } else {
             this.search(event.target.value);
