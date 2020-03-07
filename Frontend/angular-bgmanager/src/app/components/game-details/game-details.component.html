@@ -1,5 +1,19 @@
 <div (click)="test()" class="game-card">
-    <div class="details"></div>
+    <div class="details">
+        <h1>Monopoly</h1>
+        <div class="horizontal">
+            <div class="time">
+                <img width="25px" src="assets/icones/time.svg" />
+                <span class="time">20 minutes</span>
+            </div>
+            <div class="nb-player">
+                <img width="25px" src="assets/icones/user.svg" />
+                <span class="nb-player">2-10 joueurs</span>
+            </div>
+        </div>
+
+        <p class="description"></p>
+    </div>
     <div
         class="card-image"
         [ngStyle]="

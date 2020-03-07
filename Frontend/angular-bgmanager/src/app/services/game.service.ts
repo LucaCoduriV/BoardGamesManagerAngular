@@ -14,7 +14,7 @@ export class GameService {
     constructor(private getService: GetService) {
         //un Subject est crée avec un switchmap afin d'éviter de charger des données dont l'utilisateur n'a plus besoin
         //à chaque fois que le Subject est appelé l'ancienne demande est supprimée
-        this.getBGGGameDetails();
+        this.createGameDetailsSubject();
     }
 
     getBGGSearchResult(gameName, callback) {
@@ -33,7 +33,7 @@ export class GameService {
         this.gameDetailsSubject$.next();
     }
 
-    getBGGGameDetails() {
+    createGameDetailsSubject() {
         this.gameDetailsSubject$
             .pipe(
                 switchMap(() => {

@@ -16,5 +16,34 @@
         flex: 1; //rempli l'espace restant
         height: 100%;
         background-color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+
+        h1 {
+            padding-bottom: 20px;
+            border-bottom-style: solid;
+            border-bottom-width: 1px;
+            border-color: #dfe0e6;
+        }
+        .horizontal {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+
+            div {
+                img {
+                    transform: translateY(-10px);
+                }
+            }
+
+            span {
+                display: inline-block;
+                width: 40px;
+                line-height: 15px;
+                margin-left: 10px;
+            }
+        }
     }
 }
