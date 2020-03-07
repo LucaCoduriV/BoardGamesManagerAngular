@@ -1,4 +1,7 @@
 <div class="game-card">
+    <app-loading-spinner
+        *ngIf="gameService.isLoadingDetails"
+    ></app-loading-spinner>
     <div class="details">
         <div class="title">
             <h1>{{ (gameService.detailedGameData?.item.name)[0].value }}</h1>

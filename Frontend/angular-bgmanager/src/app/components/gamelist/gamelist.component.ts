@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from "@angular/core";
 import { Observable } from "rxjs";
-import { GameDetailsService } from "src/app/services/game-details.service";
 import { GameService } from "src/app/services/game.service";
 
 @Component({

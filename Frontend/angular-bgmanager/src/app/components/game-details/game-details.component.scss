@@ -58,3 +58,11 @@
         }
     }
 }
+
+app-loading-spinner {
+    position: absolute;
+    width: 940px;
+    height: 586px;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}

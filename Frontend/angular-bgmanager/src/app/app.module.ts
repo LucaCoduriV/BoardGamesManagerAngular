@@ -31,6 +31,7 @@ import { RemoveUselessResult } from "./pipes/remove-useless-result.pipe";
 import { AlertComponent } from "./components/alert/alert.component";
 import { AlertService } from "./services/alert.service";
 import { GameDetailsComponent } from "./components/game-details/game-details.component";
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
     declarations: [
@@ -48,7 +49,8 @@ import { GameDetailsComponent } from "./components/game-details/game-details.com
         AdminComponent,
         RemoveUselessResult,
         AlertComponent,
-        GameDetailsComponent
+        GameDetailsComponent,
+        LoadingSpinnerComponent
     ],
     imports: [
         BrowserModule,
