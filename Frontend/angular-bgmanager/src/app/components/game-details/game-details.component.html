@@ -1,18 +1,39 @@
-<div (click)="test()" class="game-card">
+<div class="game-card">
     <div class="details">
-        <h1>Monopoly</h1>
+        <div class="title">
+            <h1>{{ (gameService.detailedGameData?.item.name)[0].value }}</h1>
+            <h2>
+                {{ gameService.detailedGameData?.item.yearpublished.value }}
+            </h2>
+        </div>
+
         <div class="horizontal">
             <div class="time">
                 <img width="25px" src="assets/icones/time.svg" />
-                <span class="time">20 minutes</span>
+                <span class="time"
+                    >{{
+                        gameService.detailedGameData?.item.playingtime.value
+                    }}
+                    minutes</span
+                >
             </div>
             <div class="nb-player">
                 <img width="25px" src="assets/icones/user.svg" />
-                <span class="nb-player">2-10 joueurs</span>
+                <span class="nb-player"
+                    >{{
+                        gameService.detailedGameData?.item.minplayers.value
+                    }}-{{
+                        gameService.detailedGameData?.item.maxplayers.value
+                    }}
+                    joueurs</span
+                >
             </div>
         </div>
 
-        <p class="description"></p>
+        <p
+            class="description c-scrollbar"
+            [innerHTML]="gameService.detailedGameData?.item.description"
+        ></p>
     </div>
     <div
         class="card-image"

@@ -46,6 +46,10 @@ export class GameService {
             )
             .subscribe(
                 data => {
+                    data["item"].description = data["item"].description.replace(
+                        new RegExp("&#10;", "g"),
+                        "<br>"
+                    );
                     this.detailedGameData = data;
                 },
                 error => {

@@ -11,12 +11,9 @@ export class GameDetailsComponent implements OnInit {
     placeholder =
         "https://www.nomadfoods.com/wp-content/uploads/2018/08/placeholder-1-e1533569576673-960x960.png";
 
+    replaceString: string;
+
     constructor(private gameService: GameService) {}
 
     ngOnInit() {}
-
-    //TODO supprimer cette fonction de test
-    test() {
-        console.log(this.gameService.detailedGameData);
-    }
 }
