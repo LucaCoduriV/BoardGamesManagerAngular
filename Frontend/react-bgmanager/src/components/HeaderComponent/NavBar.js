@@ -7,7 +7,7 @@ export default class NavBar extends React.Component {
       <header>
         <ul id="headerButtons">
           <li className="navButton">
-            <Link to="">Home</Link>
+            <Link to="/coucou">Home</Link>
           </li>
         </ul>
       </header>
