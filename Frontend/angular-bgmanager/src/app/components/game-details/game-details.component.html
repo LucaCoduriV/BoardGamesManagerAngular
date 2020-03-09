@@ -4,7 +4,12 @@
     ></app-loading-spinner>
     <div class="details">
         <div class="title">
-            <h1>{{ (gameService.detailedGameData?.item.name)[0].value }}</h1>
+            <h1 *ngIf="(gameService.detailedGameData?.item.name)[0]?.value">
+                {{ (gameService.detailedGameData?.item.name)[0].value }}
+            </h1>
+            <h1 *ngIf="(gameService.detailedGameData?.item.name).value">
+                {{ (gameService.detailedGameData?.item.name).value }}
+            </h1>
             <h2>
                 {{ gameService.detailedGameData?.item.yearpublished.value }}
             </h2>
