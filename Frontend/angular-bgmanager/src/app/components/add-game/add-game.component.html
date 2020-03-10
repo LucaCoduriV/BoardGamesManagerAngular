@@ -6,21 +6,33 @@
                 <span class="ligne"></span>
             </div>
         </div>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="addGameForm" (ngSubmit)="onSubmit()">
             <label for="name">Nom du jeu</label>
-            <input type="text" name="name" id="" />
+            <input type="text" name="name" formControlName="name" />
+
+            <label for="creationDate">Année de création</label>
+            <input
+                type="number"
+                name="creationDate"
+                formControlName="creationDate"
+            />
 
             <label for="minPlayer">Nombre de joueur minimum</label>
-            <input type="number" name="minPlayer" id="" />
+            <input type="number" name="minPlayer" formControlName="minPlayer" />
 
             <label for="maxPlayer">Nombre de joueur maximum</label>
-            <input type="number" name="maxPlayer" id="" />
+            <input type="number" name="maxPlayer" formControlName="maxPlayer" />
 
             <label for="time">temps moyen (minutes)</label>
-            <input type="number" name="time" id="" />
+            <input type="number" name="time" id="" formControlName="duration" />
 
             <label for="description">Description</label>
-            <textarea name="description" id="" cols="30" rows="2"></textarea>
+            <textarea
+                name="description"
+                cols="30"
+                rows="2"
+                formControlName="description"
+            ></textarea>
 
             <div class="bottom-form">
                 <input

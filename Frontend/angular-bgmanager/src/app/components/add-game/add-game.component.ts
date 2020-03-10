@@ -1,15 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
+import { GameService } from "src/app/services/game.service";
+import { AlertService } from "src/app/services/alert.service";
 
 @Component({
-  selector: 'app-add-game',
-  templateUrl: './add-game.component.html',
-  styleUrls: ['./add-game.component.scss']
+    selector: "app-add-game",
+    templateUrl: "./add-game.component.html",
+    styleUrls: ["./add-game.component.scss"]
 })
 export class AddGameComponent implements OnInit {
+    addGameForm = new FormGroup({
+        name: new FormControl(""),
+        creationDate: new FormControl(""),
+        minPlayer: new FormControl(""),
+        maxPlayer: new FormControl(""),
+        duration: new FormControl(""),
+        description: new FormControl("")
+    });
 
-  constructor() { }
+    constructor(
+        private gameService: GameService,
+        private alertService: AlertService
+    ) {}
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        if (this.gameService.addGamePlaceHolder) {
+            this.addGameForm.patchValue(this.gameService.addGamePlaceHolder);
+        }
+    }
 
+    onSubmit() {
+        this.gameService.addGame(this.addGameForm.value, (err, result) => {
+            if (err) {
+                this.alertService.modifyAlert(
+                    "danger",
+                    "Impossible d'ajouter le jeu"
+                );
+                console.log(err);
+            }
+            if (result) {
+                this.alertService.modifyAlert("success", result);
+                this.alertService.showAlert(true);
+            }
+        });
+    }
 }
