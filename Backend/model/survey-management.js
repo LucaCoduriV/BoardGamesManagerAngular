@@ -15,13 +15,10 @@ function insertCandidate(candidates, idSurvey, callback) {
     candidates.map(candidate => {
         promises.push(
             new Promise((resolve, reject) => {
-                DB.pool.query(
-                    `INSERT INTO candidates(idSurvey, nbVotes, idAPI, idGame) VALUES(${idSurvey},0,${candidate.idAPI},${candidate.idGame});`,
-                    (err, result) => {
-                        if (err) throw err;
-                        resolve();
-                    }
-                );
+                DB.pool.query(`INSERT INTO candidates(idSurvey, nbVotes, idAPI, idGame) VALUES(${idSurvey},0,${candidate.idAPI},${candidate.idGame});`, (err, result) => {
+                    if (err) throw err;
+                    resolve();
+                });
             })
         );
     });
@@ -62,7 +59,7 @@ function selectCanditatesBySurveyID(idSurvey, callback) {
 function insertVote(ip, idCandidate, idUser, callback) {
     if (idUser == undefined) idUser = "";
 
-    DB.pool.query(`INSERT INTO votes (idUser, idCandidate, ipv4) VALUES ('${idUser}','${idCandidate}', '${ip}');`, (err, result) => {
+    DB.pool.query(`INSERT INTO votes (idUser, idCandidate, ip) VALUES ('${idUser}','${idCandidate}', '${ip}');`, (err, result) => {
         callback(err, result);
     });
 }
@@ -76,12 +73,9 @@ function updateVoteNB(idCandidate, callback) {
 }
 
 function countIpForSurvey(idSurvey, ip, callback) {
-    DB.pool.query(
-        `SELECT count(v.ipv4)as nbIP FROM candidates c, votes v WHERE c.idSurvey = ${idSurvey} AND c.idCandidate = v.idCandidate AND v.ipv4 like '${ip}'`,
-        (err, result) => {
-            callback(err, result);
-        }
-    );
+    DB.pool.query(`SELECT count(v.ip)as nbIP FROM candidates c, votes v WHERE c.idSurvey = ${idSurvey} AND c.idCandidate = v.idCandidate AND v.ip like '${ip}'`, (err, result) => {
+        callback(err, result);
+    });
 }
 
 exports.insertSurvey = insertSurvey;
