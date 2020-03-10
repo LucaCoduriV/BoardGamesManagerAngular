@@ -1,0 +1,34 @@
+<div class="add-game-container">
+    <div class="add-game-form">
+        <div class="add-game-title">
+            <div id="top">
+                <h1>Ajouter un jeu</h1>
+                <span class="ligne"></span>
+            </div>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <label for="name">Nom du jeu</label>
+            <input type="text" name="name" id="" />
+
+            <label for="minPlayer">Nombre de joueur minimum</label>
+            <input type="number" name="minPlayer" id="" />
+
+            <label for="maxPlayer">Nombre de joueur maximum</label>
+            <input type="number" name="maxPlayer" id="" />
+
+            <label for="time">temps moyen (minutes)</label>
+            <input type="number" name="time" id="" />
+
+            <label for="description">Description</label>
+            <textarea name="description" id="" cols="30" rows="2"></textarea>
+
+            <div class="bottom-form">
+                <input
+                    type="submit"
+                    value="Ajouter"
+                    class="header-btn btn-blue"
+                />
+            </div>
+        </form>
+    </div>
+</div>

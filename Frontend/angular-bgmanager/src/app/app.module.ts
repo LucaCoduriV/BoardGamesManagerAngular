@@ -31,7 +31,8 @@ import { RemoveUselessResult } from "./pipes/remove-useless-result.pipe";
 import { AlertComponent } from "./components/alert/alert.component";
 import { AlertService } from "./services/alert.service";
 import { GameDetailsComponent } from "./components/game-details/game-details.component";
-import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerComponent } from "./components/loading-spinner/loading-spinner.component";
+import { AddGameComponent } from "./components/add-game/add-game.component";
 
 @NgModule({
     declarations: [
@@ -50,7 +51,8 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
         RemoveUselessResult,
         AlertComponent,
         GameDetailsComponent,
-        LoadingSpinnerComponent
+        LoadingSpinnerComponent,
+        AddGameComponent
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,59 @@
+.add-game-container {
+    height: 100%;
+    display: flex;
+    background-image: url("/assets/images/Arriere-plan2.png");
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+    .add-game-form {
+        box-sizing: border-box;
+        background-color: white;
+        height: 520px;
+        width: 640px;
+        border-radius: 10px;
+        padding-left: 60px;
+        padding-right: 60px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        .add-game-title {
+            width: 100%;
+            #top {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                flex-direction: column;
+                h1 {
+                    font-weight: 400;
+                    font-size: 30px;
+                    color: #425c78;
+                }
+            }
+        }
+        form {
+            margin-top: 20px;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+
+            label {
+                margin-right: 10px;
+            }
+            .bottom-form {
+                margin-top: 20px;
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+    }
+}
+.ligne {
+    margin-top: 10px;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #b4bcc8;
+    display: block;
+    height: 1px;
+    width: 100%;
+}
