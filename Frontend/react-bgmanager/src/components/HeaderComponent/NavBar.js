@@ -1,13 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import "./navBar.css";
 
 export default class NavBar extends React.Component {
   render() {
     return (
       <header>
-        <ul id="headerButtons">
-          <li className="navButton">
-            <Link to="/coucou">Home</Link>
+        <ul>
+          <li>
+            <NavLink exact to="/" activeStyle={{ backgroundColor: "#4caf50", color: "white" }}>
+              Home
+            </NavLink>
+            <NavLink to="/collection" activeStyle={{ backgroundColor: "#4caf50", color: "white" }}>
+              Collection
+            </NavLink>
+            <NavLink to="/survey" activeStyle={{ backgroundColor: "#4caf50", color: "white" }}>
+              Survey
+            </NavLink>
           </li>
         </ul>
       </header>
