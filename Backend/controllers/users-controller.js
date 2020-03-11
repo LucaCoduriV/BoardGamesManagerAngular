@@ -65,27 +65,23 @@ function getGameInfoCollection(req, res) {
 
 function addGameInCollection(req, res) {
     //La liste des paramètres récupéré du formulaire
-    let idAPI = req.body.idAPI;
     let gameName = req.body.gameName;
     let description = req.body.description;
     let minAge = req.body.minAge;
     let minNbPlayer = req.body.minNbPlayer;
     let maxNbPlayer = req.body.maxNbPlayer;
-    let minDuration = req.body.minDuration;
-    let maxDuration = req.body.maxDuration;
+    let duration = req.body.duration;
     let creationDate = req.body.creationDate;
     let idUser = req.jwt.idUser;
 
     usersManagement.addGameInCollection(
         {
-            idAPI: idAPI,
             gameName: gameName,
             description: description,
             minAge: minAge,
             minNbPlayer: minNbPlayer,
             maxNbPlayer: maxNbPlayer,
-            minDuration: minDuration,
-            maxDuration: maxDuration,
+            duration: duration,
             creationDate: creationDate,
             idUser: idUser
         },

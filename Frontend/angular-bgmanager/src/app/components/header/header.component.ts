@@ -14,4 +14,8 @@ export class HeaderComponent implements OnInit {
     disconnect() {
         this.auth.disconnect();
     }
+
+    get getUsername() {
+        return localStorage.getItem("username");
+    }
 }

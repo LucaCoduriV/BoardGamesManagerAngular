@@ -11,12 +11,18 @@ import {
     AuthGuardService,
     AdminGuardService
 } from "./services/auth-guard.service";
+import { AddGameComponent } from "./components/add-game/add-game.component";
 
 const routes: Routes = [
     { path: "survey", component: SurveyComponent },
     {
         path: "collection",
         component: CollectionComponent,
+        canActivate: [AuthGuardService]
+    },
+    {
+        path: "add-game",
+        component: AddGameComponent,
         canActivate: [AuthGuardService]
     },
     { path: "login", component: LoginComponent },

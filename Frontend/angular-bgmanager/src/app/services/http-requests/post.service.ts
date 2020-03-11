@@ -35,4 +35,20 @@ export class PostService {
             .post(this.registerUrl, user, { responseType: "text" })
             .pipe(retry(3), catchError(this.errorsHandler.handleError));
     }
+    addGame({ name, minPlayer, maxPlayer, duration, description }) {
+        const addGameURL: string = `http://localhost:8081/users/${localStorage.getItem('idUser')}/games`; //prettier-ignore
+        let body = {
+            gameName: name,
+            description: description,
+            minAge: 1,
+            minNbPlayer: minPlayer,
+            maxNbPlayer: maxPlayer,
+            duration: duration,
+            creationDate: 1994,
+            idUser: localStorage.getItem("idUser")
+        };
+        return this.http
+            .post(addGameURL, body, { responseType: "text" })
+            .pipe(retry(3), catchError(this.errorsHandler.handleError));
+    }
 }

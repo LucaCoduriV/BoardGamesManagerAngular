@@ -8,6 +8,8 @@ import {
     startWith,
     finalize
 } from "rxjs/operators";
+import { PostService } from "./http-requests/post.service";
+import { Game } from "../objects/game";
 
 @Injectable({
     providedIn: "root"
@@ -24,8 +26,12 @@ export class GameService {
 
     //collection
     collectionData: Object;
+    addGamePlaceHolder: Game;
 
-    constructor(private getService: GetService) {
+    constructor(
+        private getService: GetService,
+        private postService: PostService
+    ) {
         this.createGameDetailsSubject();
     }
 
@@ -98,5 +104,24 @@ export class GameService {
                 console.log(error);
             }
         );
+    }
+
+    addGame({ name, minPlayer, maxPlayer, duration, description }, callback) {
+        this.postService
+            .addGame({
+                name,
+                minPlayer,
+                maxPlayer,
+                duration,
+                description
+            })
+            .subscribe(
+                result => {
+                    callback(undefined, result);
+                },
+                error => {
+                    callback(error);
+                }
+            );
     }
 }

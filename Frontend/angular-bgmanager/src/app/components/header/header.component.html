@@ -9,8 +9,8 @@
         <app-searchbar></app-searchbar>
     </div>
     <div id="rightsided">
-        <div *ngIf="auth.isLogged" id="username">
-            {{ auth.decodedToken.username }}
+        <div *ngIf="auth.isAuthenticated()" id="username">
+            {{ getUsername }}
         </div>
         <button
             *ngIf="!auth.isAuthenticated()"
