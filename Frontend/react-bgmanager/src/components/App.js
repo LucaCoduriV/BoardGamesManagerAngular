@@ -8,8 +8,22 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <Router>
+          <div id="header-nav">
+            <div id="search-bar">
+              Je suis une barre de recherche mdr
+            </div>
+            <div id="connection-button">
+              <a href="#">Connexion</a>
+              <a href="#">Registeurreh</a>
+            </div>
+            Je suis un header lol
+            </div>
           <NavBar />
-          <Route exact path="/" component={HomePage} />
+          <div id="content-wrapper">
+            <div id="content-inner-wrapper">
+              <Route exact path="/" component={HomePage} />
+            </div>
+          </div>
         </Router>
       </div>
     );
