@@ -1,3 +1,14 @@
+body {
+  margin: 0;
+}
+
+#navBar {
+  height: 100%;
+  margin: 0;
+  background-color: #f1f1f1;
+  float: left;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -13,12 +24,7 @@ li a {
   text-decoration: none;
 }
 
-li a.active {
-  background-color: #4caf50;
-  color: white;
-}
-
-li a:hover:not(.active) {
+li a:hover {
   background-color: #555;
   color: white;
 }
