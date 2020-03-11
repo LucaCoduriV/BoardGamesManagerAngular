@@ -27,6 +27,7 @@ export class GameService {
     //collection
     collectionData: Object;
     addGamePlaceHolder: Game;
+    isCollection: boolean = false;
 
     constructor(
         private getService: GetService,
@@ -56,7 +57,8 @@ export class GameService {
     }
 
     //récupère les données et les met à disposition
-    askGameDetails(id: number) {
+    askGameDetails(id: number, isCollection: boolean = false) {
+        this.isCollection = isCollection;
         this.detailedGameID = id;
         this.gameDetailsSubject$.next();
     }
@@ -64,30 +66,45 @@ export class GameService {
     //un Subject est crée avec un switchmap afin d'éviter de charger des données dont l'utilisateur n'a plus besoin
     //à chaque fois que le Subject est appelé l'ancienne demande est supprimée
     createGameDetailsSubject() {
+        //récupère les bon détails selon si c'est la collection ou une recherche
+        let observable = (idGame: number) => {
+            if (this.isCollection) {
+                return this.getService.getUserGameDetails(idGame).pipe(
+                    finalize(() => {
+                        //Quand le chargement est terminé
+                        this.isLoadingDetails = false;
+                    })
+                );
+            } else {
+                return this.getService.getGameDetail(idGame).pipe(
+                    finalize(() => {
+                        //Quand le chargement est terminé
+                        this.isLoadingDetails = false;
+                    })
+                );
+            }
+        };
+
         this.gameDetailsSubject$
             .pipe(
                 switchMap(() => {
                     this.isLoadingDetails = true;
                     if (this.detailedGameID)
-                        return this.getService
-                            .getGameDetail(this.detailedGameID)
-                            .pipe(
-                                finalize(() => {
-                                    //Quand le chargement est terminé
-                                    this.isLoadingDetails = false;
-                                })
-                            );
+                        return observable(this.detailedGameID);
                     else return EMPTY;
                 })
             )
             .subscribe(
                 data => {
                     //remplace tous les retour à la ligne codé en ISO-5809-1 avant de les transmettre plus loin
-                    data["item"].description = data["item"].description.replace(
-                        new RegExp("&#10;", "g"),
-                        "<br>"
-                    );
+                    if (data["item"]) {
+                        data["item"].description = data[
+                            "item"
+                        ].description.replace(new RegExp("&#10;", "g"), "<br>");
+                    }
+
                     this.detailedGameData = data;
+                    console.log(this.detailedGameData);
                 },
                 error => {
                     console.log(error);

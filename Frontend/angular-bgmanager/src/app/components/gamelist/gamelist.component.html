@@ -6,9 +6,14 @@
         <table>
             <tr
                 *ngFor="let game of gameList$ | async"
-                (click)="selectGame(game.id)"
+                (click)="
+                    selectGame(
+                        isCollection ? game.idGame : game.id,
+                        isCollection
+                    )
+                "
             >
-                <td>{{ game.name.value }}</td>
+                <td>{{ isCollection ? game.name : game.name.value }}</td>
             </tr>
         </table>
     </div>

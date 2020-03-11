@@ -47,7 +47,7 @@ function deleteUser(idUser, callback) {
 
 function getCollection(idUser, callback) {
     DB.pool.query(
-        `SELECT games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.minDuration, games.maxDuration, games.creationDate 
+        `SELECT * 
     FROM games 
     WHERE games.idUser = ${idUser};`,
         (err, result) => {
@@ -58,7 +58,7 @@ function getCollection(idUser, callback) {
 
 function getGameInfoCollection(idUser, idGame, callback) {
     DB.pool.query(
-        `SELECT games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.minDuration, games.maxDuration, games.creationDate 
+        `SELECT * 
   FROM games 
   WHERE games.idUser = ${idUser} 
   AND games.idGame = ${idGame};`,

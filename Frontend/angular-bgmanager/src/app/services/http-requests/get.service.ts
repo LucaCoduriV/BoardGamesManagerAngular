@@ -52,10 +52,17 @@ export class GetService {
     }
 
     getUserCollection(id: number) {
-        const userCollectionUrl: string = `localhost:8081/users/${id}/games`;
+        const userCollectionUrl: string = `http://localhost:8081/users/${id}/games`;
 
         return this.http
             .get(userCollectionUrl)
+            .pipe(retry(3), catchError(this.errorsHandler.handleError));
+    }
+
+    getUserGameDetails(idGame: number) {
+        const userGameDetails: string = `http://localhost:8081/users/0/games/${idGame}`;
+        return this.http
+            .get(userGameDetails)
             .pipe(retry(3), catchError(this.errorsHandler.handleError));
     }
 }

@@ -2,14 +2,23 @@
     <app-loading-spinner
         *ngIf="gameService.isLoadingDetails"
     ></app-loading-spinner>
-    <div class="details">
+    <!-- start !isCollection condition -->
+    <div class="details" *ngIf="!isCollection">
         <div class="title">
-            <h1 *ngIf="(gameService.detailedGameData?.item.name)[0]?.value">
+            <h1
+                *ngIf="
+                    (gameService.detailedGameData?.item.name)[0]?.value;
+                    else elseBlock
+                "
+            >
                 {{ (gameService.detailedGameData?.item.name)[0].value }}
             </h1>
-            <h1 *ngIf="(gameService.detailedGameData?.item.name).value">
-                {{ (gameService.detailedGameData?.item.name).value }}
-            </h1>
+            <ng-template #elseBlock>
+                <h1>
+                    {{ (gameService.detailedGameData?.item.name).value }}
+                </h1>
+            </ng-template>
+
             <h2>
                 {{ gameService.detailedGameData?.item.yearpublished.value }}
             </h2>
@@ -43,6 +52,48 @@
             [innerHTML]="gameService.detailedGameData?.item.description"
         ></p>
     </div>
+    <!-- end !isCollection condition -->
+    <!-- start isCollection condition -->
+    <div class="details" *ngIf="isCollection">
+        <div class="title">
+            <h1>
+                {{ gameService.detailedGameData }}
+            </h1>
+
+            <h2>
+                {{ gameService.detailedGameData?.item.yearpublished.value }}
+            </h2>
+        </div>
+
+        <div class="horizontal">
+            <div class="time">
+                <img width="25px" src="assets/icones/time.svg" />
+                <span class="time"
+                    >{{
+                        gameService.detailedGameData?.item.playingtime.value
+                    }}
+                    minutes</span
+                >
+            </div>
+            <div class="nb-player">
+                <img width="25px" src="assets/icones/user.svg" />
+                <span class="nb-player"
+                    >{{
+                        gameService.detailedGameData?.item.minplayers.value
+                    }}-{{
+                        gameService.detailedGameData?.item.maxplayers.value
+                    }}
+                    joueurs</span
+                >
+            </div>
+        </div>
+
+        <p
+            class="description c-scrollbar"
+            [innerHTML]="gameService.detailedGameData?.item.description"
+        ></p>
+    </div>
+    <!-- end isCollection condition -->
     <div
         class="card-image"
         [ngStyle]="

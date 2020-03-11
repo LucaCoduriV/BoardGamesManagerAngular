@@ -17,6 +17,6 @@ export class CollectionComponent implements OnInit {
     ngOnInit() {
         this.currentUserId = +localStorage.getItem("idUser");
 
-        this.gameService.getUserCollection(this.currentUserId);
+        this.collection$ = this.gameService.getUserCollection(this.currentUserId); //prettier-ignore
     }
 }
