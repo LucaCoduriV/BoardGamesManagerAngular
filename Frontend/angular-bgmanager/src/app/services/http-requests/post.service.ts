@@ -35,11 +35,12 @@ export class PostService {
             .post(this.registerUrl, user, { responseType: "text" })
             .pipe(retry(3), catchError(this.errorsHandler.handleError));
     }
-    addGame({ name, minPlayer, maxPlayer, duration, description }) {
+    addGame({ name, minPlayer, maxPlayer, duration, description, image }) {
         const addGameURL: string = `http://localhost:8081/users/${localStorage.getItem('idUser')}/games`; //prettier-ignore
         let body = {
             gameName: name,
             description: description,
+            image: image,
             minAge: 1,
             minNbPlayer: minPlayer,
             maxNbPlayer: maxPlayer,
