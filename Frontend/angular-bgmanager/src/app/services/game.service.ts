@@ -26,8 +26,11 @@ export class GameService {
 
     //collection
     collectionData: Object;
-    addGamePlaceHolder: Game;
     isCollection: boolean = false;
+
+    //add edit game
+    addGamePlaceHolder: Game;
+    isEdit: boolean = false;
 
     constructor(
         private getService: GetService,
@@ -124,14 +127,14 @@ export class GameService {
     }
 
     addGame(
-        { name, minPlayer, maxPlayer, duration, description, image },
+        { name, minNbPlayer, maxNbPlayer, duration, description, image },
         callback
     ) {
         this.postService
             .addGame({
                 name,
-                minPlayer,
-                maxPlayer,
+                minNbPlayer,
+                maxNbPlayer,
                 duration,
                 description,
                 image

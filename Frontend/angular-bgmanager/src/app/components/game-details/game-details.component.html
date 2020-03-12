@@ -115,4 +115,10 @@
             }
         "
     ></div>
+    <div *ngIf="!isCollection" class="btn-add" (click)="add()">
+        <img src="assets/icones/add.svg" alt="add" width="40px" />
+    </div>
+    <div *ngIf="isCollection" class="btn-edit" (click)="edit()">
+        <img src="assets/icones/edit.svg" alt="add" width="20px" />
+    </div>
 </div>

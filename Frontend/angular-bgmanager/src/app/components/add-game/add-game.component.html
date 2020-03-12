@@ -21,10 +21,18 @@
             <input type="text" name="image" formControlName="image" />
 
             <label for="minPlayer">Nombre de joueur minimum</label>
-            <input type="number" name="minPlayer" formControlName="minPlayer" />
+            <input
+                type="number"
+                name="minNbPlayer"
+                formControlName="minNbPlayer"
+            />
 
             <label for="maxPlayer">Nombre de joueur maximum</label>
-            <input type="number" name="maxPlayer" formControlName="maxPlayer" />
+            <input
+                type="number"
+                name="maxNbPlayer"
+                formControlName="maxNbPlayer"
+            />
 
             <label for="duration">temps moyen (minutes)</label>
             <input type="number" name="duration" formControlName="duration" />
@@ -37,10 +45,17 @@
                 formControlName="description"
             ></textarea>
 
-            <div class="bottom-form">
+            <div class="bottom-form" *ngIf="!gameService.isEdit">
                 <input
                     type="submit"
                     value="Ajouter"
+                    class="header-btn btn-blue"
+                />
+            </div>
+            <div class="bottom-form" *ngIf="gameService.isEdit">
+                <input
+                    type="submit"
+                    value="Modifier"
                     class="header-btn btn-blue"
                 />
             </div>

@@ -94,8 +94,9 @@ function modifyGameInCollection(game, callback) {
     if (game.minAge == undefined) game.minAge = null;
     if (game.minNbPlayer == undefined) game.minNbPlayer = null;
     if (game.maxNbPlayer == undefined) game.maxNbPlayer = null;
-    if (game.minDuration == undefined) game.minDuration = null;
-    if (game.maxDuration == undefined) game.maxDuration = null;
+    if (game.duration == undefined) game.duration = null;
+    if (game.creationDate == undefined) game.creationDate = null;
+    if (game.image == undefined) game.image = null;
 
     DB.pool.query(
         `UPDATE games 
@@ -105,8 +106,9 @@ function modifyGameInCollection(game, callback) {
     minAge = ${game.minAge},
     minNbPlayer = ${game.minNbPlayer},
     maxNbPlayer = ${game.maxNbPlayer},
-    minDuration = ${game.minDuration},
-    maxDuration = ${game.maxDuration}
+    duration = ${game.duration},
+    creationDate = ${game.creationDate},
+    image = ${game.image}
     WHERE idGame = ${game.idGame}
     AND idUser = ${game.idUser};`,
         (err, result) => {

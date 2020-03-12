@@ -4,6 +4,7 @@ export class Game {
     minAge: number;
     minNbPlayer: number;
     maxNbPlayer: number;
-    durationuration: number;
+    duration: number;
     creationDate: number;
+    image: string;
 }

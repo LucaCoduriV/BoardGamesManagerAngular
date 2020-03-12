@@ -35,15 +35,15 @@ export class PostService {
             .post(this.registerUrl, user, { responseType: "text" })
             .pipe(retry(3), catchError(this.errorsHandler.handleError));
     }
-    addGame({ name, minPlayer, maxPlayer, duration, description, image }) {
+    addGame({ name, minNbPlayer, maxNbPlayer, duration, description, image }) {
         const addGameURL: string = `http://localhost:8081/users/${localStorage.getItem('idUser')}/games`; //prettier-ignore
         let body = {
             gameName: name,
             description: description,
             image: image,
             minAge: 1,
-            minNbPlayer: minPlayer,
-            maxNbPlayer: maxPlayer,
+            minNbPlayer: minNbPlayer,
+            maxNbPlayer: maxNbPlayer,
             duration: duration,
             creationDate: 1994,
             idUser: localStorage.getItem("idUser")

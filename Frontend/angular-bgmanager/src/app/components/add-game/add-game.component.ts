@@ -12,8 +12,8 @@ export class AddGameComponent implements OnInit {
     addGameForm = new FormGroup({
         name: new FormControl(""),
         creationDate: new FormControl(""),
-        minPlayer: new FormControl(""),
-        maxPlayer: new FormControl(""),
+        minNbPlayer: new FormControl(""),
+        maxNbPlayer: new FormControl(""),
         duration: new FormControl(""),
         description: new FormControl(""),
         image: new FormControl("")
@@ -31,19 +31,22 @@ export class AddGameComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.addGameForm.value);
-        this.gameService.addGame(this.addGameForm.value, (err, result) => {
-            if (err) {
-                this.alertService.modifyAlert(
-                    "danger",
-                    "Impossible d'ajouter le jeu"
-                );
-                console.log(err);
-            }
-            if (result) {
-                this.alertService.modifyAlert("success", result);
-                this.alertService.showAlert(true);
-            }
-        });
+        if (!this.gameService.isEdit) {
+            this.gameService.addGame(this.addGameForm.value, (err, result) => {
+                if (err) {
+                    this.alertService.modifyAlert(
+                        "danger",
+                        "Impossible d'ajouter le jeu"
+                    );
+                    console.log(err);
+                }
+                if (result) {
+                    this.alertService.modifyAlert("success", result);
+                    this.alertService.showAlert(true);
+                }
+            });
+        }
+        if (this.gameService.isEdit) {
+        }
     }
 }

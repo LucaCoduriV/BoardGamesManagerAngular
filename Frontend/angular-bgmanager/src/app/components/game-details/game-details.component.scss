@@ -5,6 +5,39 @@
     background-color: #f2f3fa;
     display: flex;
 
+    .btn-add {
+        position: absolute;
+        margin-top: 520px;
+        margin-left: 870px;
+        background-color: white;
+        border-radius: 50%;
+        &:hover {
+            cursor: pointer;
+            img {
+                transform: scale(1.3, 1.3);
+            }
+        }
+    }
+    .btn-edit {
+        position: absolute;
+        margin-top: 520px;
+        margin-left: 870px;
+        background-color: white;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+
+        img {
+            transform: translateX(11px) translateY(6px);
+        }
+        &:hover {
+            cursor: pointer;
+            img {
+                transform: translateX(11px) translateY(6px) scale(1.3, 1.3);
+            }
+        }
+    }
+
     .card-image {
         background-color: #eff6ff;
         background-size: cover !important;

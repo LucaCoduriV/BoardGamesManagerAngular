@@ -105,8 +105,9 @@ function modifyGameInCollection(req, res) {
     let minAge = req.body.minAge;
     let minNbPlayer = req.body.minNbPlayer;
     let maxNbPlayer = req.body.maxNbPlayer;
-    let minDuration = req.body.minDuration;
-    let maxDuration = req.body.maxDuration;
+    let duration = req.body.duration;
+    let creationDate = req.body.creationDate;
+    let image = req.body.image;
 
     usersManagement.modifyGameInCollection(
         {
@@ -117,8 +118,9 @@ function modifyGameInCollection(req, res) {
             minAge: minAge,
             minNbPlayer: minNbPlayer,
             maxNbPlayer: maxNbPlayer,
-            minDuration: minDuration,
-            maxDuration: maxDuration
+            duration: duration,
+            creationDate: creationDate,
+            image: image
         },
         (err, result) => {
             if (result.affectedRows == 0) {
