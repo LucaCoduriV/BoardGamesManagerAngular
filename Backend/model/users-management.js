@@ -75,12 +75,15 @@ function addGameInCollection(game, callback) {
     if (game.minAge == undefined) game.minAge = null;
     if (game.minNbPlayer == undefined) game.minNbPlayer = null;
     if (game.maxNbPlayer == undefined) game.maxNbPlayer = null;
-    if (game.minDuration == undefined) game.duration = null;
     if (game.creationDate == undefined) game.creationDate = null;
     if (game.image == undefined) game.image = null;
+    if (game.duration == undefined) game.duration = null;
+
+    console.log(game);
 
     DB.pool.query(
-        `INSERT INTO games VALUES(null, '${game.gameName}', '${game.description}', ${game.minAge}, ${game.minNbPlayer}, ${game.maxNbPlayer}, ${game.duration}, ${game.creationDate}, ${game.image}, ${game.idUser});`,
+        "INSERT INTO games VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+        [game.gameName, game.description, game.minAge, game.minNbPlayer, game.maxNbPlayer, game.duration, game.creationDate, game.image, game.idUser],
         (err, result) => {
             callback(err, result);
         }
