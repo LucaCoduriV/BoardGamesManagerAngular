@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { GameService } from "src/app/services/game.service";
 import { AlertService } from "src/app/services/alert.service";
@@ -8,7 +8,7 @@ import { AlertService } from "src/app/services/alert.service";
     templateUrl: "./add-game.component.html",
     styleUrls: ["./add-game.component.scss"]
 })
-export class AddGameComponent implements OnInit {
+export class AddGameComponent implements OnInit, OnDestroy {
     addGameForm = new FormGroup({
         name: new FormControl(""),
         creationDate: new FormControl(""),
@@ -30,7 +30,12 @@ export class AddGameComponent implements OnInit {
         }
     }
 
+    ngOnDestroy() {
+        this.gameService.isEdit = false;
+        this.gameService.addGamePlaceHolder = null;
+    }
     onSubmit() {
+        //s'il s'agit d'ajouter un jeu à la collection
         if (!this.gameService.isEdit) {
             this.gameService.addGame(this.addGameForm.value, (err, result) => {
                 if (err) {
@@ -46,7 +51,20 @@ export class AddGameComponent implements OnInit {
                 }
             });
         }
+        //s'il s'agit de modifier un jeu de la collection
         if (this.gameService.isEdit) {
+            let data = {
+                gameName: this.addGameForm.value.name,
+                description: this.addGameForm.value.description,
+                minAge: 0,
+                minNbPlayer: this.addGameForm.value.minNbPlayer,
+                maxNbPlayer: this.addGameForm.value.maxNbPlayer,
+                duration: this.addGameForm.value.duration,
+                creationDate: this.addGameForm.value.creationDate,
+                image: this.addGameForm.value.image
+            };
+
+            this.gameService.editGame(this.gameService.idGameToEdit, data);
         }
     }
 }

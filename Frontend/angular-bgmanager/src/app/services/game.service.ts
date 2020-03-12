@@ -10,6 +10,7 @@ import {
 } from "rxjs/operators";
 import { PostService } from "./http-requests/post.service";
 import { Game } from "../objects/game";
+import { PutService } from "./http-requests/put.service";
 
 @Injectable({
     providedIn: "root"
@@ -31,10 +32,12 @@ export class GameService {
     //add edit game
     addGamePlaceHolder: Game;
     isEdit: boolean = false;
+    idGameToEdit: number;
 
     constructor(
         private getService: GetService,
-        private postService: PostService
+        private postService: PostService,
+        private putService: PutService
     ) {
         this.createGameDetailsSubject();
     }
@@ -147,5 +150,16 @@ export class GameService {
                     callback(error);
                 }
             );
+    }
+
+    editGame(idGame: number, data) {
+        this.putService.modifyGame(idGame, data).subscribe(
+            result => {
+                console.log(result);
+            },
+            error => {
+                console.log(error);
+            }
+        );
     }
 }

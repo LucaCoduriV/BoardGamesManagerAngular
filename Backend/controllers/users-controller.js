@@ -27,7 +27,10 @@ function login(req, res) {
             //checker si le hash correspond
             bcrypt.compare(password, result[0].password, (err, hashOK) => {
                 if (hashOK) {
-                    let token = jwt.sign({ idUser: result[0].idUser, username: result[0].login, superadmin: result[0].superadmin }, process.env.JWT_SECRET);
+                    let token = jwt.sign(
+                        { idUser: result[0].idUser, username: result[0].login, superadmin: result[0].superadmin },
+                        process.env.JWT_SECRET
+                    );
                     res.status(201).send({ token: token });
                 } else {
                     res.status(401).send("Non autorisé");

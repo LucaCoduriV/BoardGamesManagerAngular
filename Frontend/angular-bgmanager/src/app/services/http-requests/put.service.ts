@@ -13,7 +13,7 @@ export class PutService {
     ) {}
 
     modifyGame(
-        idUser,
+        idGame,
         {
             gameName,
             description,
@@ -25,7 +25,7 @@ export class PutService {
             image
         }
     ) {
-        const urlModifyGame: string = `localhost:8081/users/0/games/${idUser}`;
+        const urlModifyGame: string = `http://localhost:8081/users/0/games/${idGame}`;
 
         let body = {
             gameName: gameName,
@@ -37,6 +37,8 @@ export class PutService {
             creationDate: creationDate,
             image: image
         };
+        console.table(body);
+        console.log("id du jeu:" + idGame);
         return this.http
             .put(urlModifyGame, body, { responseType: "text" })
             .pipe(retry(3), catchError(this.errorsHandler.handleError));

@@ -62,6 +62,8 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
 
     edit() {
         this.gameService.isEdit = true;
+        this.gameService.idGameToEdit =
+            this.gameService.detailedGameData[0].idGame || 0;
         this.placeHolder();
         this.router.navigate(["/add-game"]);
     }
