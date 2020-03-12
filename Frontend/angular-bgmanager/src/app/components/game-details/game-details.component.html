@@ -3,7 +3,7 @@
         *ngIf="gameService.isLoadingDetails"
     ></app-loading-spinner>
     <!-- start !isCollection condition -->
-    <div class="details" *ngIf="!isCollection">
+    <div class="details" *ngIf="!isCollection && gameService.detailedGameData">
         <div class="title">
             <h1
                 *ngIf="
@@ -54,14 +54,17 @@
     </div>
     <!-- end !isCollection condition -->
     <!-- start isCollection condition -->
-    <div class="details" *ngIf="isCollection">
+    <div
+        class="details"
+        *ngIf="isCollection && gameService.detailedGameData != undefined"
+    >
         <div class="title">
             <h1>
-                {{ gameService.detailedGameData }}
+                {{ gameService.detailedGameData[0]?.name }}
             </h1>
 
             <h2>
-                {{ gameService.detailedGameData?.item.yearpublished.value }}
+                {{ gameService.detailedGameData[0]?.creationDate }}
             </h2>
         </div>
 
@@ -70,7 +73,7 @@
                 <img width="25px" src="assets/icones/time.svg" />
                 <span class="time"
                     >{{
-                        gameService.detailedGameData?.item.playingtime.value
+                        gameService.detailedGameData[0]?.duration
                     }}
                     minutes</span
                 >
@@ -78,10 +81,8 @@
             <div class="nb-player">
                 <img width="25px" src="assets/icones/user.svg" />
                 <span class="nb-player"
-                    >{{
-                        gameService.detailedGameData?.item.minplayers.value
-                    }}-{{
-                        gameService.detailedGameData?.item.maxplayers.value
+                    >{{ gameService.detailedGameData[0]?.minNbPlayer }}-{{
+                        gameService.detailedGameData[0]?.maxNbPlayer
                     }}
                     joueurs</span
                 >
@@ -90,16 +91,27 @@
 
         <p
             class="description c-scrollbar"
-            [innerHTML]="gameService.detailedGameData?.item.description"
+            [innerHTML]="gameService.detailedGameData[0]?.description"
         ></p>
     </div>
     <!-- end isCollection condition -->
     <div
+        *ngIf="!isCollection && gameService.detailedGameData"
         class="card-image"
         [ngStyle]="
             gameService.detailedGameData?.item.image && {
                 background:
                     'url(' + gameService.detailedGameData.item.image + ')'
+            }
+        "
+    ></div>
+    <div
+        *ngIf="isCollection && gameService.detailedGameData != undefined"
+        class="card-image"
+        [ngStyle]="
+            gameService.detailedGameData[0]?.image && {
+                background:
+                    'url(' + gameService.detailedGameData[0]?.image + ')'
             }
         "
     ></div>

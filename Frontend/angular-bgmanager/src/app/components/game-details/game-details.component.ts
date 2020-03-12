@@ -3,7 +3,8 @@ import {
     OnInit,
     OnChanges,
     SimpleChanges,
-    Input
+    Input,
+    OnDestroy
 } from "@angular/core";
 import { GameService } from "src/app/services/game.service";
 
@@ -12,7 +13,7 @@ import { GameService } from "src/app/services/game.service";
     templateUrl: "./game-details.component.html",
     styleUrls: ["./game-details.component.scss"]
 })
-export class GameDetailsComponent implements OnInit {
+export class GameDetailsComponent implements OnInit, OnDestroy {
     @Input() isCollection: boolean = false;
 
     placeholder =
@@ -23,4 +24,8 @@ export class GameDetailsComponent implements OnInit {
     constructor(private gameService: GameService) {}
 
     ngOnInit() {}
+
+    ngOnDestroy() {
+        this.gameService.detailedGameData = null;
+    }
 }

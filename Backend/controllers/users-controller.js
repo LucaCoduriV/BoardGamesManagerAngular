@@ -73,6 +73,7 @@ function addGameInCollection(req, res) {
     let duration = req.body.duration;
     let creationDate = req.body.creationDate;
     let idUser = req.jwt.idUser;
+    let image = req.body.image;
 
     usersManagement.addGameInCollection(
         {
@@ -83,7 +84,8 @@ function addGameInCollection(req, res) {
             maxNbPlayer: maxNbPlayer,
             duration: duration,
             creationDate: creationDate,
-            idUser: idUser
+            idUser: idUser,
+            image: image
         },
         (err, result) => {
             if (err) {
