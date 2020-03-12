@@ -123,14 +123,18 @@ export class GameService {
         );
     }
 
-    addGame({ name, minPlayer, maxPlayer, duration, description }, callback) {
+    addGame(
+        { name, minPlayer, maxPlayer, duration, description, image },
+        callback
+    ) {
         this.postService
             .addGame({
                 name,
                 minPlayer,
                 maxPlayer,
                 duration,
-                description
+                description,
+                image
             })
             .subscribe(
                 result => {

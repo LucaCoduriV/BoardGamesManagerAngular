@@ -15,7 +15,8 @@ export class AddGameComponent implements OnInit {
         minPlayer: new FormControl(""),
         maxPlayer: new FormControl(""),
         duration: new FormControl(""),
-        description: new FormControl("")
+        description: new FormControl(""),
+        image: new FormControl("")
     });
 
     constructor(
@@ -30,6 +31,7 @@ export class AddGameComponent implements OnInit {
     }
 
     onSubmit() {
+        console.log(this.addGameForm.value);
         this.gameService.addGame(this.addGameForm.value, (err, result) => {
             if (err) {
                 this.alertService.modifyAlert(
