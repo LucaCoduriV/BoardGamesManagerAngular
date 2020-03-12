@@ -79,8 +79,6 @@ function addGameInCollection(game, callback) {
     if (game.image == undefined) game.image = null;
     if (game.duration == undefined) game.duration = null;
 
-    console.log(game);
-
     DB.pool.query(
         "INSERT INTO games VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
         [game.gameName, game.description, game.minAge, game.minNbPlayer, game.maxNbPlayer, game.duration, game.creationDate, game.image, game.idUser],
