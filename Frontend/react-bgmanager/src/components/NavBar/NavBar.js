@@ -10,7 +10,7 @@ const activeStyle = {
 export default class NavBar extends React.Component {
   render() {
     return (
-      <header id="navBar">
+      <div id="navBar">
         <ul>
           <li>
             <NavLink exact to="/" activeStyle={activeStyle}>
@@ -24,7 +24,7 @@ export default class NavBar extends React.Component {
             </NavLink>
           </li>
         </ul>
-      </header>
+      </div>
     );
   }
 }
