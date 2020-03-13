@@ -2,7 +2,13 @@
     <div class="add-game-form">
         <div class="add-game-title">
             <div id="top">
-                <h1>Ajouter un jeu</h1>
+                <h1>
+                    {{
+                        gameService.isEdit
+                            ? "Modifier le jeu"
+                            : "Ajouter un jeu"
+                    }}
+                </h1>
                 <span class="ligne"></span>
             </div>
         </div>

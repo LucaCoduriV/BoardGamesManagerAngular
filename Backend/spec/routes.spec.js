@@ -22,8 +22,7 @@ const vote = {
     idCandidate: 10
 };
 
-const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOjQ5LCJzdXBlcmFkbWluIjowLCJpYXQiOjE1ODMyNDQ1NTd9.6Gfrviz6KR_9U8xhir9m5mIP7HB-iXhjERXGnI2BcLI";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFVzZXIiOjQ5LCJzdXBlcmFkbWluIjowLCJpYXQiOjE1ODMyNDQ1NTd9.6Gfrviz6KR_9U8xhir9m5mIP7HB-iXhjERXGnI2BcLI";
 
 describe("DB", () => {
     it("should connect to DB", done => {
@@ -225,18 +224,7 @@ describe("route", () => {
                 .send(game.id)
                 .then(response => {
                     keysArr = Object.keys(response[0]);
-                    excpectedArray = [
-                        "idGame",
-                        "idAPI",
-                        "name",
-                        "description",
-                        "minAge",
-                        "minNbPlayer",
-                        "maxNbPlayer",
-                        "minDuration",
-                        "maxDuration",
-                        "creationDate"
-                    ];
+                    excpectedArray = ["idGame", "idAPI", "name", "description", "minAge", "minNbPlayer", "maxNbPlayer", "minDuration", "maxDuration", "creationDate"];
 
                     expect(keysArr).toEqual(excpectedArray);
                 });
@@ -304,7 +292,7 @@ describe("route", () => {
     });
 
     //créer un sondage
-    fdescribe("/users/:idUser/surveys", () => {
+    describe("/users/:idUser/surveys", () => {
         it("should return 200", done => {
             request(app)
                 .post("/users/:idUser/surveys")
