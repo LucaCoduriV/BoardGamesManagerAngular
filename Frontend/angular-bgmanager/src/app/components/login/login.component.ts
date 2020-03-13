@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from "@angular/forms";
 import { UserService } from "src/app/services/user.service";
 import { Alert } from "src/app/objects/alert";
 import { AlertService } from "src/app/services/alert.service";
+import { Router } from "@angular/router";
 @Component({
     selector: "app-login",
     templateUrl: "./login.component.html",
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private auth: UserService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private router: Router
     ) {}
 
     ngOnInit() {}
@@ -42,9 +44,11 @@ export class LoginComponent implements OnInit {
             if (alert) {
                 this.alertService.modifyAlert(alert.type, alert.message);
 
-                this.alertService.showAlert(false);
-            } else {
                 this.alertService.showAlert(true);
+            } else {
+                this.alertService.modifyAlert("success", "Vous êtes connecté");
+                this.alertService.showAlert(true);
+                this.router.navigate(["/collection"]);
             }
         });
     }
