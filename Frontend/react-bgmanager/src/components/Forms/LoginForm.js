@@ -14,21 +14,24 @@ export default class LoginForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.username);
-    console.log(this.state.password);
+
+    let data = {
+      username: this.state.username,
+      password: this.state.password
+    };
 
     fetch("http://localhost:8081/login", {
       method: "POST",
-      body: this.state
-    }).then(value => {
-      console.log(value);
-    });
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(value => console.log(value));
   }
 
   handleChange(event) {
-    console.log(event.target.value);
     this.setState({
-      username: event.target.value
+      [event.target.name]: event.target.value //On attribue au nom de l'input, la valeur qu'il contient
     });
   }
 
@@ -37,9 +40,9 @@ export default class LoginForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <h2>Login</h2>
         <div id="form-input-text">
-          <input name="username" value={this.state.username} type="text" placeholder="Nom d'utilisateur" onChange={this.handleChange} />
+          <input name="username" type="text" placeholder="Nom d'utilisateur" onChange={this.handleChange} />
           <br />
-          <input name="password" value={this.state.password} type="password" placeholder="Mot de passe" onChange={this.handleChange} />
+          <input name="password" type="password" placeholder="Mot de passe" onChange={this.handleChange} />
         </div>
         <div>
           <button type="submit">Se connecter</button>
