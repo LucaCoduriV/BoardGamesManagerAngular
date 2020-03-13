@@ -22,25 +22,20 @@
             <div class="collection-jeu">
                 <label for="search">Collection de jeux</label>
                 <div class="inputgroup">
-                    <img
-                        class="innericon searchicon"
-                        src="assets/icones/loupe.svg"
-                    />
-                    <input
-                        type="search"
-                        placeholder="Choisisez un jeu..."
-                        list="browsers"
-                        name="browser"
-                    />
-                    <datalist id="browsers">
-                        <option value="Internet Explorer"> </option>
-                        <option value="Firefox"> </option>
-                        <option value="Chrome"> </option>
-                        <option value="Opera"> </option>
-                        <option value="Safari"> </option>
-                    </datalist>
+                    <select (change)="onSelectChange($event.target.value)">
+                        <option
+                            *ngFor="let game of gamelist$ | async"
+                            [value]="game.idGame"
+                            >{{ game.name }}
+                        </option>
+                    </select>
                 </div>
-                <button class="header-btn btn-blue">Ajouter</button>
+                <button
+                    class="header-btn btn-blue"
+                    (click)="addCollectionGameInList()"
+                >
+                    Ajouter
+                </button>
             </div>
             <div class="selected-jeu">
                 <form [formGroup]="createSurveyForm" (ngSubmit)="onSubmit()">
@@ -48,25 +43,13 @@
                     <div>
                         <table class="table-fill">
                             <tbody class="table-hover">
-                                <tr>
-                                    <td class="text-left">image</td>
-                                    <td class="text-left">Monopoly</td>
-                                    <td class="text-right">Action</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left">image</td>
-                                    <td class="text-left">Monopoly</td>
-                                    <td class="text-right">Action</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left">image</td>
-                                    <td class="text-left">Monopoly</td>
-                                    <td class="text-right">Action</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left">image</td>
-                                    <td class="text-left">Monopoly</td>
-                                    <td class="text-right">Action</td>
+                                <tr *ngFor="let game of listOfSelectedGames">
+                                    <td class="text-left">{{ game.name }}</td>
+                                    <td class="text-right">
+                                        <a (click)="removeGame(game.idGame)"
+                                            >supprimer</a
+                                        >
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
