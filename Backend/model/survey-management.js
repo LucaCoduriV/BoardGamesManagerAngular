@@ -13,12 +13,19 @@ function insertCandidate(candidates, idSurvey, callback) {
     const promises = [];
 
     candidates.map(candidate => {
+        if (!candidate.idAPI) candidate.idAPI = null;
+        if (!candidate.idGame) candidate.idGame = null;
+
         promises.push(
             new Promise((resolve, reject) => {
-                DB.pool.query(`INSERT INTO candidates(idSurvey, nbVotes, idAPI, idGame) VALUES(${idSurvey},0,${candidate.idAPI},${candidate.idGame});`, (err, result) => {
-                    if (err) throw err;
-                    resolve();
-                });
+                DB.pool.query(
+                    `INSERT INTO candidates(idSurvey, nbVotes, idAPI, idGame) VALUES(? , 0, ?, ?);`,
+                    [idSurvey, candidate.idAPI, candidate.idGame],
+                    (err, result) => {
+                        if (err) throw err;
+                        resolve();
+                    }
+                );
             })
         );
     });
@@ -73,9 +80,12 @@ function updateVoteNB(idCandidate, callback) {
 }
 
 function countIpForSurvey(idSurvey, ip, callback) {
-    DB.pool.query(`SELECT count(v.ip)as nbIP FROM candidates c, votes v WHERE c.idSurvey = ${idSurvey} AND c.idCandidate = v.idCandidate AND v.ip like '${ip}'`, (err, result) => {
-        callback(err, result);
-    });
+    DB.pool.query(
+        `SELECT count(v.ip)as nbIP FROM candidates c, votes v WHERE c.idSurvey = ${idSurvey} AND c.idCandidate = v.idCandidate AND v.ip like '${ip}'`,
+        (err, result) => {
+            callback(err, result);
+        }
+    );
 }
 
 exports.insertSurvey = insertSurvey;
