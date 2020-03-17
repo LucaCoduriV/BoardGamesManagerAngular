@@ -14,7 +14,7 @@ import {
 import { AddGameComponent } from "./components/add-game/add-game.component";
 
 const routes: Routes = [
-    { path: "survey", component: SurveyComponent },
+    { path: "survey/:shareCode", component: SurveyComponent },
     {
         path: "collection",
         component: CollectionComponent,

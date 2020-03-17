@@ -65,4 +65,18 @@ export class GetService {
             .get(userGameDetails)
             .pipe(retry(3), catchError(this.errorsHandler.handleError));
     }
+
+    getSurvey(shareCode: string) {
+        return this.http
+            .get(`http://localhost:8081/users/surveys/${shareCode}`)
+            .pipe(retry(3), catchError(this.errorsHandler.handleError));
+    }
+
+    getCandidates(idSurvey: number) {
+        return this.http
+            .get<Array<Object>>(
+                `http://localhost:8081/users/surveys/${idSurvey}/candidates`
+            )
+            .pipe(retry(3), catchError(this.errorsHandler.handleError));
+    }
 }

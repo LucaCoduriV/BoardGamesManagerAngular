@@ -52,4 +52,16 @@ export class PostService {
             .post(addGameURL, body, { responseType: "text" })
             .pipe(retry(3), catchError(this.errorsHandler.handleError));
     }
+    addSurvey(
+        idUser,
+        candidates: Array<Object> //idAPI, idGame
+    ) {
+        return this.http
+            .post(
+                `http://localhost:8081/users/${idUser}/surveys`,
+                { idUser: idUser, candidates: candidates },
+                { responseType: "text" }
+            )
+            .pipe(retry(3), catchError(this.errorsHandler.handleError));
+    }
 }

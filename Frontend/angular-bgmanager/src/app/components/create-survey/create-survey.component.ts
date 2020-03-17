@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { GetService } from "src/app/services/http-requests/get.service";
 import { Observable } from "rxjs";
-
+import { PostService } from "src/app/services/http-requests/post.service";
 @Component({
     selector: "app-create-survey",
     templateUrl: "./create-survey.component.html",
@@ -19,7 +19,10 @@ export class CreateSurveyComponent implements OnInit {
         password: new FormControl("")
     });
 
-    constructor(private getService: GetService) {}
+    constructor(
+        private getService: GetService,
+        private postService: PostService
+    ) {}
 
     ngOnInit() {
         this.gamelist$ = this.getService.getUserCollection(
@@ -44,5 +47,17 @@ export class CreateSurveyComponent implements OnInit {
         this.listOfSelectedGames = this.listOfSelectedGames.filter(element => {
             return element.idGame != +id;
         });
+    }
+
+    onSubmit() {
+        const idUser = localStorage.getItem("idUser");
+        this.postService.addSurvey(idUser, this.listOfSelectedGames).subscribe(
+            value => {
+                console.log(value);
+            },
+            error => {
+                console.log(error);
+            }
+        );
     }
 }
