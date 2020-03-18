@@ -4,8 +4,9 @@ const uuid = require("uuid");
 //import { v1 as uuidv1 } from "uuid";
 
 function insertSurvey(idUser, callback) {
-    DB.pool.query(`INSERT INTO surveys(sharecode, date, idUser) VALUES('${uuid.v1()}',NOW(),${idUser});`, (err, result) => {
-        callback(err, result);
+    const shareCode = uuid.v1();
+    DB.pool.query(`INSERT INTO surveys(sharecode, date, idUser) VALUES('${shareCode}',NOW(),${idUser});`, (err, result) => {
+        callback(err, result, shareCode);
     });
 }
 

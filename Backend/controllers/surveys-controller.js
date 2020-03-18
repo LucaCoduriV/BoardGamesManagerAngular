@@ -10,11 +10,11 @@ function createSurvey(req, res) {
     //`INSERT INTO surveys(sharecode, date, idUser) VALUES('',NOW(),10);`
     //TODO créer les candidats du vote, récupérer l'id du survey créer avant
     //`INSERT INTO candidates(idSurvey, nbVotes, idAPI, idGame) VALUES(1,0,10,NULL);`
-    surveyManagement.insertSurvey(idUser, (err, result) => {
+    surveyManagement.insertSurvey(idUser, (err, result, shareCode) => {
         let idSurvey = result.insertId;
         try {
             surveyManagement.insertCandidate(candidates, idSurvey, () => {
-                res.status(200).send({ message: "Inséré avec succès !", idSurvey: idSurvey });
+                res.status(200).send({ message: "Inséré avec succès !", idSurvey: idSurvey, shareCode: shareCode });
             });
         } catch (error) {
             res.status(400).send(error);
