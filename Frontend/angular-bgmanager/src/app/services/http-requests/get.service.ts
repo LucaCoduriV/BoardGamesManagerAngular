@@ -79,4 +79,10 @@ export class GetService {
             )
             .pipe(retry(3), catchError(this.errorsHandler.handleError));
     }
+
+    getVoteStatus(idSurvey) {
+        return this.http
+            .get(`http://localhost:8081/surveys/${idSurvey}/hasVoted`)
+            .pipe(retry(3), catchError(this.errorsHandler.handleError));
+    }
 }

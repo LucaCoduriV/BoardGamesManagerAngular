@@ -35,7 +35,8 @@
                     <input
                         class="header-btn btn-blue"
                         type="submit"
-                        value="Valider"
+                        [value]="voted ? 'déjà voté' : 'Valider'"
+                        [disabled]="voted"
                     />
                 </div>
             </form>

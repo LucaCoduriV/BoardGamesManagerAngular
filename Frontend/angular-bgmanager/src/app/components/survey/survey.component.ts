@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import { GetService } from "src/app/services/http-requests/get.service";
 import { promise, element } from "protractor";
 import { PostService } from "src/app/services/http-requests/post.service";
@@ -15,6 +15,7 @@ export class SurveyComponent implements OnInit {
     candidates: Array<Object>;
     survey: Object;
     totalVotes: number = 0;
+    voted: boolean = false;
 
     surveyForm = new FormGroup({
         candidate: new FormControl("")
@@ -22,15 +23,37 @@ export class SurveyComponent implements OnInit {
     constructor(
         private activatedRoute: ActivatedRoute,
         private getService: GetService,
-        private postService: PostService
-    ) {}
+        private postService: PostService,
+        private router: Router
+    ) {
+        // override the route reuse strategy
+        this.router.routeReuseStrategy.shouldReuseRoute = function() {
+            return false;
+        };
+
+        this.router.events.subscribe(evt => {
+            if (evt instanceof NavigationEnd) {
+                // trick the Router into believing it's last link wasn't previously loaded
+                this.router.navigated = false;
+            }
+        });
+    }
 
     async ngOnInit() {
         this.getAllInfos();
     }
 
+    hasVoted() {
+        this.getService
+            .getVoteStatus(this.survey["idSurvey"])
+            .subscribe(value => {
+                this.voted = value["hasVoted"];
+            });
+    }
+
     calculateVoteOnHundred(nbVotes) {
-        if (this.totalVotes != 0) return (+nbVotes * 100) / this.totalVotes;
+        if (this.totalVotes != 0)
+            return Math.round((+nbVotes * 100) / this.totalVotes);
         else return 0; //sinon 0 divisé par 0 est infini
     }
 
@@ -41,6 +64,11 @@ export class SurveyComponent implements OnInit {
                 this.survey = value[0];
                 console.log(this.survey);
                 const idSurvey = value[0].idSurvey;
+
+                //récupérer le status du vote
+                this.hasVoted();
+
+                //récupérer les candidats
                 this.getService.getCandidates(idSurvey).subscribe(value => {
                     const candidates = value;
                     this.candidates = candidates;
@@ -80,6 +108,7 @@ export class SurveyComponent implements OnInit {
             )
             .subscribe(value => {
                 console.log(value);
+                this.router.navigate([`/survey/${this.shareCode}`]);
             });
     }
 }
