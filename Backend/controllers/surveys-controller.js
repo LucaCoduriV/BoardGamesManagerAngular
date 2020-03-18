@@ -64,7 +64,7 @@ function vote(req, res) {
     let idCandidate = req.params.idCandidate;
     let idUser = req.params.idUser;
     let idSurvey = req.params.idSurvey;
-    console.log(req.connection.remoteAddress);
+    console.log(idCandidate);
 
     //check si l'ip existe déjà dans la db pour le survey
     surveyManagement.countIpForSurvey(idSurvey, ip, (err, result) => {

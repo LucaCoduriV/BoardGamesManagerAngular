@@ -64,4 +64,14 @@ export class PostService {
             )
             .pipe(retry(3), catchError(this.errorsHandler.handleError));
     }
+
+    vote(idCandidate, idSurvey, idUser) {
+        return this.http
+            .post(
+                `http://localhost:8081/users/${idUser}/surveys/${idSurvey}/candidates/${idCandidate}/vote`,
+                null,
+                { responseType: "text" }
+            )
+            .pipe(catchError(this.errorsHandler.handleError));
+    }
 }

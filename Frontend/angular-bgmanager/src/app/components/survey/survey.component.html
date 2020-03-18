@@ -9,100 +9,24 @@
         <div id="survey-body">
             <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
                 <div class="survey-body-top">
-                    <div class="candidat">
+                    <div
+                        class="candidat"
+                        *ngFor="let candidate of candidates; let i = index"
+                    >
                         <label class="radio">
-                            <input type="radio" name="r" value="1" checked />
-                            <span>Monopoly</span>
+                            <input
+                                type="radio"
+                                name="candidate"
+                                [value]="candidate?.idCandidate"
+                                formControlName="candidate"
+                            />
+                            <span>{{ candidate?.name }}</span>
                         </label>
 
                         <ngb-progressbar
                             type="success"
                             textType="white"
-                            [value]="20"
-                            showValue="true"
-                        ></ngb-progressbar>
-                    </div>
-                    <div class="candidat">
-                        <label class="radio">
-                            <input type="radio" name="r" value="1" />
-                            <span>Monopoly</span>
-                        </label>
-                        <ngb-progressbar
-                            type="success"
-                            textType="white"
-                            [value]="50"
-                            showValue="true"
-                        ></ngb-progressbar>
-                    </div>
-                    <div class="candidat">
-                        <label class="radio">
-                            <input type="radio" name="r" value="1" />
-                            <span>Monopoly</span>
-                        </label>
-                        <ngb-progressbar
-                            type="success"
-                            textType="white"
-                            [value]="30"
-                            showValue="true"
-                        ></ngb-progressbar>
-                    </div>
-                    <div class="candidat">
-                        <label class="radio">
-                            <input type="radio" name="r" value="1" />
-                            <span>Monopoly</span>
-                        </label>
-                        <ngb-progressbar
-                            type="success"
-                            textType="white"
-                            [value]="30"
-                            showValue="true"
-                        ></ngb-progressbar>
-                    </div>
-                    <div class="candidat">
-                        <label class="radio">
-                            <input type="radio" name="r" value="1" />
-                            <span>Monopoly</span>
-                        </label>
-                        <ngb-progressbar
-                            type="success"
-                            textType="white"
-                            [value]="30"
-                            showValue="true"
-                        ></ngb-progressbar>
-                    </div>
-                    <div class="candidat">
-                        <label class="radio">
-                            <input type="radio" name="r" value="1" />
-                            <span>Monopoly</span>
-                        </label>
-                        <ngb-progressbar
-                            type="success"
-                            textType="white"
-                            [value]="30"
-                            showValue="true"
-                        ></ngb-progressbar>
-                    </div>
-                    <div class="candidat">
-                        <label class="radio">
-                            <input type="radio" name="r" value="1" />
-                            <span>Monopoly</span>
-                        </label>
-                        <ngb-progressbar
-                            type="success"
-                            textType="white"
-                            [value]="30"
-                            showValue="true"
-                        ></ngb-progressbar>
-                    </div>
-                    <div class="candidat">
-                        <label class="radio">
-                            <input type="radio" name="r" value="1" />
-                            <span>Monopoly</span>
-                        </label>
-                        <ngb-progressbar
-                            type="success"
-                            textType="white"
-                            [value]="30"
+                            [value]="calculateVoteOnHundred(candidate?.nbVotes)"
                             showValue="true"
                         ></ngb-progressbar>
                     </div>
