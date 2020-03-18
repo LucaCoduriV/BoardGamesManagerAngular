@@ -33,6 +33,11 @@
                 </div>
                 <div class="survey-body-bottom">
                     <input
+                        type="text"
+                        value="http:localhost:8081{{ router.url }}"
+                        (click)="$event.target.select()"
+                    />
+                    <input
                         class="header-btn btn-blue"
                         type="submit"
                         [value]="voted ? 'déjà voté' : 'Valider'"

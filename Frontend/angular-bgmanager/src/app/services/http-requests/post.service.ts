@@ -57,11 +57,10 @@ export class PostService {
         candidates: Array<Object> //idAPI, idGame
     ) {
         return this.http
-            .post(
-                `http://localhost:8081/users/${idUser}/surveys`,
-                { idUser: idUser, candidates: candidates },
-                { responseType: "text" }
-            )
+            .post(`http://localhost:8081/users/${idUser}/surveys`, {
+                idUser: idUser,
+                candidates: candidates
+            })
             .pipe(retry(3), catchError(this.errorsHandler.handleError));
     }
 
