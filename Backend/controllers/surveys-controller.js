@@ -83,6 +83,17 @@ function vote(req, res) {
     //
 }
 
+function hasVoted(req, res) {
+    const ip = req.connection.remoteAddress || "127.0.0.1";
+    const idSurvey = req.params.idSurvey;
+
+    surveyManagement.countIpForSurvey(idSurvey, ip, (err, result) => {
+        if (result[0].nbIP > 0) res.status(200).send({ hasVoted: true });
+        if (result[0].nbIP == 0) res.status(200).send({ hasVoted: false });
+        if (err) res.status(500).send(err);
+    });
+}
+
 exports.vote = vote;
 exports.createSurvey = createSurvey;
 exports.deleteSurvey = deleteSurvey;
@@ -91,3 +102,4 @@ exports.getAllSurveys = getAllSurveys;
 exports.getSurveyByShareCode = getSurveyByShareCode;
 exports.getSurveyByUserID = getSurveyByUserID;
 exports.getCandidates = getCandidates;
+exports.hasVoted = hasVoted;

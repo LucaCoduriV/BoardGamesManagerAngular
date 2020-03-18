@@ -21,6 +21,7 @@ router.get("/users/surveys/:shareCode", surveysCtrl.getSurveyByShareCode); //OK
 router.get("/users/:idUser/surveys", surveysCtrl.getSurveyByUserID); //OK
 router.get("/users/surveys", surveysCtrl.getAllSurveys); //ok
 router.get("/users/surveys/:idSurvey/candidates", surveysCtrl.getCandidates); //ok
+router.get("/surveys/:idSurvey/hasVoted", surveysCtrl.hasVoted);
 
 // private route
 
