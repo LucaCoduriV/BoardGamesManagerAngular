@@ -44,7 +44,7 @@ describe("route", () => {
             DB.pool.query(`DELETE FROM users WHERE (login = '${user.username}');`, done);
         });
 
-        it("should return 201 and create user", done => {
+        it("should return 201", done => {
             request(app)
                 .post("/users")
                 .send(user)
@@ -184,7 +184,7 @@ describe("route", () => {
         });
     });
 
-    //suppimer un utilisateur
+    //supprimer un utilisateur
     describe("/users/:idUser", () => {
         beforeEach(done => {
             DB.pool.query(`INSERT INTO users(idUser, login, password) values(${user.id}, '${user.username}', '${user.password}');`, done);
