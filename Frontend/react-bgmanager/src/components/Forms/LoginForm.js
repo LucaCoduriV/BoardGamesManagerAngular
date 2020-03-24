@@ -23,10 +23,13 @@ export default class LoginForm extends React.Component {
     fetch("http://localhost:8081/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data) //WTF ?!?!
     })
       .then(response => response.json())
-      .then(value => console.log(value));
+      .then(value => {
+        console.log(value)
+        localStorage.setItem("token", value.token)
+      })
   }
 
   handleChange(event) {
