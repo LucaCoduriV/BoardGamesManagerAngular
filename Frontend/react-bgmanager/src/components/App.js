@@ -23,7 +23,7 @@ export default class App extends React.Component {
     return (
       <div className='App'>
         <Router>
-          <HeaderBar isLogged={this.state.isLogged} />
+          <HeaderBar isLogged={this.state.isLogged} onLogin={this.onLogin.bind(this)} />
           <NavBar isLogged={this.state.isLogged} />
           <div id='content-wrapper'>
             <div id='content-inner-wrapper'>

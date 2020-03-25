@@ -8,13 +8,18 @@ const activeStyle = {
 };
 
 export default class HeaderBar extends React.Component {
-  handleLoggedin() {
+  handleClick() {
+    localStorage.removeItem('token');
+    this.props.onLogin(false);
+  }
+
+  checkLogin() {
     if (this.props.isLogged) {
       return (
         <div id='header-button-wrapper'>
-          <NavLink className='header-button' to='/disconnect'>
+          <button className='header-button' onClick={this.handleClick.bind(this)}>
             Déconnexion
-          </NavLink>
+          </button>
         </div>
       );
     } else {
@@ -35,7 +40,7 @@ export default class HeaderBar extends React.Component {
     return (
       <div id='header-bar'>
         <div id='search-bar'>Je suis une barre de recherche lol</div>
-        {this.handleLoggedin()}
+        {this.checkLogin()}
       </div>
     );
   }
