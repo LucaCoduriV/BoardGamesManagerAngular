@@ -8,6 +8,7 @@ import {
 } from "@angular/core";
 import { GameService } from "src/app/services/game.service";
 import { Router } from "@angular/router";
+import { DeleteService } from "src/app/services/http-requests/delete.service";
 
 @Component({
     selector: "app-game-details",
@@ -22,7 +23,11 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
 
     replaceString: string;
 
-    constructor(private gameService: GameService, private router: Router) {}
+    constructor(
+        private gameService: GameService,
+        private router: Router,
+        private deleteService: DeleteService
+    ) {}
 
     ngOnInit() {}
 
@@ -66,6 +71,21 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
             this.gameService.detailedGameData[0].idGame || 0;
         this.placeHolder();
         this.router.navigate(["/add-game"]);
+    }
+
+    delete() {
+        this.deleteService
+            .deleteGame(this.gameService.detailedGameData[0].idGame)
+            .subscribe(
+                value => {
+                    console.log(value);
+                    window.location.reload();
+                },
+                error => {
+                    console.log(error);
+                    window.location.reload();
+                }
+            );
     }
 
     add() {

@@ -6,7 +6,7 @@
         name="search-argument"
         placeholder="Recherchez ici..."
         (focus)="showHintbox = true"
-        (focusout)="showHintbox = false"
+        (focusout)="focusOut()"
     />
     <div
         *ngIf="
@@ -18,7 +18,7 @@
     >
         <div *ngFor="let game of gameArray" class="result-container">
             <div>
-                <a [routerLink]="['/games/detail/', game?.id]">{{
+                <a [routerLink]="['/search-result', game?.name.value]">{{
                     game?.name.value
                 }}</a>
             </div>

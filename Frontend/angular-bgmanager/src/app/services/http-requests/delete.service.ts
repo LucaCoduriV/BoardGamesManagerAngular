@@ -21,4 +21,11 @@ export class DeleteService {
             .delete(url, { responseType: "text" })
             .pipe(retry(3), catchError(this.errorsHandler.handleError));
     }
+
+    deleteGame(idGame) {
+        const url = `http://localhost:8081/users/0/games/${idGame}`;
+        return this.http
+            .delete(url)
+            .pipe(retry(3), catchError(this.errorsHandler.handleError));
+    }
 }

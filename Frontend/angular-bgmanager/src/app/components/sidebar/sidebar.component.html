@@ -9,22 +9,22 @@
     >
     <ul>
         <li class="label">
+            <img src="assets/icones/loupe.svg" />
+            <a [routerLink]="['/search-result']">Rechercher</a>
+        </li>
+        <li *ngIf="auth.isAuthenticated()" class="label">
             <img src="assets/icones/vote.svg" />
             <a [routerLink]="['/create-survey']">Créer un vote</a>
         </li>
-        <li class="label">
-            <img src="assets/icones/history.svg" />
-            <a [routerLink]="['/search-result']">Historique</a>
-        </li>
-        <li class="label">
+        <li *ngIf="auth.isAuthenticated()" class="label">
             <img src="assets/icones/star.svg" />
             <a [routerLink]="['/collection']">Ma Collection</a>
         </li>
-        <li class="label">
-            <img src="assets/icones/admin.svg" />
+        <li *ngIf="auth.isAuthenticated()" class="label">
+            <img src="assets/icones/add2.svg" />
             <a [routerLink]="['/add-game']">Ajouter un jeu</a>
         </li>
-        <li class="label">
+        <li *ngIf="auth.isAuthenticated() && superadmin == 1" class="label">
             <img src="assets/icones/admin.svg" />
             <a [routerLink]="['/admin']">Administration</a>
         </li>

@@ -37,6 +37,25 @@
             }
         }
     }
+    .btn-delete {
+        position: absolute;
+        margin-top: 520px;
+        margin-left: 820px;
+        background-color: white;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+
+        img {
+            transform: translateX(11px) translateY(6px);
+        }
+        &:hover {
+            cursor: pointer;
+            img {
+                transform: translateX(11px) translateY(6px) scale(1.3, 1.3);
+            }
+        }
+    }
 
     .card-image {
         background-color: #eff6ff;
