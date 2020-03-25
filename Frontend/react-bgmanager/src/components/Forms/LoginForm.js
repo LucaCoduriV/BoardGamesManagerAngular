@@ -1,5 +1,5 @@
-import React from "react";
-import "./loginForm.css";
+import React from 'react';
+import './loginForm.css';
 
 export default class LoginForm extends React.Component {
   constructor(props) {
@@ -20,16 +20,16 @@ export default class LoginForm extends React.Component {
       password: this.state.password
     };
 
-    fetch("http://localhost:8081/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    fetch('http://localhost:8081/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data) //WTF ?!?!
     })
       .then(response => response.json())
       .then(value => {
-        console.log(value)
-        localStorage.setItem("token", value.token)
-      })
+        console.log(value);
+        localStorage.setItem('token', value.token);
+      });
   }
 
   handleChange(event) {
@@ -42,14 +42,24 @@ export default class LoginForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <h2>Login</h2>
-        <div id="form-input-text">
-          <input name="username" type="text" placeholder="Nom d'utilisateur" onChange={this.handleChange} />
+        <div id='form-input-text'>
+          <input
+            name='username'
+            type='text'
+            placeholder="Nom d'utilisateur"
+            onChange={this.handleChange}
+          />
           <br />
-          <input name="password" type="password" placeholder="Mot de passe" onChange={this.handleChange} />
+          <input
+            name='password'
+            type='password'
+            placeholder='Mot de passe'
+            onChange={this.handleChange}
+          />
         </div>
         <div>
-          <button type="submit">Se connecter</button>
-          <button type="reset">Vider les champs</button>
+          <button type='submit'>Se connecter</button>
+          <button type='reset'>Vider les champs</button>
         </div>
       </form>
     );
