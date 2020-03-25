@@ -8,23 +8,40 @@ const activeStyle = {
 };
 
 export default class NavBar extends React.Component {
+ 
+  handleLoggedIn() {
+    if (this.props.isLogged) {
+      return (
+        <nav>
+          <li>
+            <NavLink to="/collection" activeStyle={activeStyle}>
+              Collection
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/survey" activeStyle={activeStyle}>
+              Survey
+            </NavLink>
+          </li>
+        </nav>
+      );
+    }
+  }
+
   render() {
-    return (
+    const navBar = (
       <div id="navBar">
         <ul>
           <li>
             <NavLink exact to="/" activeStyle={activeStyle}>
               Home
             </NavLink>
-            <NavLink to="/collection" activeStyle={activeStyle}>
-              Collection
-            </NavLink>
-            <NavLink to="/survey" activeStyle={activeStyle}>
-              Survey
-            </NavLink>
           </li>
+          {this.handleLoggedIn()}
         </ul>
       </div>
     );
+
+    return navBar;
   }
 }

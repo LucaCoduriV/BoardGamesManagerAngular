@@ -13,7 +13,7 @@ export default class App extends React.Component {
       <div className="App">
         <Router>
           <HeaderBar />
-          <NavBar />
+          <NavBar isLogged={false}/>
           <div id="content-wrapper">
             <div id="content-inner-wrapper">
               <Route exact path="/" component={HomePage} />
