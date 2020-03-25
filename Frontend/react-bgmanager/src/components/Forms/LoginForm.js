@@ -6,7 +6,8 @@ export default class LoginForm extends React.Component {
     super(props);
     this.state = {
       username: undefined,
-      password: undefined
+      password: undefined,
+      isLogged: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,6 +30,8 @@ export default class LoginForm extends React.Component {
       .then(value => {
         console.log(value);
         localStorage.setItem('token', value.token);
+        this.setState({ isLogged: true });
+        this.props.onLogin(this.state.isLogged);
       });
   }
 

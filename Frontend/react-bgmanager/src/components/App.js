@@ -15,6 +15,10 @@ export default class App extends React.Component {
     };
   }
 
+  onLogin(value) {
+    this.setState({ isLogged: value });
+  }
+
   render() {
     return (
       <div className='App'>
@@ -24,7 +28,10 @@ export default class App extends React.Component {
           <div id='content-wrapper'>
             <div id='content-inner-wrapper'>
               <Route exact path='/' component={HomePage} />
-              <Route path='/login' component={LoginForm} />
+              <Route
+                path='/login'
+                component={() => <LoginForm onLogin={this.onLogin.bind(this)} />}
+              />
               <Route path='/register' component={RegisterForm} />
             </div>
           </div>
