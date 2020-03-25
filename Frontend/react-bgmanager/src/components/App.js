@@ -11,7 +11,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogged: false
+      isLogged: localStorage.getItem('token') != null
     };
   }
 
