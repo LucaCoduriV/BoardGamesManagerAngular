@@ -139,7 +139,11 @@ function deleteGameFromCollection(req, res) {
     let idGame = req.params.idGame;
     let idUser = req.jwt.idUser;
 
+    console.log(idGame);
+    console.log(idUser);
+
     usersManagement.deleteGameFromCollection(idGame, idUser, (err, result) => {
+        console.log(err);
         if (result.affectedRows == 0) {
             res.status(400).send("Impossible de supprimer le jeu");
         } else {

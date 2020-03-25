@@ -49,4 +49,16 @@ export class SearchbarComponent implements OnInit {
             this.search(event.target.value);
         }
     }
+
+    focusOut() {
+        setTimeout(() => {
+            this.showHintbox = false;
+        }, 150);
+    }
+
+    onClick() {
+        const name = "monopoly";
+        console.log("coucou");
+        //this.router.navigate([`/search-result/${name}`]);
+    }
 }
