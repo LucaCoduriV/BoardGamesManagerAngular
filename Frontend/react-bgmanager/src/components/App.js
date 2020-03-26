@@ -15,7 +15,7 @@ export default class App extends React.Component {
     };
   }
 
-  onLogin(value) {
+  onChangeLoginState(value) {
     this.setState({ isLogged: value });
   }
 
@@ -23,14 +23,14 @@ export default class App extends React.Component {
     return (
       <div className='App'>
         <Router>
-          <HeaderBar isLogged={this.state.isLogged} onLogin={this.onLogin.bind(this)} />
+          <HeaderBar isLogged={this.state.isLogged} onLogout={this.onChangeLoginState.bind(this)} />
           <NavBar isLogged={this.state.isLogged} />
           <div id='content-wrapper'>
             <div id='content-inner-wrapper'>
               <Route exact path='/' component={HomePage} />
               <Route
                 path='/login'
-                component={() => <LoginForm onLogin={this.onLogin.bind(this)} />}
+                component={() => <LoginForm onLogin={this.onChangeLoginState.bind(this)} />}
               />
               <Route path='/register' component={RegisterForm} />
               <Route path='/admin'></Route>

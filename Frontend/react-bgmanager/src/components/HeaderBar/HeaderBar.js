@@ -10,7 +10,7 @@ const activeStyle = {
 export default class HeaderBar extends React.Component {
   handleClick() {
     localStorage.removeItem('token');
-    this.props.onLogin(false);
+    this.props.onLogout(false);
   }
 
   checkLogin() {
