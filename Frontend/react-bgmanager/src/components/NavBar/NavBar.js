@@ -56,7 +56,6 @@ export default class NavBar extends React.Component {
             </NavLink>
           </li>
           {this.handleLoggedIn()}
-          {this.isAdmin()}
         </ul>
       </div>
     );
