@@ -33,6 +33,7 @@ export default class App extends React.Component {
                 component={() => <LoginForm onLogin={this.onLogin.bind(this)} />}
               />
               <Route path='/register' component={RegisterForm} />
+              <Route path='/admin'></Route>
             </div>
           </div>
         </Router>
