@@ -1,8 +1,12 @@
-const usersManagement = require("../model/users-management");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const usersManagement = require('../model/users-management');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-//login register
+/**
+ * Route pour enregister un utilisateur
+ * @param {*} req request
+ * @param {*} res response
+ */
 function registerUser(req, res) {
     let username = req.body.username;
     let password = req.body.password;
@@ -10,11 +14,15 @@ function registerUser(req, res) {
         if (err) {
             res.status(409).send("L'utilisateur existe déjà");
         } else {
-            res.status(201).send("Utilisateur ajouté avec succès !");
+            res.status(201).send('Utilisateur ajouté avec succès !');
         }
     });
 }
-
+/**
+ * Route pour récupérer un token
+ * @param {*} req request
+ * @param {*} res response
+ */
 function login(req, res) {
     let username = req.body.username;
     let password = req.body.password;
@@ -22,25 +30,32 @@ function login(req, res) {
     usersManagement.selectUser(username, (err, result) => {
         if (result.length == 0) {
             //si l'utilisateur n'existe pas dans la bd
-            res.status(401).send("Non autorisé");
+            res.status(401).send('Non autorisé');
         } else {
             //checker si le hash correspond
             bcrypt.compare(password, result[0].password, (err, hashOK) => {
                 if (hashOK) {
                     let token = jwt.sign(
-                        { idUser: result[0].idUser, username: result[0].login, superadmin: result[0].superadmin },
+                        {
+                            idUser: result[0].idUser,
+                            username: result[0].login,
+                            superadmin: result[0].superadmin
+                        },
                         process.env.JWT_SECRET
                     );
                     res.status(201).send({ token: token });
                 } else {
-                    res.status(401).send("Non autorisé");
+                    res.status(401).send('Non autorisé');
                 }
             });
         }
     });
 }
-
-//collection
+/**
+ * Route pour récupérer la collection d'un utilisateur
+ * @param {*} req request
+ * @param {*} res response
+ */
 function getCollection(req, res) {
     let idUser = req.jwt.idUser;
 
@@ -52,7 +67,11 @@ function getCollection(req, res) {
         }
     });
 }
-
+/**
+ * Route pour récupérer les jeu d'une collection
+ * @param {*} req request
+ * @param {*} res response
+ */
 function getGameInfoCollection(req, res) {
     let idUser = req.jwt.idUser;
     let idGame = req.params.idGames;
@@ -65,7 +84,11 @@ function getGameInfoCollection(req, res) {
         }
     });
 }
-
+/**
+ * Route pour ajouter un jeu dans une collection
+ * @param {*} req request
+ * @param {*} res response
+ */
 function addGameInCollection(req, res) {
     //La liste des paramètres récupéré du formulaire
     let gameName = req.body.gameName;
@@ -94,12 +117,17 @@ function addGameInCollection(req, res) {
             if (err) {
                 res.status(520).send(err);
             } else {
-                res.status(201).send("Jeu ajouté avec succès !");
+                res.status(201).send('Jeu ajouté avec succès !');
             }
         }
     );
 }
 
+/**
+ * Route pour modifier un jeu de la collection
+ * @param {*} req request
+ * @param {*} res response
+ */
 function modifyGameInCollection(req, res) {
     let idGame = req.params.idGame;
     let idUser = req.jwt.idUser;
@@ -127,14 +155,18 @@ function modifyGameInCollection(req, res) {
         },
         (err, result) => {
             if (result.affectedRows == 0) {
-                res.status(500).send("Impossible de modifier le jeu");
+                res.status(500).send('Impossible de modifier le jeu');
             } else {
-                res.status(201).send("Jeu modifié avec succès !");
+                res.status(201).send('Jeu modifié avec succès !');
             }
         }
     );
 }
-
+/**
+ * Route pour supprimmer un jeu de la collection
+ * @param {*} req request
+ * @param {*} res response
+ */
 function deleteGameFromCollection(req, res) {
     let idGame = req.params.idGame;
     let idUser = req.jwt.idUser;
@@ -145,24 +177,32 @@ function deleteGameFromCollection(req, res) {
     usersManagement.deleteGameFromCollection(idGame, idUser, (err, result) => {
         console.log(err);
         if (result.affectedRows == 0) {
-            res.status(400).send("Impossible de supprimer le jeu");
+            res.status(400).send('Impossible de supprimer le jeu');
         } else {
-            res.status(200).send("Jeu supprimé avec succès !");
+            res.status(200).send('Jeu supprimé avec succès !');
         }
     });
 }
 
-//admin
+/**
+ * Route pour supprimmer un utilisateur
+ * @param {*} req request
+ * @param {*} res response
+ */
 function deleteUser(req, res) {
     usersManagement.deleteUser(req.params.idUser, (err, result) => {
         if (result.affectedRows == 0) {
-            res.status(400).send("user do not exist!");
+            res.status(400).send('user do not exist!');
         } else {
-            res.status(200).send("user deleted succesfully!");
+            res.status(200).send('user deleted succesfully!');
         }
     });
 }
-
+/**
+ * Route pour récupérer les utilisateurs
+ * @param {*} req request
+ * @param {*} res response
+ */
 function getUsers(req, res) {
     usersManagement.selectAll((err, result) => {
         if (err) {
