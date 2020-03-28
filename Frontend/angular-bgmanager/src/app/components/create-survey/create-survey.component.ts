@@ -34,10 +34,16 @@ export class CreateSurveyComponent implements OnInit {
             this.usersCollection = value;
         });
     }
+    /**
+     * lors du changement du select
+     * @param value récupère la valeur lors d'un changement du select
+     */
     onSelectChange(value: string) {
         this.selectedCollectionGame = +value;
     }
-
+    /**
+     * lors du clique sur le bouton pour ajouter un jeu à la liste
+     */
     addCollectionGameInList() {
         this.listOfSelectedGames.push(
             this.usersCollection.find(
@@ -45,12 +51,18 @@ export class CreateSurveyComponent implements OnInit {
             )
         );
     }
+    /**
+     * permet de supprimer un jeu de la liste
+     * @param id id du jeu à retirer de la liste
+     */
     removeGame(id: number) {
         this.listOfSelectedGames = this.listOfSelectedGames.filter(element => {
             return element.idGame != +id;
         });
     }
-
+    /**
+     * lors de du clique sur le bouton de confirmation de création de sondage
+     */
     onSubmit() {
         const idUser = localStorage.getItem("idUser");
         this.postService.addSurvey(idUser, this.listOfSelectedGames).subscribe(

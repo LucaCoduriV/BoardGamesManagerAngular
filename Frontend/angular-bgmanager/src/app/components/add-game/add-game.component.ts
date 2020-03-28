@@ -34,6 +34,9 @@ export class AddGameComponent implements OnInit, OnDestroy {
         this.gameService.isEdit = false;
         this.gameService.addGamePlaceHolder = null;
     }
+    /**
+     * S'execute lors du click sur le bouton
+     */
     onSubmit() {
         //s'il s'agit d'ajouter un jeu à la collection
         if (!this.gameService.isEdit) {

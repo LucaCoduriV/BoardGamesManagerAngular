@@ -10,7 +10,9 @@ export class AlertComponent implements OnInit {
     constructor(private alertService: AlertService) {}
 
     ngOnInit() {}
-
+    /**
+     * permet de fermer l'affichage de l'alert
+     */
     close() {
         this.alertService.showAlert(false);
     }

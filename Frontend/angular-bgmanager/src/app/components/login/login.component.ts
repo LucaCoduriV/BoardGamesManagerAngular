@@ -38,7 +38,11 @@ export class LoginComponent implements OnInit {
             this.alertService.showAlert(true);
         }
     }
-
+    /**
+     * permet de récupérer le token
+     * @param username nom d'utilisateur
+     * @param password mot de passe
+     */
     login(username, password) {
         this.auth.login(username, password, (alert: Alert) => {
             if (alert) {

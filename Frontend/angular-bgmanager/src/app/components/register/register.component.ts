@@ -25,7 +25,9 @@ export class RegisterComponent implements OnInit {
     close() {
         this.alertService.showAlert(false);
     }
-
+    /**
+     * permet d'enregistrer un nouvel utilisateur
+     */
     register() {
         const username = this.registerForm.value.username;
         const password = this.registerForm.value.password;

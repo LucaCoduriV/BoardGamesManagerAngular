@@ -7,6 +7,11 @@ import { UserService } from "./user.service";
     providedIn: "root"
 })
 export class TokenInterceptorService implements HttpInterceptor {
+    /**
+     * permet d'ajouter le token dans le header à chaque requête vers l'API
+     * @param req request
+     * @param next callback
+     */
     intercept(req, next) {
         // add authorization header with jwt token if available
         const token = localStorage.getItem("token");

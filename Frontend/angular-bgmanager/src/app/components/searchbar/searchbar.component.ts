@@ -40,7 +40,10 @@ export class SearchbarComponent implements OnInit {
         this.searchString = searchString;
         this.searchTextBGG$.next(searchString);
     }
-
+    /**
+     * s'exécute lors de l'appui d'une touche
+     * @param event objet event
+     */
     onKeyUp(event) {
         if (event.key === "Enter") {
             this.showHintbox = false;
@@ -49,13 +52,17 @@ export class SearchbarComponent implements OnInit {
             this.search(event.target.value);
         }
     }
-
+    /**
+     * lorsque l'utilisateur clique en dehors de la barre de recherche
+     */
     focusOut() {
         setTimeout(() => {
             this.showHintbox = false;
         }, 150);
     }
-
+    /**
+     * lors d'un clique sur une proposition
+     */
     onClick() {
         const name = "monopoly";
         console.log("coucou");

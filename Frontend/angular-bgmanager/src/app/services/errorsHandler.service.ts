@@ -5,6 +5,10 @@ import { throwError } from "rxjs";
     providedIn: "root"
 })
 export class ErrorsHandler {
+    /**
+     * Modifie le contenue d'un message d'erreur
+     * @param error objet avec les erreurs
+     */
     handleError(error) {
         let errorMessage: object;
         console.log(error);
@@ -17,6 +21,10 @@ export class ErrorsHandler {
         }
         return throwError(errorMessage);
     }
+    /**
+     * Modifie le contenue d'un message d'erreur pour le login
+     * @param error objet avec les erreurs
+     */
     handleLoginError(error) {
         let errorMessage: object;
         console.log(error);

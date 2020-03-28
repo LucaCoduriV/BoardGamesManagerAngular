@@ -42,6 +42,11 @@ export class GameService {
         this.createGameDetailsSubject();
     }
 
+    /**
+     * permet de récupérer le résultat d'une recherche d'un jeu
+     * @param gameName nom du jeu recherché
+     * @param callback callback
+     */
     getBGGSearchResult(gameName, callback) {
         this.isLoadingSearch = true;
         this.getService
@@ -62,15 +67,21 @@ export class GameService {
             );
     }
 
-    //récupère les données et les met à disposition
+    /**
+     * récupère les données et les met à disposition
+     * @param id id du jeu
+     * @param isCollection fait partie de la collection ?
+     */
     askGameDetails(id: number, isCollection: boolean = false) {
         this.isCollection = isCollection;
         this.detailedGameID = id;
         this.gameDetailsSubject$.next();
     }
 
-    //un Subject est crée avec un switchmap afin d'éviter de charger des données dont l'utilisateur n'a plus besoin
-    //à chaque fois que le Subject est appelé l'ancienne demande est supprimée
+    /**
+     * un Subject est crée avec un switchmap afin d'éviter de charger des données dont l'utilisateur n'a plus besoin
+     * à chaque fois que le Subject est appelé l'ancienne demande est supprimée
+     */
     createGameDetailsSubject() {
         //récupère les bon détails selon si c'est la collection ou une recherche
         let observable = (idGame: number) => {
@@ -117,7 +128,10 @@ export class GameService {
                 }
             );
     }
-
+    /**
+     * permet de récupérer la collection d'un utilisateur
+     * @param id id de l'utilisateur
+     */
     getUserCollection(id: number) {
         this.getService.getUserCollection(id).subscribe(
             data => {
@@ -129,6 +143,11 @@ export class GameService {
         );
     }
 
+    /**
+     * permet d'ajouter un jeu à la collection d'un utilisateur
+     * @param param0 objet contenant les info d'un jeu
+     * @param callback callback
+     */
     addGame(
         { name, minNbPlayer, maxNbPlayer, duration, description, image },
         callback
@@ -151,7 +170,11 @@ export class GameService {
                 }
             );
     }
-
+    /**
+     * Permet d'éditer un jeu
+     * @param idGame id du jeu
+     * @param data les données à modifier à propos du jeu
+     */
     editGame(idGame: number, data) {
         this.putService.modifyGame(idGame, data).subscribe(
             result => {

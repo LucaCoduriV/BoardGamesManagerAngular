@@ -31,6 +31,9 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {}
 
+    /**
+     * modifie la source de donné selon si ça affiche la collection ou le résultat d'une recherche
+     */
     placeHolder() {
         if (this.isCollection) {
             this.gameService.addGamePlaceHolder = {
@@ -64,7 +67,9 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
             };
         }
     }
-
+    /**
+     * permet de confirmer les modifications apporté
+     */
     edit() {
         this.gameService.isEdit = true;
         this.gameService.idGameToEdit =
@@ -72,7 +77,9 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
         this.placeHolder();
         this.router.navigate(["/add-game"]);
     }
-
+    /**
+     * permet de supprimer le jeu selectionné
+     */
     delete() {
         this.deleteService
             .deleteGame(this.gameService.detailedGameData[0].idGame)
@@ -87,7 +94,9 @@ export class GameDetailsComponent implements OnInit, OnDestroy {
                 }
             );
     }
-
+    /**
+     * permet d'ajouter le jeu selectionné à la collection
+     */
     add() {
         this.gameService.isEdit = false;
         this.placeHolder();

@@ -9,10 +9,18 @@ export class AlertService {
     isAlertVisible: boolean = false;
 
     constructor() {}
-
+    /**
+     * Modifier le message d'alerte
+     * @param type le type d'alert ex: danger, success
+     * @param message
+     */
     modifyAlert(type: string, message: string) {
         this.alert = { type: type, message: message };
     }
+    /**
+     * afficher l'alerte sur l'écran
+     * @param bool oui/non
+     */
     showAlert(bool: boolean) {
         this.isAlertVisible = bool;
     }

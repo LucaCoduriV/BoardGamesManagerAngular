@@ -12,7 +12,9 @@ export class SidebarComponent implements OnInit {
     ngOnInit() {
         console.log(this.auth.getUserInfos);
     }
-
+    /**
+     * Récupère les permissions de l'utilisateur
+     */
     get superadmin() {
         return localStorage.getItem("superadmin");
     }

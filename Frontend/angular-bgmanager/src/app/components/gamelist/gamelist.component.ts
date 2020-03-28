@@ -15,7 +15,11 @@ export class GamelistComponent implements OnInit {
     constructor(private gameService: GameService) {}
 
     ngOnInit() {}
-
+    /**
+     * Permet d'afficher le jeu selectionné
+     * @param id id du jeu
+     * @param isCollection c'est un jeu de la collection ou le résultat d'une recherche ?
+     */
     selectGame(id: number, isCollection: boolean = false) {
         console.log(id);
         this.gameService.askGameDetails(id, isCollection);

@@ -42,7 +42,9 @@ export class SurveyComponent implements OnInit {
     async ngOnInit() {
         this.getAllInfos();
     }
-
+    /**
+     * Récupère l'information de si l'utilisateur à déjà voté
+     */
     hasVoted() {
         this.getService
             .getVoteStatus(this.survey["idSurvey"])
@@ -50,13 +52,18 @@ export class SurveyComponent implements OnInit {
                 this.voted = value["hasVoted"];
             });
     }
-
+    /**
+     * permet de mettre le nombre de vote en pourcent
+     * @param nbVotes le nombre de vote pour un candidat
+     */
     calculateVoteOnHundred(nbVotes) {
         if (this.totalVotes != 0)
             return Math.round((+nbVotes * 100) / this.totalVotes);
         else return 0; //sinon 0 divisé par 0 est infini
     }
-
+    /**
+     * récupère toutes les info pour le sondage
+     */
     getAllInfos() {
         this.activatedRoute.paramMap.subscribe(params => {
             this.shareCode = params.get("shareCode");

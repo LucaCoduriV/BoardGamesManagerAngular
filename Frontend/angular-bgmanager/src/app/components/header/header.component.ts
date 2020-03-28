@@ -10,11 +10,15 @@ export class HeaderComponent implements OnInit {
     constructor(private auth: UserService) {}
 
     ngOnInit() {}
-
+    /**
+     * lors du clique sur le bouton de déconnection
+     */
     disconnect() {
         this.auth.disconnect();
     }
-
+    /**
+     * récupère le nom d'utilisateur actuellement connecté
+     */
     get getUsername() {
         return localStorage.getItem("username");
     }

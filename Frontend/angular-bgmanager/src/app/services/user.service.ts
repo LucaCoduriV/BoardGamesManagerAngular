@@ -22,19 +22,28 @@ export class UserService {
         private getService: GetService,
         private deleteService: DeleteService
     ) {}
-
+    /**
+     * Permet de savoir si l'utilisateur est authentifié
+     */
     isAuthenticated(): boolean {
         const token = localStorage.getItem("token");
 
         if (token) return true;
         return false;
     }
-
+    /**
+     * permet d'avoir les infos d'un utilisateur
+     */
     getUserInfos() {
         const decode: Token = jwt_decode(localStorage.getItem("token"));
         return decode;
     }
-
+    /**
+     * Permet de récupérer un token
+     * @param username le nom d'utilisateur
+     * @param password le mot de passe
+     * @param callback callback
+     */
     login(username: string, password: string, callback) {
         let alert: Alert;
 
@@ -57,7 +66,9 @@ export class UserService {
             }
         );
     }
-
+    /**
+     * permet de supprimmer le token et ainsi déconnecter l'utilisateur
+     */
     disconnect() {
         const token = localStorage.getItem("token");
         if (token) localStorage.removeItem("token");
@@ -68,7 +79,12 @@ export class UserService {
         }
         this.isLogged = false;
     }
-
+    /**
+     * Permet d'enregistrer un utilisateur
+     * @param username nom d'utilisateur
+     * @param password mot de passe
+     * @param callback callback
+     */
     register(username: string, password: string, callback) {
         let alert: Alert;
 
@@ -89,7 +105,10 @@ export class UserService {
             }
         );
     }
-
+    /**
+     * Permet de récupérer les utilisateurs
+     * @param callback callback
+     */
     getUsers(callback) {
         this.getService.getUsers().subscribe(
             data => {
@@ -100,6 +119,11 @@ export class UserService {
             }
         );
     }
+    /**
+     * Permet de supprimmer un utilisateur
+     * @param idUser id de l'utilisateur à supprimmer
+     * @param callback callback
+     */
     deleteUser(idUser, callback) {
         this.deleteService.deleteUser(idUser).subscribe(
             data => {

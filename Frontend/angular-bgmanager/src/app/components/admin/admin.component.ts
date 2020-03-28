@@ -20,7 +20,9 @@ export class AdminComponent implements OnInit {
     ngOnInit() {
         this.getUsers();
     }
-
+    /**
+     * récupère les utilisateurs
+     */
     getUsers() {
         this.userService.getUsers((err, result) => {
             if (err) console.log(err);
@@ -28,12 +30,17 @@ export class AdminComponent implements OnInit {
             console.log(this.usersList);
         });
     }
-
+    /**
+     * S'execute lors d'un changement dans le select
+     * @param value récupère la valeur selectionnée dans le select
+     */
     onSelectChange(value) {
         console.log(value);
         this.selectedUser = parseInt(value);
     }
-
+    /**
+     * losr du clique sur le bouton pour supprimer un utilisateur
+     */
     deleteUser() {
         this.userService.deleteUser(this.selectedUser, (err, result) => {
             if (err) {
