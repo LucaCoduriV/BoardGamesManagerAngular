@@ -7,6 +7,7 @@ export default class Admin extends React.Component {
       users: []
     };
     this.getUsers();
+    this.handleClick = this.handleClick.bind(this);
   }
 
   getUsers() {
@@ -38,7 +39,7 @@ export default class Admin extends React.Component {
               <tr key={user.idUser}>
                 <td>{user.login}</td>
                 <td>
-                  <button onClick={this.handleClick.bind(this, user)}>X</button>
+                  <button onClick={() => this.handleClick(user)}>X</button>
                 </td>
               </tr>
             ))}
