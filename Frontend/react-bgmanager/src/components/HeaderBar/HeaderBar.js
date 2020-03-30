@@ -8,6 +8,11 @@ const activeStyle = {
 };
 
 export default class HeaderBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   handleClick() {
     localStorage.removeItem('token');
     this.props.onLogout(false);
@@ -17,7 +22,7 @@ export default class HeaderBar extends React.Component {
     if (this.props.isLogged) {
       return (
         <div id='header-button-wrapper'>
-          <button className='header-button' onClick={this.handleClick.bind(this)}>
+          <button className='header-button' onClick={this.handleClick}>
             Déconnexion
           </button>
         </div>

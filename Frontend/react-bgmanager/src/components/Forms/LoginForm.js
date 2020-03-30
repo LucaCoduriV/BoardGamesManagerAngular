@@ -24,14 +24,14 @@ export default class LoginForm extends React.Component {
     fetch('http://localhost:8081/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data) //WTF ?!?!
+      body: JSON.stringify(data) //transformation en texte, sinon il reçoit un objet
     })
       .then(response => response.json())
       .then(value => {
         console.log(value);
         localStorage.setItem('token', value.token);
         this.setState({ isLogged: true });
-        this.props.onLogin(this.state.isLogged);
+        this.props.onLogin(true);
       });
   }
 

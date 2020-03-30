@@ -16,11 +16,13 @@ export default class App extends React.Component {
       isLogged: localStorage.getItem('token') != null,
       isAdmin: this.isAdmin()
     };
+    this.onChangeLoginState = this.onChangeLoginState.bind(this);
   }
 
   onChangeLoginState(value) {
     this.setState({ isLogged: value });
     this.setState({ isAdmin: this.isAdmin() });
+    console.log(value);
   }
 
   isAdmin() {
@@ -40,14 +42,14 @@ export default class App extends React.Component {
     return (
       <div className='App'>
         <Router>
-          <HeaderBar isLogged={this.state.isLogged} onLogout={this.onChangeLoginState.bind(this)} />
+          <HeaderBar isLogged={this.state.isLogged} onLogout={this.onChangeLoginState} />
           <NavBar isLogged={this.state.isLogged} />
           <div id='content-wrapper'>
             <div id='content-inner-wrapper'>
               <Route exact path='/' component={HomePage} />
               <Route
                 path='/login'
-                component={() => <LoginForm onLogin={this.onChangeLoginState.bind(this)} />}
+                component={() => <LoginForm onLogin={this.onChangeLoginState} />}
               />
               <Route path='/register' component={RegisterForm} />
               <Route path='/admin'>{this.isAdmin() ? <Admin /> : <Redirect to='/' />}</Route>
