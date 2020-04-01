@@ -1,15 +1,20 @@
-const fetch = require("node-fetch");
-const parseString = require("xml2js").parseString;
+const fetch = require('node-fetch');
+const parseString = require('xml2js').parseString;
 
 function searchGamesAPI(req, res) {
     let gameName = req.params.name;
+    gameName = gameName.replace(' ', '%20'); //Pour gérer les espaces
     fetch(`https://www.boardgamegeek.com/xmlapi2/search?query=${gameName}&type=boardgame`)
         .then(result => result.text())
         .then(body =>
-            parseString(body, { explicitRoot: false, mergeAttrs: true, explicitArray: false }, (err, result) => {
-                res.status(200).send(result);
-                //TODO le cas ou la recherche ne retourne rien
-            })
+            parseString(
+                body,
+                { explicitRoot: false, mergeAttrs: true, explicitArray: false },
+                (err, result) => {
+                    res.status(200).send(result);
+                    //TODO le cas ou la recherche ne retourne rien
+                }
+            )
         );
 }
 
@@ -18,10 +23,14 @@ function getGameInfoAPI(req, res) {
     fetch(`https://www.boardgamegeek.com/xmlapi2/thing?id=${gameID}`)
         .then(result => result.text())
         .then(body =>
-            parseString(body, { explicitRoot: false, mergeAttrs: true, explicitArray: false }, (err, result) => {
-                res.status(200).send(result);
-                //TODO le cas ou l'id n'existe pas
-            })
+            parseString(
+                body,
+                { explicitRoot: false, mergeAttrs: true, explicitArray: false },
+                (err, result) => {
+                    res.status(200).send(result);
+                    //TODO le cas ou l'id n'existe pas
+                }
+            )
         );
 }
 
