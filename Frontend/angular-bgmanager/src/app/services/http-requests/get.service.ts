@@ -23,9 +23,9 @@ export class GetService {
     }
 
     searchGameBGG(gameName: string, slice: boolean = true, numberResult = 3) {
+        let regex = new RegExp(`^${gameName}.*`, "i"); //ce regex permet de ne chercher que ce qui commence par le gameName
         gameName = gameName.replace(" ", "%20");
         console.log(gameName);
-        let regex = new RegExp(`^${gameName}.*`, "i"); //ce regex permet de ne chercher que ce qui commence par le gameName
         return this.http.get(this.searchUrl + gameName).pipe(
             retry(3),
             catchError(this.errorsHandler.handleError),
