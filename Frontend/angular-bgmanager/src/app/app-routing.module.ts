@@ -41,7 +41,8 @@ const routes: Routes = [
     {
         path: "search-result/:searchstring",
         component: SearchResultComponent
-    }
+    },
+    { path: "", redirectTo: "/search-result", pathMatch: "full" }
 ];
 
 @NgModule({
