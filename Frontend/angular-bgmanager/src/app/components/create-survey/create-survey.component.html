@@ -46,7 +46,9 @@
                                 <tr *ngFor="let game of listOfSelectedGames">
                                     <td class="text-left">{{ game.name }}</td>
                                     <td class="text-right">
-                                        <a (click)="removeGame(game.idGame)"
+                                        <a
+                                            (click)="removeGame(game.idGame)"
+                                            class="supprimer"
                                             >supprimer</a
                                         >
                                     </td>

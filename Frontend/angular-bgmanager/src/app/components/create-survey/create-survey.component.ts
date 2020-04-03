@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ɵConsole } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
 import { GetService } from "src/app/services/http-requests/get.service";
 import { Observable } from "rxjs";
@@ -45,11 +45,15 @@ export class CreateSurveyComponent implements OnInit {
      * lors du clique sur le bouton pour ajouter un jeu à la liste
      */
     addCollectionGameInList() {
-        this.listOfSelectedGames.push(
-            this.usersCollection.find(
-                value => this.selectedCollectionGame == value.idGame
-            )
-        );
+        if (!this.selectedCollectionGame) {
+            this.listOfSelectedGames.push(this.usersCollection[0]);
+        } else {
+            this.listOfSelectedGames.push(
+                this.usersCollection.find(
+                    value => this.selectedCollectionGame == value.idGame
+                )
+            );
+        }
     }
     /**
      * permet de supprimer un jeu de la liste
