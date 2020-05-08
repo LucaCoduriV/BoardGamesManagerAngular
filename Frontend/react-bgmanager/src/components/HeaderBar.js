@@ -105,14 +105,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SearchAppBar() {
-	const [anchorEl, setAnchorEl] = React.useState(false); //Hook d'état gérant le menu de compte sur petit écran. Masqué par défaut
+	const [anchorEl, setAnchorEl] = React.useState(null); //Hook d'état gérant le menu de compte sur petit écran. Masqué par défaut
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget); //currentTarget = Menu qui s'affiche à l'endroit où l'évènement se produit
 	};
 
 	const handleClose = () => {
-		setAnchorEl(false); //fermeture du menu de compte sur petit écran
+		console.log(Boolean(anchorEl));
+		setAnchorEl(null); //fermeture du menu de compte sur petit écran
 	};
 
 	const classes = useStyles(); //Permet la gestion des style CSS
