@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
+import { fade, makeStyles, useTheme } from '@material-ui/core/styles'; //useTheme sert à utiliser les modification du theme par défaut écrite dans "theme.js"
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -21,10 +21,12 @@ import Drawer from '@material-ui/core/Drawer';
 import StarIcon from '@material-ui/icons/Star';
 import DoneIcon from '@material-ui/icons/Done';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import Hidden from '@material-ui/core/Hidden';
+import Hidden from '@material-ui/core/Hidden'; //Permet de cacher des éléments selon une taille d'écran définie dans les themes
 
 const drawerWidth = 240; //Taille du menu tiroir gauche
 
+//On utilsie le CSS ci-dessous
+//Le param "theme" permet l'utilisation des modifications apportées au theme par defaut
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1, //Défini l'espacement en flexBox. (2 éléments = 1 à gauche + 1 à droite, 3 éléments = 1 gauche, 1 milieu, 1 droite)
@@ -117,23 +119,17 @@ const useStyles = makeStyles((theme) => ({
 			width: `calc(100% - ${drawerWidth}px)`,
 			marginLeft: drawerWidth,
 		},
-		// width: '100%',
-		// marginLeft: 0,
 	},
 	drawer: {
-		//display: 'none',
 		[theme.breakpoints.up('sm')]: {
-			//display: 'block',
 			width: drawerWidth,
 			flexShrink: 0,
 		},
-		// width: 0,
-		// flexShrink: 0,
 	},
 	drawerPaper: {
 		width: drawerWidth,
 	},
-	// necessary for content to be below app bar
+	// Nécessaire pour que le contenu soit dessous la headerbar
 	toolbar: theme.mixins.toolbar,
 	content: {
 		flexGrow: 1,
