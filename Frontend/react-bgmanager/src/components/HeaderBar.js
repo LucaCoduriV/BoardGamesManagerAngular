@@ -232,6 +232,7 @@ export default function SearchAppBar(props) {
 					<div className={classes.root} />
 
 					{/* Bouton de gestion du compte en écran large*/}
+
 					<ButtonGroup
 						className={classes.buttonGroup}
 						variant='text'
