@@ -2,13 +2,12 @@ import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+//STYLE CSS DU COMPOSANT
 const useStyles = makeStyles((theme) => ({
 	contentWrapper: {
 		marginTop: 100,
@@ -35,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function LoginForm() {
+//JSX DU COMPOSANT
+export default function RegisterForm() {
 	const classes = useStyles();
 
 	return (
@@ -43,10 +43,10 @@ export default function LoginForm() {
 			<Container component='main' maxWidth='xs'>
 				<div className={classes.paper}>
 					<Avatar className={classes.avatar}>
-						<LockOutlinedIcon />
+						<AssignmentIndOutlinedIcon />
 					</Avatar>
 					<Typography component='h1' variant='h5'>
-						Connexion
+						Inscription
 					</Typography>
 					<form className={classes.form} noValidate>
 						<TextField
@@ -77,20 +77,8 @@ export default function LoginForm() {
 							variant='contained'
 							color='primary'
 							className={classes.submit}>
-							Se connecter
+							S'inscrire
 						</Button>
-						<Grid container>
-							<Grid item xs>
-								<Link href='#' variant='body2'>
-									Mot de passe oublié ?
-								</Link>
-							</Grid>
-							<Grid item>
-								<Link href='#' variant='body2'>
-									{'Pas de compte ? Inscrivez-vous'}
-								</Link>
-							</Grid>
-						</Grid>
 					</form>
 				</div>
 			</Container>

@@ -12,6 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -234,8 +235,12 @@ export default function SearchAppBar(props) {
 						variant='text'
 						aria-label='text button group'
 						size='large'>
-						<Button className={classes.buttonLeft}>Connexion</Button>
-						<Button className={classes.button}>Inscription</Button>
+						<Button className={classes.buttonLeft} href='/login'>
+							Connexion
+						</Button>
+						<Button className={classes.button} href='/register'>
+							Inscription
+						</Button>
 					</ButtonGroup>
 
 					{/* Bouton de gestion du compte + menu en petit écran*/}
@@ -248,8 +253,16 @@ export default function SearchAppBar(props) {
 						keepMounted
 						open={Boolean(anchorEl)}
 						onClose={handleClose}>
-						<MenuItem onClick={handleClose}>Connexion</MenuItem>
-						<MenuItem onClick={handleClose}>Inscription</MenuItem>
+						<MenuItem onClick={handleClose}>
+							<Link href='/login' underline='none' color='textPrimary'>
+								Connexion
+							</Link>
+						</MenuItem>
+						<MenuItem onClick={handleClose}>
+							<Link href='/register' underline='none' color='textPrimary'>
+								Inscription
+							</Link>
+						</MenuItem>
 					</Menu>
 				</Toolbar>
 			</AppBar>
