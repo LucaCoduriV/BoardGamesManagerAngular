@@ -148,7 +148,6 @@ export default function SearchAppBar(props) {
 	};
 
 	const handleClose = () => {
-		console.log(Boolean(anchorEl));
 		setAnchorEl(null); //fermeture du menu de compte sur petit écran
 	};
 

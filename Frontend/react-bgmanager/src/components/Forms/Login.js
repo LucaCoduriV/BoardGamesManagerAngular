@@ -82,12 +82,12 @@ export default function LoginForm() {
 						<Grid container>
 							<Grid item xs>
 								<Link href='#' variant='body2'>
-									Mot de passe oublié ?
+									{' '}
 								</Link>
 							</Grid>
 							<Grid item>
-								<Link href='#' variant='body2'>
-									{'Pas de compte ? Inscrivez-vous'}
+								<Link href='/register' variant='body2'>
+									Pas de compte ? Inscrivez-vous
 								</Link>
 							</Grid>
 						</Grid>
