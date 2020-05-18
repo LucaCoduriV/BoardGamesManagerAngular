@@ -12,6 +12,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
+import { registerUser } from '../../actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios'; //Gestion des requêtes HTTP
 
 //STYLE CSS DU COMPOSANT
@@ -94,6 +96,8 @@ export default function RegisterForm() {
 	const [success, setSuccess] = useState(false);
 
 	const classes = useStyles();
+	const userid = useSelector((state) => state.users.userid);
+	const dispatch = useDispatch();
 
 	//ÉVÈNEMENT
 	const handleChange = (event) => {
@@ -112,7 +116,8 @@ export default function RegisterForm() {
 			username: username,
 			password: password,
 		};
-
+		dispatch(registerUser(user));
+		/* TODO CORRIGER L'INSCRIPTION
 		axios
 			.post(`http://localhost:8081/users`, user)
 			.then((res) => {
@@ -123,7 +128,7 @@ export default function RegisterForm() {
 			.catch((ex) => {
 				setError(true);
 				setSuccess(false);
-			});
+			}); //*/
 	};
 
 	const alertMessage = () => {
@@ -188,7 +193,7 @@ export default function RegisterForm() {
 							</Grid>
 							<Grid item>
 								<Link href='/login' variant='body2'>
-									Déjà inscrit ? Connectez-vous
+									Déjà inscrit ? Connectez-vous {userid}
 								</Link>
 							</Grid>
 						</Grid>

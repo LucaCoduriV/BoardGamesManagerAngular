@@ -23,6 +23,7 @@ import StarIcon from '@material-ui/icons/Star';
 import DoneIcon from '@material-ui/icons/Done';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import Hidden from '@material-ui/core/Hidden'; //Permet de cacher des éléments selon une taille d'écran définie dans les themes
+import { useSelector } from 'react-redux';
 
 const drawerWidth = 240; //Taille du menu tiroir gauche
 
@@ -143,6 +144,8 @@ export default function SearchAppBar(props) {
 	const [anchorEl, setAnchorEl] = React.useState(null); //Hook d'état gérant le menu de compte sur petit écran. Masqué par défaut
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 
+	const userid = useSelector((state) => state.users.userid);
+
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget); //currentTarget = Menu qui s'affiche à l'endroit où l'évènement se produit
 	};
@@ -206,7 +209,7 @@ export default function SearchAppBar(props) {
 
 					{/* Titre du site */}
 					<Typography className={classes.title} variant='h6' noWrap>
-						Board Games Manager
+						Board Games Manager {userid != 0 ? userid : ''}
 					</Typography>
 
 					{/* Barre de recherche  */}
