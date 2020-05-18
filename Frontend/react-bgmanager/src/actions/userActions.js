@@ -5,6 +5,7 @@ import { success, error } from './alertActions';
 export const registerUser = (user) => (dispatch) => {
 	return postReq(user, '/users').then(
 		(res) => {
+			console.log('requesting');
 			dispatch({
 				type: USER_ACTIONS.REGISTER_SUCCESS,
 				payload: res.data,

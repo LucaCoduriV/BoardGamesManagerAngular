@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AlertPopUp from '../Alert';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -8,15 +9,10 @@ import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import CloseIcon from '@material-ui/icons/Close';
-import Alert from '@material-ui/lab/Alert';
-import IconButton from '@material-ui/core/IconButton';
-import Collapse from '@material-ui/core/Collapse';
 import { registerUser } from '../../actions/userActions';
-import { clear } from '../../actions/alertActions';
-import { useDispatch, useSelector } from 'react-redux'; //Pour Redux. useDipatch permet le dispatch, useSelector permet de sélectionner la props que l'on souhaite affecter
+import { useDispatch } from 'react-redux'; //Pour Redux. useDipatch permet le dispatch, useSelector permet de sélectionner la props que l'on souhaite affecter
 
-//STYLE CSS DES COMPOSANTS
+//STYLE CSS DU COMPOSANT
 const useStyles = makeStyles((theme) => ({
 	contentWrapper: {
 		marginTop: 80,
@@ -46,45 +42,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-//COMPOSANT MESSAGE D'ALERTE
-function AlertPopUp(props) {
-	const classes = useStyles();
-	const dispatch = useDispatch();
-
-	const severity = useSelector((state) => state.alerts.severity); //Etat Redux de la sévérité du message (change son style avec material-ui)
-	const message = useSelector((state) => state.alerts.message); //Etat Redux du message d'alert
-	const isShown = useSelector((state) => state.alerts.isShown); //Etat Redux de l'affichage du message
-
-	return (
-		<div className={classes.alert}>
-			<Collapse in={isShown}>
-				<Alert
-					severity={severity}
-					action={
-						<IconButton
-							aria-label='close'
-							color='inherit'
-							size='small'
-							onClick={() => dispatch(clear())}>
-							<CloseIcon fontSize='inherit' />
-						</IconButton>
-					}>
-					{message}
-				</Alert>
-			</Collapse>
-		</div>
-	);
-}
-
 //COMPOSANT REGISTER FORM
 export default function RegisterForm() {
-	//HOOK
+	const classes = useStyles(); //Utilisation des styles
+	const dispatch = useDispatch(); //Utilisation de Redux
+
+	//HOOK D'ETAT
 	const [username, setUsername] = useState(undefined);
 	const [password, setPassword] = useState(undefined);
-
-	const classes = useStyles();
-
-	const dispatch = useDispatch();
 
 	//ÉVÈNEMENT
 	const handleChange = (event) => {
@@ -95,22 +60,17 @@ export default function RegisterForm() {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		postUser();
-	};
-
-	const postUser = () => {
 		const user = {
 			username: username,
 			password: password,
 		};
-		dispatch(registerUser(user));
+		dispatch(registerUser(user)); //Action 'Register' envoyée avec ReduxpostUser();
 	};
 
 	return (
 		<div className={classes.contentWrapper}>
 			<Container component='main' maxWidth='xs'>
 				<div className={classes.paper}>
-					{/* {alertMessage()} */}
 					<AlertPopUp />
 					<Avatar className={classes.avatar}>
 						<AssignmentIndOutlinedIcon />

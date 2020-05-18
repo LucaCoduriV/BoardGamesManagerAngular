@@ -11,7 +11,7 @@ import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles((theme) => ({
 	contentWrapper: {
-		marginTop: 100,
+		marginTop: 80,
 		[theme.breakpoints.up('sm')]: {
 			marginLeft: 240,
 		},
