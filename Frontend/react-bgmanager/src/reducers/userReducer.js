@@ -17,13 +17,16 @@ export default function reducer(state = initialState, action) {
 			});
 		case USER_ACTIONS.REGISTER_SUCCESS:
 			return Object.assign({}, state, {
-				userid: action.payload.userid,
-				message: action.payload.message,
+				userid: action.payload.userid, //payload = data du backend. userid = valeur renvoyée par le backend contenu dans l'objet payload
+				error: action.error,
+				message: action.message,
 			});
 		case USER_ACTIONS.REGISTER_FAILURE:
 			return Object.assign({}, state, {
 				error: action.error,
+				message: action.message,
 			});
+		default:
+			return state;
 	}
-	return state;
 }

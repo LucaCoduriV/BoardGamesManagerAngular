@@ -2,46 +2,6 @@ import axios from 'axios';
 
 const uri = 'http://localhost:8081';
 
-/*let instance = axios.create({
-	headers: {
-		Authorization: localStorage.getItem('token') || 'not set',
-	},
-});
-
-instance.interceptors.request.use(
-	function (config) {
-		// console.log("axios config", config)
-		try {
-			const token = localStorage.getItem('token');
-			// console.log("token", token)
-
-			if (token) {
-				let decoded = jwt_decode(token);
-				// console.log("decoded", decoded)
-				// console.log("check time", Date.now() / 1000)
-
-				if (Date.now() / 1000 > decoded.exp) {
-					console.log('token expired');
-
-					clearToken();
-					window.location.href = '/login';
-					window.location.reload(true);
-				} else {
-					// console.log("not expired")
-				}
-			}
-		} catch (err) {
-			console.log('no token', err);
-		}
-
-		return config;
-	},
-	function (error) {
-		// console.log("axios error", error)
-		return Promise.reject(error);
-	}
-); //*/
-
 export function postReq(data, url) {
 	return axios({
 		method: 'post',

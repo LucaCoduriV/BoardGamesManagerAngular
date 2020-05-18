@@ -209,7 +209,7 @@ export default function SearchAppBar(props) {
 
 					{/* Titre du site */}
 					<Typography className={classes.title} variant='h6' noWrap>
-						Board Games Manager {userid != 0 ? userid : ''}
+						Board Games Manager {userid !== 0 ? userid : ''}
 					</Typography>
 
 					{/* Barre de recherche  */}

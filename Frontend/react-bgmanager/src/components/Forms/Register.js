@@ -13,13 +13,13 @@ import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
 import { registerUser } from '../../actions/userActions';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios'; //Gestion des requêtes HTTP
+import { clear } from '../../actions/alertActions';
+import { useDispatch, useSelector } from 'react-redux'; //Pour Redux. useDipatch permet le dispatch, useSelector permet de sélectionner la props que l'on souhaite affecter
 
-//STYLE CSS DU COMPOSANT
+//STYLE CSS DES COMPOSANTS
 const useStyles = makeStyles((theme) => ({
 	contentWrapper: {
-		marginTop: 100,
+		marginTop: 80,
 		[theme.breakpoints.up('sm')]: {
 			marginLeft: 240,
 		},
@@ -41,62 +41,49 @@ const useStyles = makeStyles((theme) => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
+	alert: {
+		marginBottom: 10,
+	},
 }));
 
-function AlertError(props) {
+//COMPOSANT MESSAGE D'ALERTE
+function AlertPopUp(props) {
+	const classes = useStyles();
+	const dispatch = useDispatch();
+
+	const severity = useSelector((state) => state.alerts.severity); //Etat Redux de la sévérité du message (change son style avec material-ui)
+	const message = useSelector((state) => state.alerts.message); //Etat Redux du message d'alert
+	const isShown = useSelector((state) => state.alerts.isShown); //Etat Redux de l'affichage du message
+
 	return (
-		<div>
-			<Collapse in={true}>
+		<div className={classes.alert}>
+			<Collapse in={isShown}>
 				<Alert
-					severity='error'
+					severity={severity}
 					action={
 						<IconButton
 							aria-label='close'
 							color='inherit'
 							size='small'
-							onClick={() => props.onClose()}>
+							onClick={() => dispatch(clear())}>
 							<CloseIcon fontSize='inherit' />
 						</IconButton>
 					}>
-					Erreur ! Ce nom d'utilisateur est déjà pris
+					{message}
 				</Alert>
 			</Collapse>
 		</div>
 	);
 }
 
-function AlertSuccess(props) {
-	return (
-		<div>
-			<Collapse in={true}>
-				<Alert
-					severity='success'
-					action={
-						<IconButton
-							aria-label='close'
-							color='inherit'
-							size='small'
-							onClick={() => props.onClose()}>
-							<CloseIcon fontSize='inherit' />
-						</IconButton>
-					}>
-					Inscription réussie ! Vous pouvez désormais vous connecter
-				</Alert>
-			</Collapse>
-		</div>
-	);
-}
-
-//COMPOSANT
+//COMPOSANT REGISTER FORM
 export default function RegisterForm() {
 	//HOOK
 	const [username, setUsername] = useState(undefined);
 	const [password, setPassword] = useState(undefined);
-	const [error, setError] = useState(false);
-	const [success, setSuccess] = useState(false);
 
 	const classes = useStyles();
-	const userid = useSelector((state) => state.users.userid);
+
 	const dispatch = useDispatch();
 
 	//ÉVÈNEMENT
@@ -117,35 +104,14 @@ export default function RegisterForm() {
 			password: password,
 		};
 		dispatch(registerUser(user));
-		/* TODO CORRIGER L'INSCRIPTION
-		axios
-			.post(`http://localhost:8081/users`, user)
-			.then((res) => {
-				setSuccess(true);
-				setError(false);
-				console.log(res.data);
-			})
-			.catch((ex) => {
-				setError(true);
-				setSuccess(false);
-			}); //*/
-	};
-
-	const alertMessage = () => {
-		if (error) {
-			return <AlertError onClose={() => setError(false)} />;
-		} else if (success) {
-			return <AlertSuccess onClose={() => setSuccess(false)} />;
-		} else {
-			return <div />;
-		}
 	};
 
 	return (
 		<div className={classes.contentWrapper}>
 			<Container component='main' maxWidth='xs'>
 				<div className={classes.paper}>
-					{alertMessage()}
+					{/* {alertMessage()} */}
+					<AlertPopUp />
 					<Avatar className={classes.avatar}>
 						<AssignmentIndOutlinedIcon />
 					</Avatar>
@@ -193,7 +159,7 @@ export default function RegisterForm() {
 							</Grid>
 							<Grid item>
 								<Link href='/login' variant='body2'>
-									Déjà inscrit ? Connectez-vous {userid}
+									Déjà inscrit ? Connectez-vous
 								</Link>
 							</Grid>
 						</Grid>
