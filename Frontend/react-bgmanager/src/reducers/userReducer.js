@@ -2,11 +2,11 @@ import { USER_ACTIONS } from '../constants/userConstants';
 
 const initialState = {
 	all: [],
-	error: null,
 	current: [],
+	error: null,
 	userid: 0,
-	searched: [],
 	message: null,
+	isLogged: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -26,6 +26,20 @@ export default function reducer(state = initialState, action) {
 				error: action.error,
 				message: action.message,
 			});
+		case USER_ACTIONS.LOGIN_SUCCESS:
+			return Object.assign({}, state, {
+				isLogged: true,
+			});
+		case USER_ACTIONS.LOGIN_FAILURE:
+			return Object.assign({}, state, {
+				error: action.error,
+				message: action.message,
+			});
+		case USER_ACTIONS.LOGOUT: {
+			return Object.assign({}, state, {
+				isLogged: false,
+			});
+		}
 		default:
 			return state;
 	}

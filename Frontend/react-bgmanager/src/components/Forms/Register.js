@@ -37,9 +37,6 @@ const useStyles = makeStyles((theme) => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
-	alert: {
-		marginBottom: 10,
-	},
 }));
 
 //COMPOSANT REGISTER FORM

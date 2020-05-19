@@ -23,7 +23,8 @@ import StarIcon from '@material-ui/icons/Star';
 import DoneIcon from '@material-ui/icons/Done';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import Hidden from '@material-ui/core/Hidden'; //Permet de cacher des éléments selon une taille d'écran définie dans les themes
-import { useSelector } from 'react-redux';
+import { logout } from '../actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const drawerWidth = 240; //Taille du menu tiroir gauche
 
@@ -144,10 +145,15 @@ export default function SearchAppBar(props) {
 	const [anchorEl, setAnchorEl] = React.useState(null); //Hook d'état gérant le menu de compte sur petit écran. Masqué par défaut
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 
-	const userid = useSelector((state) => state.users.userid);
+	const dispatch = useDispatch();
+	const isLogged = useSelector((state) => state.users.isLogged);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget); //currentTarget = Menu qui s'affiche à l'endroit où l'évènement se produit
+	};
+
+	const handleLogout = () => {
+		dispatch(logout());
 	};
 
 	const handleClose = () => {
@@ -193,6 +199,37 @@ export default function SearchAppBar(props) {
 		</div>
 	);
 
+	const groupButton = () => {
+		if (isLogged || localStorage.getItem('token') != undefined) {
+			return (
+				<ButtonGroup
+					className={classes.buttonGroup}
+					variant='text'
+					aria-label='text button group'
+					size='large'>
+					<Button className={classes.button} href='#' onClick={handleLogout}>
+						Déconnexion
+					</Button>
+				</ButtonGroup>
+			);
+		} else {
+			return (
+				<ButtonGroup
+					className={classes.buttonGroup}
+					variant='text'
+					aria-label='text button group'
+					size='large'>
+					<Button className={classes.buttonLeft} href='/login'>
+						Connexion
+					</Button>
+					<Button className={classes.button} href='/register'>
+						Inscription
+					</Button>
+				</ButtonGroup>
+			);
+		}
+	};
+
 	return (
 		<div className={classes.root}>
 			<AppBar position='fixed' className={classes.appBar}>
@@ -209,7 +246,7 @@ export default function SearchAppBar(props) {
 
 					{/* Titre du site */}
 					<Typography className={classes.title} variant='h6' noWrap>
-						Board Games Manager {userid !== 0 ? userid : ''}
+						Board Games Manager
 					</Typography>
 
 					{/* Barre de recherche  */}
@@ -231,19 +268,7 @@ export default function SearchAppBar(props) {
 					<div className={classes.root} />
 
 					{/* Bouton de gestion du compte en écran large*/}
-
-					<ButtonGroup
-						className={classes.buttonGroup}
-						variant='text'
-						aria-label='text button group'
-						size='large'>
-						<Button className={classes.buttonLeft} href='/login'>
-							Connexion
-						</Button>
-						<Button className={classes.button} href='/register'>
-							Inscription
-						</Button>
-					</ButtonGroup>
+					{groupButton()}
 
 					{/* Bouton de gestion du compte + menu en petit écran*/}
 					<IconButton className={classes.accountButton} onClick={handleClick}>

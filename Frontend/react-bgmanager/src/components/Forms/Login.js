@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import AlertPopUp from '../Alert';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -8,6 +9,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { loginUser } from '../../actions/userActions';
+import { useDispatch } from 'react-redux'; //Pour Redux. useDipatch permet le dispatch, useSelector permet de sélectionner la props que l'on souhaite affecter
 
 const useStyles = makeStyles((theme) => ({
 	contentWrapper: {
@@ -37,28 +40,51 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginForm() {
 	const classes = useStyles();
+	const dispatch = useDispatch();
+
+	//HOOK D'ETAT
+	const [username, setUsername] = useState(undefined);
+	const [password, setPassword] = useState(undefined);
+
+	//ÉVÈNEMENT
+	const handleChange = (event) => {
+		const target = event.target;
+		const value = target.value;
+		target.name === 'username' ? setUsername(value) : setPassword(value);
+	};
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		const user = {
+			username: username,
+			password: password,
+		};
+		dispatch(loginUser(user)); //Action 'Login' envoyée avec Redux;
+	};
 
 	return (
 		<div className={classes.contentWrapper}>
 			<Container component='main' maxWidth='xs'>
 				<div className={classes.paper}>
+					<AlertPopUp />
 					<Avatar className={classes.avatar}>
 						<LockOutlinedIcon />
 					</Avatar>
 					<Typography component='h1' variant='h5'>
 						Connexion
 					</Typography>
-					<form className={classes.form} noValidate>
+					<form className={classes.form} onSubmit={handleSubmit}>
 						<TextField
 							variant='outlined'
 							margin='normal'
 							required
 							fullWidth
-							id='email'
+							id='username'
 							label="Nom d'utilisateur"
-							name='email'
-							autoComplete='email'
+							name='username'
+							autoComplete='username'
 							autoFocus
+							onChange={handleChange}
 						/>
 						<TextField
 							variant='outlined'
@@ -70,6 +96,7 @@ export default function LoginForm() {
 							type='password'
 							id='password'
 							autoComplete='current-password'
+							onChange={handleChange}
 						/>
 						<Button
 							type='submit'
