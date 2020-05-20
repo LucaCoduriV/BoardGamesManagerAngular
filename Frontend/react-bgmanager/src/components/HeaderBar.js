@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -25,7 +25,6 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import Hidden from '@material-ui/core/Hidden'; //Permet de cacher des éléments selon une taille d'écran définie dans les themes
 import { logout } from '../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
-import jwtDecode from 'jwt-decode';
 
 const drawerWidth = 240; //Taille du menu tiroir gauche
 
@@ -143,14 +142,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SearchAppBar(props) {
-	const [anchorEl, setAnchorEl] = React.useState(null); //Hook d'état gérant le menu de compte sur petit écran. Masqué par défaut
-	const [mobileOpen, setMobileOpen] = React.useState(false);
+	const [anchorEl, setAnchorEl] = useState(null); //Hook d'état gérant le menu de compte sur petit écran. Masqué par défaut
+	const [mobileOpen, setMobileOpen] = useState(false);
 
 	const dispatch = useDispatch();
 	const isLogged = useSelector((state) => state.users.isLogged);
-	const username = useSelector((state) => state.users.username);
 	const adminValue = useSelector((state) => state.users.adminValue);
 
+	const classes = useStyles(); //Permet la gestion des style CSS
+	const theme = useTheme();
+	const { window } = props;
+	const container =
+		window !== undefined ? () => window().document.body : undefined;
+
+	//EVENEMENTS
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget); //currentTarget = Menu qui s'affiche à l'endroit où l'évènement se produit
 	};
@@ -167,16 +172,11 @@ export default function SearchAppBar(props) {
 		setMobileOpen(!mobileOpen);
 	};
 
-	const classes = useStyles(); //Permet la gestion des style CSS
-	const theme = useTheme();
-	const { window } = props;
-
-	const container =
-		window !== undefined ? () => window().document.body : undefined;
-
+	//CONTENU DE LA BARRE LATERALE GAUCHE
 	const drawer = () => {
 		let adminDrawer = <div></div>;
 
+		//Bouton d'administration si Admin
 		if (adminValue === 1) {
 			adminDrawer = (
 				<div>
@@ -335,7 +335,7 @@ export default function SearchAppBar(props) {
 				</Toolbar>
 			</AppBar>
 
-			{/* MENU LATERAL GAUCHE */}
+			{/* BARRE LATERALE GAUCHE */}
 			<nav className={classes.drawer} aria-label='mailbox folders'>
 				{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
 				<Hidden smUp implementation='css'>
