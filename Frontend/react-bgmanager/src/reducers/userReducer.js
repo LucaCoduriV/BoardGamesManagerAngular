@@ -1,12 +1,15 @@
 import { USER_ACTIONS } from '../constants/userConstants';
 
+let token = localStorage.getItem('token');
+
 const initialState = {
 	all: [],
 	current: [],
+	username: '',
 	error: null,
-	userid: 0,
-	message: null,
-	isLogged: null,
+	idUser: 0,
+	isLogged: token ? true : false, //Au lancement de la page, l'état initial est déterminé par la présence ou non d'un token dans le localstorage
+	adminValue: 0,
 };
 
 export default function reducer(state = initialState, action) {
@@ -17,27 +20,33 @@ export default function reducer(state = initialState, action) {
 			});
 		case USER_ACTIONS.REGISTER_SUCCESS:
 			return Object.assign({}, state, {
-				userid: action.payload.userid, //payload = data du backend. userid = valeur renvoyée par le backend contenu dans l'objet payload
+				idUser: action.payload.userid, //payload = data du backend. userid = valeur renvoyée par le backend contenu dans l'objet payload
 				error: action.error,
-				message: action.message,
 			});
 		case USER_ACTIONS.REGISTER_FAILURE:
 			return Object.assign({}, state, {
 				error: action.error,
-				message: action.message,
 			});
 		case USER_ACTIONS.LOGIN_SUCCESS:
 			return Object.assign({}, state, {
 				isLogged: true,
+				adminValue: action.adminValue,
+				username: action.username,
+				idUser: action.idUser,
 			});
 		case USER_ACTIONS.LOGIN_FAILURE:
 			return Object.assign({}, state, {
 				error: action.error,
-				message: action.message,
 			});
 		case USER_ACTIONS.LOGOUT: {
 			return Object.assign({}, state, {
+				all: [],
+				current: [],
+				username: '',
+				error: null,
+				idUser: 0,
 				isLogged: false,
+				adminValue: 0,
 			});
 		}
 		default:

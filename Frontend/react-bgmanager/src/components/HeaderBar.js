@@ -25,6 +25,7 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import Hidden from '@material-ui/core/Hidden'; //Permet de cacher des éléments selon une taille d'écran définie dans les themes
 import { logout } from '../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
+import jwtDecode from 'jwt-decode';
 
 const drawerWidth = 240; //Taille du menu tiroir gauche
 
@@ -147,6 +148,8 @@ export default function SearchAppBar(props) {
 
 	const dispatch = useDispatch();
 	const isLogged = useSelector((state) => state.users.isLogged);
+	const username = useSelector((state) => state.users.username);
+	const adminValue = useSelector((state) => state.users.adminValue);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget); //currentTarget = Menu qui s'affiche à l'endroit où l'évènement se produit
@@ -171,43 +174,90 @@ export default function SearchAppBar(props) {
 	const container =
 		window !== undefined ? () => window().document.body : undefined;
 
-	const drawer = (
-		<div>
-			<div className={classes.toolbar} />
-			<Divider />
-			<List>
-				{['Ma collection', 'Mes sondages'].map((text, index) => (
-					<ListItem button key={text}>
-						<ListItemIcon>
-							{index % 2 === 0 ? <StarIcon /> : <DoneIcon />}
-						</ListItemIcon>
-						<ListItemText primary={text} />
-					</ListItem>
-				))}
-			</List>
-			<Divider />
-			<List>
-				{['Administration'].map((text, index) => (
-					<ListItem button key={text}>
-						<ListItemIcon>
-							<SupervisorAccountIcon />
-						</ListItemIcon>
-						<ListItemText primary={text} />
-					</ListItem>
-				))}
-			</List>
-		</div>
-	);
+	const drawer = () => {
+		let adminDrawer = <div></div>;
 
+		if (adminValue === 1) {
+			adminDrawer = (
+				<div>
+					<Divider />
+					<List>
+						{['Administration'].map((text, index) => (
+							<ListItem button key={text}>
+								<ListItemIcon>
+									<SupervisorAccountIcon />
+								</ListItemIcon>
+								<ListItemText primary={text} />
+							</ListItem>
+						))}
+					</List>
+				</div>
+			);
+		}
+
+		return (
+			<div>
+				<div className={classes.toolbar} />
+				<Divider />
+				<List>
+					{['Ma collection', 'Mes sondages'].map((text, index) => (
+						<ListItem button key={text}>
+							<ListItemIcon>
+								{index % 2 === 0 ? <StarIcon /> : <DoneIcon />}
+							</ListItemIcon>
+							<ListItemText primary={text} />
+						</ListItem>
+					))}
+				</List>
+				{adminDrawer}
+			</div>
+		);
+	};
+
+	//MENU DE CONNEXION (PETITS ECRANS)
+	const connectionMenuLinks = () => {
+		if (isLogged) {
+			return (
+				<div>
+					<MenuItem onClick={handleClose}>
+						<Link
+							href='#'
+							underline='none'
+							color='textPrimary'
+							onClick={handleLogout}>
+							Déconnexion
+						</Link>
+					</MenuItem>
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<MenuItem onClick={handleClose}>
+						<Link href='/login' underline='none' color='textPrimary'>
+							Connexion
+						</Link>
+					</MenuItem>
+					<MenuItem onClick={handleClose}>
+						<Link href='/register' underline='none' color='textPrimary'>
+							Inscription
+						</Link>
+					</MenuItem>
+				</div>
+			);
+		}
+	};
+
+	//GROUPE DE BOUTON DE CONNEXION (ECRAN LARGE)
 	const groupButton = () => {
-		if (isLogged || localStorage.getItem('token') != undefined) {
+		if (isLogged) {
 			return (
 				<ButtonGroup
 					className={classes.buttonGroup}
 					variant='text'
 					aria-label='text button group'
 					size='large'>
-					<Button className={classes.button} href='#' onClick={handleLogout}>
+					<Button className={classes.button} onClick={handleLogout}>
 						Déconnexion
 					</Button>
 				</ButtonGroup>
@@ -280,22 +330,12 @@ export default function SearchAppBar(props) {
 						keepMounted
 						open={Boolean(anchorEl)}
 						onClose={handleClose}>
-						<MenuItem onClick={handleClose}>
-							<Link href='/login' underline='none' color='textPrimary'>
-								Connexion
-							</Link>
-						</MenuItem>
-						<MenuItem onClick={handleClose}>
-							<Link href='/register' underline='none' color='textPrimary'>
-								Inscription
-							</Link>
-						</MenuItem>
+						{connectionMenuLinks()}
 					</Menu>
 				</Toolbar>
 			</AppBar>
 
 			{/* MENU LATERAL GAUCHE */}
-
 			<nav className={classes.drawer} aria-label='mailbox folders'>
 				{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
 				<Hidden smUp implementation='css'>
@@ -311,7 +351,7 @@ export default function SearchAppBar(props) {
 						ModalProps={{
 							keepMounted: true, // Better open performance on mobile.
 						}}>
-						{drawer}
+						{drawer()}
 					</Drawer>
 				</Hidden>
 				<Hidden xsDown implementation='css'>
@@ -321,7 +361,7 @@ export default function SearchAppBar(props) {
 						}}
 						variant='permanent'
 						open>
-						{drawer}
+						{drawer()}
 					</Drawer>
 				</Hidden>
 			</nav>

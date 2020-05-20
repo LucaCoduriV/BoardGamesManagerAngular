@@ -1,6 +1,7 @@
 import { USER_ACTIONS } from '../constants/userConstants';
 import { postReq } from '../helpers/axiosHelpers';
 import { success, error } from './alertActions';
+import jwtDecode from 'jwt-decode';
 
 export const registerUser = (user) => (dispatch) => {
 	return postReq(user, '/users').then(
@@ -27,11 +28,22 @@ export const registerUser = (user) => (dispatch) => {
 export const loginUser = (user) => (dispatch) => {
 	return postReq(user, '/login').then(
 		(res) => {
+			localStorage.setItem('token', res.data.token); //on enregistre le token fournit par l'API dans le localStorage
+
+			let token = localStorage.getItem('token');
+			let decoded = jwtDecode(token);
+			console.log(decoded);
+			let adminValue = decoded.superadmin; //Récupération du niveau d'admin de l'utilisateur
+			let username = decoded.username;
+			let idUser = decoded.idUser;
+
 			dispatch({
 				type: USER_ACTIONS.LOGIN_SUCCESS,
 				error: false,
+				idUser: idUser,
+				adminValue: adminValue,
+				username: username,
 			});
-			localStorage.setItem('token', res.data.token); //on enregistre le token fournit par l'API dans le localStorage
 		},
 		(err) => {
 			dispatch({
