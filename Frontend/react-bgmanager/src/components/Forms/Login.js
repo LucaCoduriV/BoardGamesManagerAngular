@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import AlertPopUp from '../Alert';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -62,7 +63,9 @@ export default function LoginForm() {
 		dispatch(loginUser(user)); //Action 'Login' envoyée avec Redux;
 	};
 
-	return (
+	return localStorage.getItem('token') !== null ? (
+		<Redirect to='/' />
+	) : (
 		<div className={classes.contentWrapper}>
 			<Container component='main' maxWidth='xs'>
 				<div className={classes.paper}>

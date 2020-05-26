@@ -8,7 +8,6 @@ export const registerUser = (user) => (dispatch) => {
 		(res) => {
 			dispatch({
 				type: USER_ACTIONS.REGISTER_SUCCESS,
-				payload: res.data,
 				error: false,
 			});
 			dispatch(
@@ -29,20 +28,12 @@ export const loginUser = (user) => (dispatch) => {
 	return postReq(user, '/login').then(
 		(res) => {
 			localStorage.setItem('token', res.data.token); //on enregistre le token fournit par l'API dans le localStorage
-
 			let token = localStorage.getItem('token');
-			let decoded = jwtDecode(token);
-			console.log(decoded);
-			let adminValue = decoded.superadmin; //Récupération du niveau d'admin de l'utilisateur
-			let username = decoded.username;
-			let idUser = decoded.idUser;
-
+			let current = jwtDecode(token);
 			dispatch({
 				type: USER_ACTIONS.LOGIN_SUCCESS,
 				error: false,
-				idUser: idUser,
-				adminValue: adminValue,
-				username: username,
+				current: current,
 			});
 		},
 		(err) => {
@@ -53,6 +44,20 @@ export const loginUser = (user) => (dispatch) => {
 			dispatch(error("Erreur ! Nom d'utilisateur et/ou mot de passe faux"));
 		}
 	);
+};
+
+//Récupération des informations de l'utilisateur contenue dans le token
+//(Chaque refresh clear le store)
+export const getUserInfo = () => {
+	if (localStorage.getItem('token') !== null) {
+		let token = localStorage.getItem('token');
+		let current = jwtDecode(token);
+		return {
+			type: USER_ACTIONS.GET_CURRENT,
+			current: current,
+		};
+	}
+	return null; //retour null obligé d'être spécifié
 };
 
 export const logout = () => {

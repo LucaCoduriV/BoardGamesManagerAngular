@@ -146,8 +146,9 @@ export default function SearchAppBar(props) {
 	const [mobileOpen, setMobileOpen] = useState(false);
 
 	const dispatch = useDispatch();
+	const current = useSelector((state) => state.users.current);
 	const isLogged = useSelector((state) => state.users.isLogged);
-	const adminValue = useSelector((state) => state.users.adminValue);
+	const superadmin = current.superadmin;
 
 	const classes = useStyles(); //Permet la gestion des style CSS
 	const theme = useTheme();
@@ -177,7 +178,7 @@ export default function SearchAppBar(props) {
 		let adminDrawer = <div></div>;
 
 		//Bouton d'administration si Admin
-		if (adminValue === 1) {
+		if (superadmin === 1) {
 			adminDrawer = (
 				<div>
 					<Divider />
