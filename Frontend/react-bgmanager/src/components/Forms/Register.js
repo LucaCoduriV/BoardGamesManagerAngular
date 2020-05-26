@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AlertPopUp from '../Alert';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import AssignmentIndOutlinedIcon from '@material-ui/icons/AssignmentIndOutlined';
 import Typography from '@material-ui/core/Typography';
@@ -36,6 +36,18 @@ const useStyles = makeStyles((theme) => ({
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
+	},
+	link: {
+		fontSize: '0.875rem',
+		fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+		fontWeight: '400',
+		lineHeight: '1.43',
+		letterSpacing: '1.43',
+		color: '#3f51b5',
+		textDecoration: 'none',
+		'&:hover': {
+			textDecoration: 'underline',
+		},
 	},
 }));
 
@@ -110,12 +122,10 @@ export default function RegisterForm() {
 						</Button>
 						<Grid container>
 							<Grid item xs>
-								<Link href='#' variant='body2'>
-									{' '}
-								</Link>
+								<Link to='/'> </Link>
 							</Grid>
 							<Grid item>
-								<Link href='/login' variant='body2'>
+								<Link className={classes.link} to='/login'>
 									Déjà inscrit ? Connectez-vous
 								</Link>
 							</Grid>

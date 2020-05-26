@@ -1,4 +1,4 @@
-import React, { useEffect, use } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import HeaderBar from './HeaderBar';
 import LoginForm from './Forms/Login';
@@ -7,7 +7,6 @@ import UserList from '../UserList/UserList';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserInfo } from '../actions/userActions';
-import jwtDecode from 'jwt-decode';
 
 const useStyles = makeStyles(() => ({
 	contentWrapper: {
@@ -41,9 +40,9 @@ export default function App() {
 
 	return (
 		<div className='App'>
-			<HeaderBar />
 			<div className={classes.contentWrapper}>
 				<Router>
+					<HeaderBar />
 					<Route exact path='/' />
 					<Route path='/login' component={LoginForm} />
 					<Route path='/register' component={RegisterForm} />

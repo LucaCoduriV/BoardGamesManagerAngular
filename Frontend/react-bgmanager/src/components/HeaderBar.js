@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,7 +13,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Link from '@material-ui/core/Link';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -94,6 +94,10 @@ const useStyles = makeStyles((theme) => ({
 				width: '28ch', //Lors du focus, la barre de recherche s'élargi
 			},
 		},
+	},
+	link: {
+		textDecoration: 'none',
+		color: 'inherit',
 	},
 	buttonGroup: {
 		display: 'none',
@@ -184,12 +188,15 @@ export default function SearchAppBar(props) {
 					<Divider />
 					<List>
 						{['Administration'].map((text, index) => (
-							<ListItem button key={text}>
-								<ListItemIcon>
-									<SupervisorAccountIcon />
-								</ListItemIcon>
-								<ListItemText primary={text} />
-							</ListItem>
+							<Link className={classes.link} to='/admin'>
+								{' '}
+								<ListItem button key={text}>
+									<ListItemIcon>
+										<SupervisorAccountIcon />
+									</ListItemIcon>
+									<ListItemText primary={text} />
+								</ListItem>
+							</Link>
 						))}
 					</List>
 				</div>
@@ -221,29 +228,21 @@ export default function SearchAppBar(props) {
 			return (
 				<div>
 					<MenuItem onClick={handleClose}>
-						<Link
-							href='#'
-							underline='none'
-							color='textPrimary'
-							onClick={handleLogout}>
+						<Button className={classes.button} onClick={handleLogout}>
 							Déconnexion
-						</Link>
+						</Button>
 					</MenuItem>
 				</div>
 			);
 		} else {
 			return (
 				<div>
-					<MenuItem onClick={handleClose}>
-						<Link href='/login' underline='none' color='textPrimary'>
-							Connexion
-						</Link>
-					</MenuItem>
-					<MenuItem onClick={handleClose}>
-						<Link href='/register' underline='none' color='textPrimary'>
-							Inscription
-						</Link>
-					</MenuItem>
+					<Link className={classes.link} to='/login'>
+						<MenuItem onClick={handleClose}>Connexion</MenuItem>
+					</Link>
+					<Link className={classes.link} to='/register'>
+						<MenuItem onClick={handleClose}>Inscription</MenuItem>
+					</Link>
 				</div>
 			);
 		}
@@ -270,11 +269,16 @@ export default function SearchAppBar(props) {
 					variant='text'
 					aria-label='text button group'
 					size='large'>
-					<Button className={classes.buttonLeft} href='/login'>
-						Connexion
+					<Button className={classes.buttonLeft}>
+						<Link className={classes.link} to='/login'>
+							Connexion
+						</Link>
 					</Button>
-					<Button className={classes.button} href='/register'>
-						Inscription
+
+					<Button className={classes.button}>
+						<Link className={classes.link} to='/register'>
+							Inscription
+						</Link>
 					</Button>
 				</ButtonGroup>
 			);
