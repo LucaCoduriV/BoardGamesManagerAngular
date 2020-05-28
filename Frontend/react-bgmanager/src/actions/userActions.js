@@ -1,5 +1,5 @@
 import { USER_ACTIONS } from '../constants/userConstants';
-import { postReq } from '../helpers/axiosHelpers';
+import { postReq, getReq } from '../helpers/axiosHelpers';
 import { success, error } from './alertActions';
 import jwtDecode from 'jwt-decode';
 
@@ -58,6 +58,25 @@ export const getUserInfo = () => {
 		};
 	}
 	return null; //retour null obligé d'être spécifié
+};
+
+export const getAllUsers = () => (dispatch) => {
+	return getReq('/users').then(
+		(res) => {
+			dispatch({
+				type: USER_ACTIONS.GETALL_SUCCESS,
+				error: false,
+				all: res.data,
+			});
+		},
+		(err) => {
+			dispatch({
+				type: USER_ACTIONS.GETALL_FAILURE,
+				error: true,
+			});
+			dispatch(error("La liste des utilisateurs n'a pas peu être obtenue"));
+		}
+	);
 };
 
 export const logout = () => {

@@ -21,9 +21,7 @@ export default function App() {
 	const dispatch = useDispatch();
 
 	const isAdmin = () => {
-		console.log(currentUser);
 		if (currentUser.username) {
-			console.log(superadmin);
 			return superadmin === 1 ? <UserList /> : <Redirect to='/' />;
 		} else if (!localStorage.getItem('token')) {
 			return <Redirect to='/' />;

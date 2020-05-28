@@ -11,7 +11,11 @@ export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case USER_ACTIONS.GETALL_SUCCESS:
 			return Object.assign({}, state, {
-				all: action.payload.users,
+				all: action.all,
+			});
+		case USER_ACTIONS.GETALL_FAILURE:
+			return Object.assign({}, state, {
+				error: action.error,
 			});
 		case USER_ACTIONS.REGISTER_SUCCESS:
 			return Object.assign({}, state, {

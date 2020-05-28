@@ -57,7 +57,7 @@ const UsersTable = (props) => {
 
 		//Si la case est cochée, on sélectionne tout, sinon on déselectionne tout
 		if (event.target.checked) {
-			selectedUsers = users.map((user) => user.id);
+			selectedUsers = users.map((user) => user.idUser);
 		} else {
 			selectedUsers = [];
 		}
@@ -65,12 +65,12 @@ const UsersTable = (props) => {
 		setSelectedUsers(selectedUsers);
 	};
 
-	const handleSelectOne = (event, id) => {
-		const selectedIndex = selectedUsers.indexOf(id);
+	const handleSelectOne = (event, idUser) => {
+		const selectedIndex = selectedUsers.indexOf(idUser);
 		let newSelectedUsers = [];
 
 		if (selectedIndex === -1) {
-			newSelectedUsers = newSelectedUsers.concat(selectedUsers, id);
+			newSelectedUsers = newSelectedUsers.concat(selectedUsers, idUser);
 		} else if (selectedIndex === 0) {
 			newSelectedUsers = newSelectedUsers.concat(selectedUsers.slice(1));
 		} else if (selectedIndex === selectedUsers.length - 1) {
@@ -123,13 +123,15 @@ const UsersTable = (props) => {
 										<TableRow
 											className={classes.tableRow}
 											hover
-											key={user.id}
-											selected={selectedUsers.indexOf(user.id) !== -1}>
+											key={user.idUser}
+											selected={selectedUsers.indexOf(user.idUser) !== -1}>
 											<TableCell padding='checkbox'>
 												<Checkbox
-													checked={selectedUsers.indexOf(user.id) !== -1}
+													checked={selectedUsers.indexOf(user.idUser) !== -1}
 													color='primary'
-													onChange={(event) => handleSelectOne(event, user.id)}
+													onChange={(event) =>
+														handleSelectOne(event, user.idUser)
+													}
 													value='true'
 												/>
 											</TableCell>
@@ -138,7 +140,7 @@ const UsersTable = (props) => {
 													<Avatar
 														className={classes.avatar}
 														src={user.avatarUrl}></Avatar>
-													<Typography variant='body1'>{user.name}</Typography>
+													<Typography variant='body1'>{user.login}</Typography>
 												</div>
 											</TableCell>
 											<TableCell>
