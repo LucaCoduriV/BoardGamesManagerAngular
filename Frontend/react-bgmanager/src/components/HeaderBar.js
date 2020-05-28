@@ -188,7 +188,7 @@ export default function SearchAppBar(props) {
 					<Divider />
 					<List>
 						{['Administration'].map((text, index) => (
-							<Link className={classes.link} to='/admin'>
+							<Link key={index} className={classes.link} to='/admin'>
 								{' '}
 								<ListItem button key={text}>
 									<ListItemIcon>
@@ -209,12 +209,17 @@ export default function SearchAppBar(props) {
 				<Divider />
 				<List>
 					{['Ma collection', 'Mes sondages'].map((text, index) => (
-						<ListItem button key={text}>
-							<ListItemIcon>
-								{index % 2 === 0 ? <StarIcon /> : <DoneIcon />}
-							</ListItemIcon>
-							<ListItemText primary={text} />
-						</ListItem>
+						<Link
+							className={classes.link}
+							key={index}
+							to={index % 2 === 0 ? '/collection' : '/surveys'}>
+							<ListItem button key={text}>
+								<ListItemIcon>
+									{index % 2 === 0 ? <StarIcon /> : <DoneIcon />}
+								</ListItemIcon>
+								<ListItemText primary={text} />
+							</ListItem>
+						</Link>
 					))}
 				</List>
 				{adminDrawer}

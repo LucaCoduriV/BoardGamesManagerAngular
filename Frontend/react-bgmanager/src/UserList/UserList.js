@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../actions/userActions';
 
 const useStyles = makeStyles((theme) => ({
-	root: {
+	wrapper: {
 		[theme.breakpoints.up('sm')]: {
 			marginLeft: 240,
 		},
 		padding: theme.spacing(3),
 	},
-	content: {
+	innerWrapper: {
 		marginTop: theme.spacing(2),
 	},
 }));
@@ -27,8 +27,8 @@ export default function UserList() {
 	let users = useSelector((state) => state.users.all);
 
 	return (
-		<div className={classes.root}>
-			<div className={classes.content}>
+		<div className={classes.wrapper}>
+			<div className={classes.innerWrapper}>
 				<UsersTable users={users} />
 			</div>
 		</div>
