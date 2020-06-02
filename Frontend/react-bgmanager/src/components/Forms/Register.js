@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import AlertPopUp from '../Alert';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 	contentWrapper: {
 		marginTop: 80,
 		[theme.breakpoints.up('sm')]: {
-			marginLeft: 240,
+			marginLeft: 'auto',
 		},
 	},
 	paper: {
@@ -76,7 +76,9 @@ export default function RegisterForm() {
 		dispatch(registerUser(user)); //Action 'Register' envoyée avec ReduxpostUser();
 	};
 
-	return (
+	return localStorage.getItem('token') !== null ? (
+		<Redirect to='/' />
+	) : (
 		<div className={classes.contentWrapper}>
 			<Container component='main' maxWidth='xs'>
 				<div className={classes.paper}>

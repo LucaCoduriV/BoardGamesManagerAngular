@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import HeaderBar from './HeaderBar';
 import LoginForm from './Forms/Login';
 import RegisterForm from './Forms/Register';
-import UserList from '../UserList/UserList';
+import UserList from './UsersList';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserInfo } from '../actions/userActions';
@@ -16,24 +16,12 @@ const useStyles = makeStyles(() => ({
 
 export default function App() {
 	const classes = useStyles(); //Utilisation des styles
-	const currentUser = useSelector((state) => state.users.current);
-	const superadmin = currentUser.superadmin;
 	const dispatch = useDispatch();
-
-	const isAdmin = () => {
-		if (currentUser.username) {
-			return superadmin === 1 ? <UserList /> : <Redirect to='/' />;
-		} else if (!localStorage.getItem('token')) {
-			return <Redirect to='/' />;
-		}
-	};
+	const isLogged = useSelector((state) => state.users.isLogged);
+	const current = useSelector((state) => state.users.current);
 
 	useEffect(() => {
-		const action = getUserInfo(); //la fonction vérifie la présence d'un token puis récupère les infos d'utilisateur s'il est présent
-
-		if (action !== null) {
-			dispatch(action);
-		}
+		dispatch(getUserInfo());
 	}, [dispatch]);
 
 	return (
@@ -44,8 +32,16 @@ export default function App() {
 					<Route exact path='/' />
 					<Route path='/login' component={LoginForm} />
 					<Route path='/register' component={RegisterForm} />
-					<Route exact path='/admin'>
-						{isAdmin()}
+					<Route path='/admin'>
+						{isLogged ? (
+							current.superadmin === 1 ? (
+								<UserList />
+							) : (
+								<Redirect to='/' />
+							)
+						) : (
+							<Redirect to='/login' />
+						)}
 					</Route>
 				</Router>
 			</div>

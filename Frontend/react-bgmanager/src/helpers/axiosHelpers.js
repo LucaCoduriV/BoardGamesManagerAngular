@@ -37,11 +37,10 @@ export function putReq(data, url) {
 	});
 }
 
-export function deleteReq(data, url) {
+export function deleteReq(url) {
 	return axios({
 		method: 'delete',
 		url: `${uri}${url}`,
-		data: data,
 		headers: {
 			'Content-Type': 'application/json',
 			token: localStorage.getItem('token'),

@@ -39,7 +39,17 @@ export default function reducer(state = initialState, action) {
 				current: action.current,
 				isLogged: true,
 			});
+		case USER_ACTIONS.DELETE_SUCCESS:
+			return Object.assign({}, state, {
+				all: action.all,
+				error: action.error,
+			});
+		case USER_ACTIONS.DELETE_FAILURE:
+			return Object.assign({}, state, {
+				error: action.error,
+			});
 		case USER_ACTIONS.LOGOUT: {
+			console.log('logout');
 			return {
 				...initialState,
 			};

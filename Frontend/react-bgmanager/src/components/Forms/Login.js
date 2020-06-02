@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 	contentWrapper: {
 		marginTop: 80,
 		[theme.breakpoints.up('sm')]: {
-			marginLeft: 240,
+			marginLeft: 'auto',
 		},
 	},
 	paper: {

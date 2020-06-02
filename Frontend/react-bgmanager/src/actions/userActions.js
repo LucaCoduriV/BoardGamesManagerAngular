@@ -1,10 +1,10 @@
 import { USER_ACTIONS } from '../constants/userConstants';
-import { postReq, getReq } from '../helpers/axiosHelpers';
+import { postReq, getReq, deleteReq } from '../helpers/axiosHelpers';
 import { success, error } from './alertActions';
 import jwtDecode from 'jwt-decode';
 
 export const registerUser = (user) => (dispatch) => {
-	return postReq(user, '/users').then(
+	postReq(user, '/users').then(
 		(res) => {
 			dispatch({
 				type: USER_ACTIONS.REGISTER_SUCCESS,
@@ -25,7 +25,7 @@ export const registerUser = (user) => (dispatch) => {
 };
 
 export const loginUser = (user) => (dispatch) => {
-	return postReq(user, '/login').then(
+	postReq(user, '/login').then(
 		(res) => {
 			localStorage.setItem('token', res.data.token); //on enregistre le token fournit par l'API dans le localStorage
 			let token = localStorage.getItem('token');
@@ -48,20 +48,23 @@ export const loginUser = (user) => (dispatch) => {
 
 //Récupération des informations de l'utilisateur contenue dans le token
 //(Chaque refresh clear le store)
-export const getUserInfo = () => {
-	if (localStorage.getItem('token') !== null) {
-		let token = localStorage.getItem('token');
+export const getUserInfo = () => (dispatch) => {
+	console.log('Enter GetUserInfo');
+	let token = localStorage.getItem('token');
+	if (token !== null) {
 		let current = jwtDecode(token);
-		return {
+		console.log('GetToken');
+		dispatch({
 			type: USER_ACTIONS.GET_CURRENT,
 			current: current,
-		};
+		});
 	}
-	return null; //retour null obligé d'être spécifié
+	//return null; //retour null obligé d'être spécifié
 };
 
 export const getAllUsers = () => (dispatch) => {
-	return getReq('/users').then(
+	console.log('Get all users');
+	getReq('/users').then(
 		(res) => {
 			dispatch({
 				type: USER_ACTIONS.GETALL_SUCCESS,
@@ -79,7 +82,30 @@ export const getAllUsers = () => (dispatch) => {
 	);
 };
 
-export const logout = () => {
+export const deleteUser = (users, idUser) => (dispatch) => {
+	return deleteReq(`/users/${idUser}`).then(
+		(res) => {
+			/*let userIndex = users.findIndex((x) => x.idUser === idUser);
+			users.splice(userIndex, 1); //*/
+			users = users.filter((user) => user.idUser !== idUser);
+			console.table(users);
+			dispatch({
+				type: USER_ACTIONS.DELETE_SUCCESS,
+				all: users,
+				error: false,
+			});
+		},
+		(err) => {
+			dispatch({
+				type: USER_ACTIONS.DELETE_FAILURE,
+				error: true,
+			});
+			dispatch(error("L'utilisateur n'a pas pu être supprimé"));
+		}
+	);
+};
+
+export const logout = () => (dispatch) => {
 	localStorage.removeItem('token');
-	return { type: USER_ACTIONS.LOGOUT };
+	dispatch({ type: USER_ACTIONS.LOGOUT });
 };

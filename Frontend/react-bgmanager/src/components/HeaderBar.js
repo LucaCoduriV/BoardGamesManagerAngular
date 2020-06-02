@@ -123,8 +123,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	appBar: {
 		[theme.breakpoints.up('sm')]: {
-			width: `calc(100% - ${drawerWidth}px)`,
-			marginLeft: drawerWidth,
+			//width: `calc(100% - ${drawerWidth}px)`,
+			zIndex: theme.zIndex.drawer + 1,
+			//marginLeft: drawerWidth,
 		},
 	},
 	drawer: {
@@ -152,7 +153,6 @@ export default function SearchAppBar(props) {
 	const dispatch = useDispatch();
 	const current = useSelector((state) => state.users.current);
 	const isLogged = useSelector((state) => state.users.isLogged);
-	const superadmin = current.superadmin;
 
 	const classes = useStyles(); //Permet la gestion des style CSS
 	const theme = useTheme();
@@ -179,30 +179,6 @@ export default function SearchAppBar(props) {
 
 	//CONTENU DE LA BARRE LATERALE GAUCHE
 	const drawer = () => {
-		let adminDrawer = <div></div>;
-
-		//Bouton d'administration si Admin
-		if (superadmin === 1) {
-			adminDrawer = (
-				<div>
-					<Divider />
-					<List>
-						{['Administration'].map((text, index) => (
-							<Link key={index} className={classes.link} to='/admin'>
-								{' '}
-								<ListItem button key={text}>
-									<ListItemIcon>
-										<SupervisorAccountIcon />
-									</ListItemIcon>
-									<ListItemText primary={text} />
-								</ListItem>
-							</Link>
-						))}
-					</List>
-				</div>
-			);
-		}
-
 		return (
 			<div>
 				<div className={classes.toolbar} />
@@ -222,7 +198,24 @@ export default function SearchAppBar(props) {
 						</Link>
 					))}
 				</List>
-				{adminDrawer}
+				{current.superadmin === 1 && (
+					<div>
+						<Divider />
+						<List>
+							{['Administration'].map((text, index) => (
+								<Link key={index} className={classes.link} to='/admin'>
+									{' '}
+									<ListItem button key={text}>
+										<ListItemIcon>
+											<SupervisorAccountIcon />
+										</ListItemIcon>
+										<ListItemText primary={text} />
+									</ListItem>
+								</Link>
+							))}
+						</List>
+					</div>
+				)}
 			</div>
 		);
 	};
@@ -295,14 +288,16 @@ export default function SearchAppBar(props) {
 			<AppBar position='fixed' className={classes.appBar}>
 				<Toolbar>
 					{/* Bouton Hamburger lors de petit écrans */}
-					<IconButton
-						edge='start'
-						className={classes.menuButton}
-						color='inherit'
-						aria-label='open drawer'
-						onClick={handleDrawerToggle}>
-						<MenuIcon className={classes.menuIcon} />
-					</IconButton>
+					{isLogged && (
+						<IconButton
+							edge='start'
+							className={classes.menuButton}
+							color='inherit'
+							aria-label='open drawer'
+							onClick={handleDrawerToggle}>
+							<MenuIcon className={classes.menuIcon} />
+						</IconButton>
+					)}
 
 					{/* Titre du site */}
 					<Typography className={classes.title} variant='h6' noWrap>
@@ -346,35 +341,37 @@ export default function SearchAppBar(props) {
 			</AppBar>
 
 			{/* BARRE LATERALE GAUCHE */}
-			<nav className={classes.drawer} aria-label='mailbox folders'>
-				{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-				<Hidden smUp implementation='css'>
-					<Drawer
-						container={container}
-						variant='temporary'
-						anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-						open={mobileOpen}
-						onClose={handleDrawerToggle}
-						classes={{
-							paper: classes.drawerPaper,
-						}}
-						ModalProps={{
-							keepMounted: true, // Better open performance on mobile.
-						}}>
-						{drawer()}
-					</Drawer>
-				</Hidden>
-				<Hidden xsDown implementation='css'>
-					<Drawer
-						classes={{
-							paper: classes.drawerPaper,
-						}}
-						variant='permanent'
-						open>
-						{drawer()}
-					</Drawer>
-				</Hidden>
-			</nav>
+			{isLogged && (
+				<nav className={classes.drawer} aria-label='mailbox folders'>
+					{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+					<Hidden smUp implementation='css'>
+						<Drawer
+							container={container}
+							variant='temporary'
+							anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+							open={mobileOpen}
+							onClose={handleDrawerToggle}
+							classes={{
+								paper: classes.drawerPaper,
+							}}
+							ModalProps={{
+								keepMounted: true, // Better open performance on mobile.
+							}}>
+							{drawer()}
+						</Drawer>
+					</Hidden>
+					<Hidden xsDown implementation='css'>
+						<Drawer
+							classes={{
+								paper: classes.drawerPaper,
+							}}
+							variant='permanent'
+							open>
+							{drawer()}
+						</Drawer>
+					</Hidden>
+				</nav>
+			)}
 		</div>
 	);
 }
