@@ -79,7 +79,6 @@ export default function UsersTable() {
 		setRowsPerPage(event.target.value);
 	};
 
-	console.log('Render UserList');
 	return (
 		<div className={classes.wrapper}>
 			<div className={classes.innerWrapper}>

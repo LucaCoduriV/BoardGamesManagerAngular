@@ -59,7 +59,7 @@ function deleteUser(idUser, callback) {
 
 function getCollection(idUser, callback) {
 	DB.pool.query(
-		`SELECT games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.minDuration, games.maxDuration, games.creationDate 
+		`SELECT games.idGame, games.name, games.description, games.minAge, games.minNbPlayer, games.maxNbPlayer, games.duration, games.creationDate, games.image 
     FROM games 
     WHERE games.idUser = ${idUser};`,
 		(err, result) => {

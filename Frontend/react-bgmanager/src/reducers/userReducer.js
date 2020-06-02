@@ -4,7 +4,7 @@ const initialState = {
 	all: [],
 	current: {},
 	error: null,
-	isLogged: false, //Au lancement de la page, l'état initial est déterminé par la présence ou non d'un token dans le localstorage
+	isLogged: false,
 };
 
 export default function reducer(state = initialState, action) {

@@ -1,4 +1,5 @@
 import { USER_ACTIONS } from '../constants/userConstants';
+import { COLLECTION_ACTIONS } from '../constants/collectionConstants';
 import { postReq, getReq, deleteReq } from '../helpers/axiosHelpers';
 import { success, error } from './alertActions';
 import jwtDecode from 'jwt-decode';
@@ -30,6 +31,7 @@ export const loginUser = (user) => (dispatch) => {
 			localStorage.setItem('token', res.data.token); //on enregistre le token fournit par l'API dans le localStorage
 			let token = localStorage.getItem('token');
 			let current = jwtDecode(token);
+			console.log('je me log');
 			dispatch({
 				type: USER_ACTIONS.LOGIN_SUCCESS,
 				error: false,
@@ -52,7 +54,6 @@ export const getUserInfo = () => (dispatch) => {
 	let token = localStorage.getItem('token');
 	if (token !== null) {
 		let current = jwtDecode(token);
-		console.log('GetToken');
 		dispatch({
 			type: USER_ACTIONS.GET_CURRENT,
 			current: current,
@@ -83,8 +84,6 @@ export const getAllUsers = () => (dispatch) => {
 export const deleteUser = (users, idUser) => (dispatch) => {
 	return deleteReq(`/users/${idUser}`).then(
 		(res) => {
-			/*let userIndex = users.findIndex((x) => x.idUser === idUser);
-			users.splice(userIndex, 1); //*/
 			users = users.filter((user) => user.idUser !== idUser);
 			console.table(users);
 			dispatch({
@@ -105,5 +104,6 @@ export const deleteUser = (users, idUser) => (dispatch) => {
 
 export const logout = () => (dispatch) => {
 	localStorage.removeItem('token');
-	dispatch({ type: USER_ACTIONS.LOGOUT });
+	dispatch({ type: USER_ACTIONS.LOGOUT }); //Destruction des infos de l'utilisateur dans le store
+	dispatch({ type: COLLECTION_ACTIONS.DESTROY }); //Destruction de la collection acutelle dans le store
 };

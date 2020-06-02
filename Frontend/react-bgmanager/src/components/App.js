@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import HeaderBar from './HeaderBar';
 import LoginForm from './Forms/Login';
 import RegisterForm from './Forms/Register';
+import Collection from './Collection';
 import UserList from './UsersList';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,6 +33,9 @@ export default function App() {
 					<Route exact path='/' />
 					<Route path='/login' component={LoginForm} />
 					<Route path='/register' component={RegisterForm} />
+					<Route path='/collection'>
+						{isLogged ? <Collection /> : <Redirect to='/' />}
+					</Route>
 					<Route path='/admin'>
 						{isLogged ? (
 							current.superadmin === 1 ? (
