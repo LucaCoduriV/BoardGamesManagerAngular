@@ -49,7 +49,6 @@ export const loginUser = (user) => (dispatch) => {
 //Récupération des informations de l'utilisateur contenue dans le token
 //(Chaque refresh clear le store)
 export const getUserInfo = () => (dispatch) => {
-	console.log('Enter GetUserInfo');
 	let token = localStorage.getItem('token');
 	if (token !== null) {
 		let current = jwtDecode(token);
@@ -63,7 +62,6 @@ export const getUserInfo = () => (dispatch) => {
 };
 
 export const getAllUsers = () => (dispatch) => {
-	console.log('Get all users');
 	getReq('/users').then(
 		(res) => {
 			dispatch({

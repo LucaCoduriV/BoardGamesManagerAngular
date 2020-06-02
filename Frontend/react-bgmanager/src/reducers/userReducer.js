@@ -49,7 +49,6 @@ export default function reducer(state = initialState, action) {
 				error: action.error,
 			});
 		case USER_ACTIONS.LOGOUT: {
-			console.log('logout');
 			return {
 				...initialState,
 			};

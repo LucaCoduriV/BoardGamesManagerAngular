@@ -223,13 +223,12 @@ export default function SearchAppBar(props) {
 	//MENU DE CONNEXION (PETITS ECRANS)
 	const connectionMenuLinks = () => {
 		if (isLogged) {
+			//TODO: Changer l'affichage du bouton déconnexion sur petits écrans
 			return (
 				<div>
-					<MenuItem onClick={handleClose}>
-						<Button className={classes.button} onClick={handleLogout}>
-							Déconnexion
-						</Button>
-					</MenuItem>
+					<Link className={classes.link} to='/' onClick={handleLogout}>
+						<MenuItem onClick={handleClose}>Déconnexion</MenuItem>
+					</Link>
 				</div>
 			);
 		} else {
